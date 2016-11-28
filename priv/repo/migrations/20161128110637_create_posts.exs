@@ -16,6 +16,13 @@ defmodule Epoch.Repo.Migrations.CreatePosts do
       add :imported_at, :timestamp
       timestamps
     end
-
+    
+    create index(:posts, [:thread_id])
+    create index(:posts, [:user_id])
+    create index(:posts, [:inserted_at])
+    create index(:posts, [:position])
+    create index(:posts, [:thread_id, :inserted_at])
+    create index(:posts, [:thread_id, :user_id])
+    create index(:posts, [:tsv])
   end
 end
