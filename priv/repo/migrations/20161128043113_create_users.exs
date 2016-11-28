@@ -10,13 +10,12 @@ defmodule Epoch.Repo.Migrations.CreateUsers do
       add :confirmation_token, :string
       add :reset_token, :string
       add :reset_expiration, :timestamp
-      add :created_at, :timestamp
-      add :updated_at, :timestamp
       add :imported_at, :timestamp
       add :deleted, :boolean
       add :malicious_score, :integer
+      timestamps
     end
     create unique_index(:users, [:username])
-    create index(:users, [:email])
+    create unique_index(:users, [:email])
   end
 end
