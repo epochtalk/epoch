@@ -4,7 +4,7 @@ defmodule Epoch.Mixfile do
   def project do
     [app: :epoch,
      version: "0.0.1",
-     elixir: "~> 1.3",
+     elixir: "~> 1.4",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      deps: deps()]
@@ -19,8 +19,8 @@ defmodule Epoch.Mixfile do
 
   defp deps do
     [
-      {:ecto, "~> 2.1.0-rc.5"},
-      {:postgrex, "~> 0.13.0-rc"}
+      {:ecto, "~> 2.1"},
+      {:postgrex, "~> 0.13.2"}
     ]
   end
 end
