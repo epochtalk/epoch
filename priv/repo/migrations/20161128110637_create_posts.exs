@@ -6,9 +6,7 @@ defmodule Epoch.Repo.Migrations.CreatePosts do
       add :id, :binary_id, primary_key: true
       add :thread_id, references(:threads, type: :uuid)
       add :user_id, references(:users, type: :uuid)
-      add :title, :string
-      add :raw_body, :text
-      add :body, :text
+      add :content, :jsonb
       add :deleted, :boolean
       add :locked, :boolean
       add :position, :integer
