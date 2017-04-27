@@ -3,7 +3,7 @@ defmodule Epoch.Repo.Migrations.CreateBoards do
 
   def change do
     create table(:boards, primary_key: false) do
-      add :id, :binary_id, [primary_key: true, default: fragment("uuid_generate_v4()")]
+      add :id, :binary_id, primary_key: true, default: fragment("uuid_generate_v4()")
       add :name, :string
       add :description, :text
       add :post_count, :integer

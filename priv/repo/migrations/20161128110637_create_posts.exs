@@ -3,7 +3,7 @@ defmodule Epoch.Repo.Migrations.CreatePosts do
 
   def change do
     create table(:posts, primary_key: false) do
-      add :id, :binary_id, [primary_key: true, default: fragment("uuid_generate_v4()")]
+      add :id, :binary_id, primary_key: true, default: fragment("uuid_generate_v4()")
       add :thread_id, references(:threads, type: :uuid)
       add :user_id, references(:users, type: :uuid)
       add :content, :jsonb

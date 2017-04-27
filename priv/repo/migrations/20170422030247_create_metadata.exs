@@ -6,7 +6,7 @@ defmodule Epoch.Repo.Migrations.CreateMetadata do
     execute "CREATE SCHEMA #{@schema_prefix}"
 
     create table(:boards, [prefix: @schema_prefix, primary_key: false]) do
-      add :id, :binary_id, primary_key: true
+      add :id, :binary_id, primary_key: true, default: fragment("uuid_generate_v4()")
       add :board_id, references(:boards, type: :uuid)
       add :post_count, :integer
       add :thread_count, :integer
@@ -16,13 +16,12 @@ defmodule Epoch.Repo.Migrations.CreateMetadata do
       add :last_post_created_at, :timestamp
       add :last_thread_id, :uuid
       add :last_thread_title, :string
-      timestamps()
     end
 
     create index(:boards, [:board_id], prefix: @schema_prefix)
 
     create table(:threads, [prefix: @schema_prefix, primary_key: false]) do
-      add :id, :binary_id, primary_key: true
+      add :id, :binary_id, primary_key: true, default: fragment("uuid_generate_v4()") 
       add :thread_id, references(:threads, type: :uuid)
       add :views, :integer, default: 0
     end
