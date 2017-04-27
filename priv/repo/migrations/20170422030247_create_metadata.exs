@@ -7,7 +7,7 @@ defmodule Epoch.Repo.Migrations.CreateMetadata do
 
     create table(:boards, [prefix: @schema_prefix, primary_key: false]) do
       add :id, :binary_id, primary_key: true, default: fragment("uuid_generate_v4()")
-      add :board_id, references(:boards, type: :uuid)
+      add :board_id, :binary_id
       add :post_count, :integer
       add :thread_count, :integer
       add :total_post, :integer
@@ -17,6 +17,8 @@ defmodule Epoch.Repo.Migrations.CreateMetadata do
       add :last_thread_id, :uuid
       add :last_thread_title, :string
     end
+
+    execute("ALTER TABLE ONLY metadata.boards ADD CONSTRAINT boards_board_id_fkey FOREIGN KEY (board_id) REFERENCES public.boards(id) ON UPDATE CASCADE ON DELETE CASCADE")
 
     create index(:boards, [:board_id], prefix: @schema_prefix)
 

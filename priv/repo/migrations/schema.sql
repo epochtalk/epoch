@@ -3022,9 +3022,8 @@ SET search_path = metadata, pg_catalog;
 --
 -- Name: boards boards_board_id_fk; Type: FK CONSTRAINT; Schema: metadata; Owner: -
 --
-
-ALTER TABLE ONLY boards
-    ADD CONSTRAINT boards_board_id_fk FOREIGN KEY (board_id) REFERENCES public.boards(id) ON UPDATE CASCADE ON DELETE CASCADE;
+-- ALTER TABLE ONLY boards
+--     ADD CONSTRAINT boards_board_id_fk FOREIGN KEY (board_id) REFERENCES public.boards(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
