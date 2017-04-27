@@ -11,6 +11,7 @@ defmodule Epoch.Repo.Migrations.CreatePosts do
       add :locked, :boolean
       add :position, :integer
       add :tsv, :tsvector
+      add :created_at, :timestamp
       add :imported_at, :timestamp
       timestamps
     end
@@ -18,8 +19,9 @@ defmodule Epoch.Repo.Migrations.CreatePosts do
     create index(:posts, [:thread_id])
     create index(:posts, [:user_id])
     create index(:posts, [:inserted_at])
-    create index(:posts, [:position])
-    create index(:posts, [:thread_id, :inserted_at])
+    create index(:posts, [:thread_id, :position])
+    create index(:posts, [:thread_id, :created_at])
+    create index(:posts, [:user_id, :created_at])
     create index(:posts, [:thread_id, :user_id])
     create index(:posts, [:tsv])
   end
