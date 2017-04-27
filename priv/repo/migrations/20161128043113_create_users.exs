@@ -3,7 +3,7 @@ defmodule Epoch.Repo.Migrations.CreateUsers do
 
   def up do
     create table(:users, primary_key: false) do
-      add :id, :binary_id, primary_key: true
+      add :id, :binary_id, [primary_key: true, default: fragment("uuid_generate_v4()")]
       add :email, :citext, null: false
       add :username, :citext, null: false
       add :passhash, :string
@@ -12,9 +12,9 @@ defmodule Epoch.Repo.Migrations.CreateUsers do
       add :reset_expiration, :timestamp
       add :created_at, :timestamp
       add :imported_at, :timestamp
+      add :updated_at, :timestamp
       add :deleted, :boolean
       add :malicious_score, :integer
-      timestamps
     end
     create unique_index(:users, [:username])
     create unique_index(:users, [:email])
