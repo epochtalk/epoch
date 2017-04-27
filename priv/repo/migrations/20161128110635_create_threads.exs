@@ -9,6 +9,7 @@ defmodule Epoch.Repo.Migrations.CreateThreads do
       add :sticky, :boolean
       add :moderated, :boolean
       add :post_count, :integer
+      add :created_at, :timestamp
       add :imported_at, :timestamp
       timestamps
     end

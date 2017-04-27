@@ -9,6 +9,7 @@ defmodule Epoch.Repo.Migrations.CreateBoards do
       add :post_count, :integer
       add :thread_count, :integer
       add :viewable_by, :integer
+      add :created_at, :timestamp
       add :imported_at, :timestamp
       timestamps
     end
