@@ -7,6 +7,7 @@ defmodule Epoch.Mixfile do
      elixir: "~> 1.4",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
+     aliases: aliases(),
      deps: deps()]
   end
 
@@ -22,5 +23,13 @@ defmodule Epoch.Mixfile do
       {:ecto, "~> 2.1"},
       {:postgrex, "~> 0.13.2"}
     ]
+  end
+
+  # ecto.setup - create/migrate/seed
+  # ecto.reset - drop/setup
+  defp aliases do
+    ["ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
+     "ecto.reset": ["ecto.drop", "ecto.setup"],
+     "test": ["ecto.create --quiet", "ecto.migrate", "test"]]
   end
 end
