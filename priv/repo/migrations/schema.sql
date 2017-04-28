@@ -299,7 +299,7 @@ CREATE FUNCTION delete_thread() RETURNS trigger
         WHERE board_id = OLD.board_id
         ORDER BY updated_at DESC LIMIT 1
       ) t LEFT JOIN LATERAL (
-        SELECT p.title
+        SELECT p.content ->> 'title' as title
         FROM posts p
         WHERE p.thread_id = t.id
         ORDER BY p.created_at LIMIT 1
@@ -431,7 +431,7 @@ CREATE FUNCTION update_thread() RETURNS trigger
         WHERE board_id = OLD.board_id
         ORDER BY updated_at DESC LIMIT 1
       ) t LEFT JOIN LATERAL (
-        SELECT p.title
+        SELECT p.content ->> 'title' as title
         FROM posts p
         WHERE p.thread_id = t.id
         ORDER BY p.created_at LIMIT 1
