@@ -41,14 +41,6 @@ CREATE SCHEMA factoids;
 
 CREATE SCHEMA mentions;
 
-
---
--- Name: metadata; Type: SCHEMA; Schema: -; Owner: -
---
-
-CREATE SCHEMA metadata;
-
-
 --
 -- Name: mod; Type: SCHEMA; Schema: -; Owner: -
 --
@@ -776,32 +768,6 @@ CREATE TABLE mentions (
 
 SET search_path = metadata, pg_catalog;
 
---
--- Name: boards; Type: TABLE; Schema: metadata; Owner: -
---
-
-CREATE TABLE boards (
-    id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
-    board_id uuid,
-    last_post_username character varying(255),
-    last_post_created_at timestamp with time zone,
-    last_thread_id uuid,
-    last_thread_title character varying(255),
-    last_post_position integer
-);
-
-
---
--- Name: threads; Type: TABLE; Schema: metadata; Owner: -
---
-
-CREATE TABLE threads (
-    id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
-    thread_id uuid,
-    views integer DEFAULT 0
-);
-
-
 SET search_path = mod, pg_catalog;
 
 --
@@ -931,25 +897,6 @@ CREATE TABLE board_moderators (
     user_id uuid,
     board_id uuid
 );
-
-
--- [migrated] create_boards.exs
---
--- Name: boards; Type: TABLE; Schema: public; Owner: -
---
--- CREATE TABLE boards (
---     id uuid DEFAULT uuid_generate_v4() NOT NULL,
---     name character varying(255) DEFAULT ''::character varying NOT NULL,
---     description text DEFAULT ''::text NOT NULL,
---     created_at timestamp with time zone,
---     updated_at timestamp with time zone,
---     imported_at timestamp with time zone,
---     post_count integer DEFAULT 0,
---     thread_count integer DEFAULT 0,
---     viewable_by integer,
---     postable_by integer
--- );
-
 
 --
 -- Name: categories; Type: TABLE; Schema: public; Owner: -
@@ -1157,29 +1104,6 @@ CREATE TABLE polls (
     display_mode polls_display_enum DEFAULT 'always'::polls_display_enum NOT NULL
 );
 
-
--- [migrated] create_posts.exs
---
--- Name: posts; Type: TABLE; Schema: public; Owner: -
---
-
--- CREATE TABLE posts (
---     id uuid DEFAULT uuid_generate_v4() NOT NULL,
---     thread_id uuid,
---     user_id uuid,
---     title character varying(255) DEFAULT ''::character varying NOT NULL,
---     raw_body text DEFAULT ''::text,
---     body text DEFAULT ''::text NOT NULL,
---     created_at timestamp with time zone,
---     updated_at timestamp with time zone,
---     imported_at timestamp with time zone,
---     deleted boolean DEFAULT false,
---     "position" integer,
---     locked boolean DEFAULT false NOT NULL,
---     tsv tsvector
--- );
-
-
 --
 -- Name: posts_history; Type: TABLE; Schema: public; Owner: -
 --
@@ -1244,23 +1168,6 @@ CREATE TABLE roles_users (
     role_id uuid,
     user_id uuid
 );
-
--- [migrated] create_threads.exs
---
--- Name: threads; Type: TABLE; Schema: public; Owner: -
---
--- CREATE TABLE threads (
---     id uuid DEFAULT uuid_generate_v4() NOT NULL,
---     board_id uuid,
---     created_at timestamp with time zone,
---     updated_at timestamp with time zone,
---     imported_at timestamp with time zone,
---     locked boolean DEFAULT false,
---     sticky boolean DEFAULT false,
---     post_count integer DEFAULT 0,
---     moderated boolean DEFAULT false
--- );
-
 
 --
 -- Name: trust; Type: TABLE; Schema: public; Owner: -
@@ -1333,29 +1240,6 @@ CREATE TABLE user_notes (
     created_at timestamp with time zone,
     updated_at timestamp with time zone
 );
-
-
--- [migrated] create_users.exs
---
--- Name: users; Type: TABLE; Schema: public; Owner: -
---
-
--- CREATE TABLE users (
---     id uuid DEFAULT uuid_generate_v4() NOT NULL,
---     email citext NOT NULL,
---     username citext NOT NULL,
---     passhash character varying(255),
---     confirmation_token character varying(255),
---     reset_token character varying(255),
---     reset_expiration timestamp with time zone,
---     created_at timestamp with time zone,
---     updated_at timestamp with time zone,
---     imported_at timestamp with time zone,
---     deleted boolean DEFAULT false,
---     malicious_score numeric,
---     CONSTRAINT users_email_check CHECK ((length((email)::text) <= 255)),
---     CONSTRAINT users_username_check CHECK ((length((username)::text) <= 50))
--- );
 
 SET search_path = users, pg_catalog;
 
@@ -1614,30 +1498,6 @@ ALTER TABLE ONLY mentions
 SET search_path = metadata, pg_catalog;
 
 --
--- Name: boards boards_board_id_key; Type: CONSTRAINT; Schema: metadata; Owner: -
---
-
-ALTER TABLE ONLY boards
-    ADD CONSTRAINT boards_board_id_key UNIQUE (board_id);
-
-
---
--- Name: boards boards_pkey; Type: CONSTRAINT; Schema: metadata; Owner: -
---
-
-ALTER TABLE ONLY boards
-    ADD CONSTRAINT boards_pkey PRIMARY KEY (id);
-
-
---
--- Name: threads threads_pkey; Type: CONSTRAINT; Schema: metadata; Owner: -
---
-
-ALTER TABLE ONLY threads
-    ADD CONSTRAINT threads_pkey PRIMARY KEY (id);
-
-
---
 -- Name: threads threads_thread_id_key; Type: CONSTRAINT; Schema: metadata; Owner: -
 --
 
@@ -1704,16 +1564,6 @@ ALTER TABLE ONLY blacklist
 ALTER TABLE ONLY trust_boards
     ADD CONSTRAINT board_id_unique UNIQUE (board_id);
 
-
--- [migrated] create_boards.exs
---
--- Name: boards boards_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
--- ALTER TABLE ONLY boards
---     ADD CONSTRAINT boards_pkey PRIMARY KEY (id);
-
-
 --
 -- Name: categories categories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
@@ -1777,16 +1627,6 @@ ALTER TABLE ONLY polls
 ALTER TABLE ONLY posts_history
     ADD CONSTRAINT posts_history_pkey PRIMARY KEY (id);
 
-
--- [migrated] create_posts.exs
---
--- Name: posts posts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
---
--- ALTER TABLE ONLY posts
---     ADD CONSTRAINT posts_pkey PRIMARY KEY (id);
-
-
 --
 -- Name: private_conversations private_conversations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
@@ -1810,16 +1650,6 @@ ALTER TABLE ONLY private_messages
 ALTER TABLE ONLY roles
     ADD CONSTRAINT roles_pkey PRIMARY KEY (id);
 
-
--- [migrated] create_threads.exs
---
--- Name: threads threads_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
---
--- ALTER TABLE ONLY threads
---     ADD CONSTRAINT threads_pkey PRIMARY KEY (id);
-
-
 --
 -- Name: trust_feedback trust_feedback_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
@@ -1842,14 +1672,6 @@ ALTER TABLE ONLY trust_max_depth
 
 ALTER TABLE ONLY user_notes
     ADD CONSTRAINT user_notes_pkey PRIMARY KEY (id);
-
-
---
--- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY users
-    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
 
 
 SET search_path = users, pg_catalog;
@@ -2323,71 +2145,6 @@ CREATE INDEX index_poll_responses_on_user_id ON poll_responses USING btree (user
 CREATE UNIQUE INDEX index_polls_on_thread_id ON polls USING btree (thread_id);
 
 
--- [migrated] create_posts
---
--- Name: index_posts_lookup; Type: INDEX; Schema: public; Owner: -
---
-
--- CREATE INDEX index_posts_lookup ON posts USING btree (thread_id, created_at);
-
-
---
--- Name: index_posts_on_created_at; Type: INDEX; Schema: public; Owner: -
---
-
--- CREATE INDEX index_posts_on_created_at ON posts USING btree (created_at);
-
-
---
--- Name: index_posts_on_thread_id; Type: INDEX; Schema: public; Owner: -
---
-
--- CREATE INDEX index_posts_on_thread_id ON posts USING btree (thread_id);
-
-
---
--- Name: index_posts_on_thread_id_position; Type: INDEX; Schema: public; Owner: -
---
-
--- CREATE INDEX index_posts_on_thread_id_position ON posts USING btree (thread_id, "position");
-
-
---
--- Name: index_posts_on_tsv; Type: INDEX; Schema: public; Owner: -
---
-
--- CREATE INDEX index_posts_on_tsv ON posts USING gin (tsv);
-
-
---
--- Name: index_posts_on_user_id; Type: INDEX; Schema: public; Owner: -
---
-
--- CREATE INDEX index_posts_on_user_id ON posts USING btree (user_id);
-
-
---
--- Name: index_posts_on_user_id_and_created_at; Type: INDEX; Schema: public; Owner: -
---
-
--- CREATE INDEX index_posts_on_user_id_and_created_at ON posts USING btree (user_id, created_at DESC);
-
-
---
--- Name: index_posts_on_user_id_and_thread_id; Type: INDEX; Schema: public; Owner: -
---
-
--- CREATE INDEX index_posts_on_user_id_and_thread_id ON posts USING btree (user_id, thread_id);
-
-
---
--- Name: index_posts_thread_id_and_position; Type: INDEX; Schema: public; Owner: -
---
-
--- CREATE UNIQUE INDEX index_posts_thread_id_and_position ON posts USING btree (thread_id, "position");
--- [/migrated]
-
-
 --
 -- Name: index_receiver_id_on_private_messages; Type: INDEX; Schema: public; Owner: -
 --
@@ -2414,15 +2171,6 @@ CREATE INDEX index_sender_id_on_private_messages ON private_messages USING btree
 --
 
 CREATE INDEX index_threads_lookup ON threads USING btree (board_id, updated_at DESC);
-
-
--- [migrated] create_threads.exs
---
--- Name: index_threads_on_board_id; Type: INDEX; Schema: public; Owner: -
---
-
--- CREATE INDEX index_threads_on_board_id ON threads USING btree (board_id);
-
 
 --
 -- Name: index_threads_on_sticky; Type: INDEX; Schema: public; Owner: -
@@ -2513,23 +2261,6 @@ CREATE INDEX index_user_notes_on_created_at ON user_notes USING btree (created_a
 --
 
 CREATE INDEX index_user_notes_on_user_id ON user_notes USING btree (user_id);
-
-
--- [migrated] create_users.exs
---
--- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -
---
-
--- CREATE INDEX index_users_on_email ON users USING btree (email);
-
-
--- [migrated] create_users.exs
---
--- Name: index_users_on_username; Type: INDEX; Schema: public; Owner: -
---
-
--- CREATE UNIQUE INDEX index_users_on_username ON users USING btree (username);
-
 
 SET search_path = users, pg_catalog;
 
@@ -3020,27 +2751,11 @@ ALTER TABLE ONLY mentions
 SET search_path = metadata, pg_catalog;
 
 --
--- Name: boards boards_board_id_fk; Type: FK CONSTRAINT; Schema: metadata; Owner: -
---
--- ALTER TABLE ONLY boards
---     ADD CONSTRAINT boards_board_id_fk FOREIGN KEY (board_id) REFERENCES public.boards(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
 -- Name: boards boards_last_thread_id_fk; Type: FK CONSTRAINT; Schema: metadata; Owner: -
 --
 
 ALTER TABLE ONLY boards
     ADD CONSTRAINT boards_last_thread_id_fk FOREIGN KEY (last_thread_id) REFERENCES public.threads(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: threads threads_thread_id_fk; Type: FK CONSTRAINT; Schema: metadata; Owner: -
---
-
-ALTER TABLE ONLY threads
-    ADD CONSTRAINT threads_thread_id_fk FOREIGN KEY (thread_id) REFERENCES public.threads(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
 
 SET search_path = public, pg_catalog;
 
