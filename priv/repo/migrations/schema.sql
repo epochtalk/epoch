@@ -356,8 +356,8 @@ CREATE FUNCTION search_index_post() RETURNS trigger
         tsv = x.tsv
     FROM (
         SELECT id,
-               setweight(to_tsvector('simple', COALESCE(title,'')), 'A') ||
-               setweight(to_tsvector('simple', COALESCE(body,'')), 'B')
+               setweight(to_tsvector('simple', COALESCE(content ->> 'title','')), 'A') ||
+               setweight(to_tsvector('simple', COALESCE(content ->> 'body','')), 'B')
                AS tsv
          FROM posts WHERE id = NEW.id
     ) AS x
@@ -2877,22 +2877,6 @@ ALTER TABLE ONLY poll_responses
 
 ALTER TABLE ONLY polls
     ADD CONSTRAINT polls_thread_id_fkey FOREIGN KEY (thread_id) REFERENCES threads(id) ON DELETE CASCADE;
-
-
---
--- Name: posts posts_thread_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY posts
-    ADD CONSTRAINT posts_thread_id_fk FOREIGN KEY (thread_id) REFERENCES threads(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: posts posts_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY posts
-    ADD CONSTRAINT posts_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
