@@ -16,6 +16,7 @@ defmodule Epoch.Repo.Migrations.CreateMetadata do
       add :last_post_created_at, :timestamp
       add :last_thread_id, :uuid
       add :last_thread_title, :string
+      add :last_post_position, :integer
     end
 
     execute("ALTER TABLE ONLY metadata.boards ADD CONSTRAINT boards_board_id_fkey FOREIGN KEY (board_id) REFERENCES public.boards(id) ON UPDATE CASCADE ON DELETE CASCADE")
