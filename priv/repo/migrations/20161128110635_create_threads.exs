@@ -8,7 +8,7 @@ defmodule Epoch.Repo.Migrations.CreateThreads do
       add :locked, :boolean
       add :sticky, :boolean
       add :moderated, :boolean
-      add :post_count, :integer
+      add :post_count, :integer, default: 0
       add :created_at, :timestamp
       add :imported_at, :timestamp
       add :updated_at, :timestamp
