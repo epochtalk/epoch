@@ -6,8 +6,8 @@ defmodule Epoch.Repo.Migrations.CreateBoards do
       add :id, :binary_id, primary_key: true, default: fragment("uuid_generate_v4()")
       add :name, :string
       add :description, :text
-      add :post_count, :integer
-      add :thread_count, :integer
+      add :post_count, :integer, default: 0
+      add :thread_count, :integer, default: 0
       add :viewable_by, :integer
       add :postable_by, :integer
       add :created_at, :timestamp
