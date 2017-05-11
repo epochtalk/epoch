@@ -2779,6 +2779,12 @@ ALTER TABLE ONLY board_mapping
     ADD CONSTRAINT board_mapping_parent_id_fkey FOREIGN KEY (parent_id) REFERENCES boards(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
+ALTER TABLE ONLY board_mapping
+    ADD CONSTRAINT board_mapping_unique_parent UNIQUE (board_id, parent_id);
+
+ALTER TABLE ONLY board_mapping
+    ADD CONSTRAINT board_mapping_unique_category UNIQUE (board_id, category_id);
+
 --
 -- Name: board_moderators board_moderators_board_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
