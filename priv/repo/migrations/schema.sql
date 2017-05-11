@@ -898,19 +898,6 @@ CREATE TABLE board_moderators (
     board_id uuid
 );
 
---
--- Name: categories; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE categories (
-    id uuid DEFAULT uuid_generate_v4() NOT NULL,
-    name character varying(255) DEFAULT ''::character varying NOT NULL,
-    view_order integer,
-    imported_at timestamp with time zone,
-    viewable_by integer,
-    postable_by integer
-);
-
 
 --
 -- Name: configurations; Type: TABLE; Schema: public; Owner: -
@@ -1563,13 +1550,6 @@ ALTER TABLE ONLY blacklist
 
 ALTER TABLE ONLY trust_boards
     ADD CONSTRAINT board_id_unique UNIQUE (board_id);
-
---
--- Name: categories categories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY categories
-    ADD CONSTRAINT categories_pkey PRIMARY KEY (id);
 
 
 --

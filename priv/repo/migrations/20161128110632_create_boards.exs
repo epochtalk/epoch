@@ -13,6 +13,7 @@ defmodule Epoch.Repo.Migrations.CreateBoards do
       add :created_at, :timestamp
       add :imported_at, :timestamp
       add :updated_at, :timestamp
+      add :meta, :jsonb
     end
   end
 end
