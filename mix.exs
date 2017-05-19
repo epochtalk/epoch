@@ -20,7 +20,7 @@ defmodule Epoch.Mixfile do
 
   defp deps do
     [
-      {:distillery, "~> 1.4", warn_missing: false},
+      {:distillery, "~> 1.4"},
       {:ecto, "~> 2.1"},
       {:postgrex, "~> 0.13.2"}
     ]

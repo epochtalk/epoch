@@ -4,6 +4,11 @@
 
 * Ecto
 * Postgrex
+* Distillery
+
+##### Build/Deploy
+
+`MIX_ENV=prod mix do compile, release --env=prod --verbose`
 
 ##### Running
 
