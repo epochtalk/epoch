@@ -8,7 +8,9 @@ defmodule Epoch.Mixfile do
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      aliases: aliases(),
-     deps: deps()]
+     deps: deps(),
+     description: description(),
+     package: package()]
   end
 
   # Configuration for the OTP application.
@@ -26,11 +28,27 @@ defmodule Epoch.Mixfile do
     ]
   end
 
+  defp description do
+    """
+    The Epoch forum database schema layer.
+    """
+  end
+
   # ecto.setup - create/migrate/seed
   # ecto.reset - drop/setup
   defp aliases do
     ["ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
      "ecto.reset": ["ecto.drop", "ecto.setup"],
      "test": ["ecto.create --quiet", "ecto.migrate", "test"]]
+  end
+
+  defp package do
+    # These are the default files included in the package
+    [
+      name: :epoch,
+      maintainers: ["Jian Shi Wang"],
+      licenses: ["MIT"],
+      links: %{"GitHub" => "https://github.com/epochtalk/epoch"}
+    ]
   end
 end
