@@ -29,10 +29,11 @@ mix deps.get
 mix ecto.setup
 ```
 
-##### Breakdown
+##### Development
 
  * `mix ecto.drop` - drop db
  * `mix ecto.create` - create new db
  * `mix ecto.migrate` - migration
-
+ * `mix do ecto.drop, ecto.create, ecto.migrate` - drop/create/migrate in 1
+   command
 Configuration of database settings are in config/config.exs
