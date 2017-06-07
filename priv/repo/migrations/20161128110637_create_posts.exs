@@ -22,6 +22,6 @@ defmodule Epoch.Repo.Migrations.CreatePosts do
     create index(:posts, [:thread_id, :created_at])
     create index(:posts, [:user_id, :created_at])
     create index(:posts, [:thread_id, :user_id])
-    create index(:posts, [:tsv])
+    create index(:posts, [:tsv], using: :gin)
   end
 end
