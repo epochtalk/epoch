@@ -10,5 +10,7 @@ defmodule Epoch.Repo.Migrations.CreateAds do
       add :created_at, :timestamp
       add :updated_at, :timestamp
     end
+    create index(:ads, [:created_at])
+    create index(:ads, [:round])
   end
 end

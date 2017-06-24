@@ -1800,14 +1800,14 @@ CREATE UNIQUE INDEX configurations_one_row ON configurations USING btree (((log_
 -- Name: index_ads_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_ads_on_created_at ON ads USING btree (created_at);
+-- CREATE INDEX index_ads_on_created_at ON ads USING btree (created_at);
 
 
 --
 -- Name: index_ads_on_round; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_ads_on_round ON ads USING btree (round);
+-- CREATE INDEX index_ads_on_round ON ads USING btree (round);
 
 
 --
