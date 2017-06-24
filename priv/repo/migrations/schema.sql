@@ -767,20 +767,20 @@ SET search_path = public, pg_catalog;
 -- Name: banned_addresses; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE banned_addresses (
-    hostname character varying(255),
-    ip1 integer,
-    ip2 integer,
-    ip3 integer,
-    ip4 integer,
-    weight numeric NOT NULL,
-    decay boolean NOT NULL,
-    created_at timestamp with time zone NOT NULL,
-    updates timestamp with time zone[] DEFAULT ARRAY[]::timestamp with time zone[],
-    imported_at timestamp with time zone,
-    CONSTRAINT banned_addresses_hostname_or_ip_contraint CHECK ((((ip1 IS NOT NULL) AND (ip2 IS NOT NULL) AND (ip3 IS NOT NULL) AND (ip4 IS NOT NULL) AND (hostname IS NULL)) OR ((hostname IS NOT NULL) AND (ip1 IS NULL) AND (ip2 IS NULL) AND (ip3 IS NULL) AND (ip4 IS NULL))))
-);
-
+-- CREATE TABLE banned_addresses (
+--     hostname character varying(255),
+--     ip1 integer,
+--     ip2 integer,
+--     ip3 integer,
+--     ip4 integer,
+--     weight numeric NOT NULL,
+--     decay boolean NOT NULL,
+--     created_at timestamp with time zone NOT NULL,
+--     updates timestamp with time zone[] DEFAULT ARRAY[]::timestamp with time zone[],
+--     imported_at timestamp with time zone,
+--     CONSTRAINT banned_addresses_hostname_or_ip_contraint CHECK ((((ip1 IS NOT NULL) AND (ip2 IS NOT NULL) AND (ip3 IS NOT NULL) AND (ip4 IS NOT NULL) AND (hostname IS NULL)) OR ((hostname IS NOT NULL) AND (ip1 IS NULL) AND (ip2 IS NULL) AND (ip3 IS NULL) AND (ip4 IS NULL))))
+-- );
+--
 
 --
 -- Name: blacklist; Type: TABLE; Schema: public; Owner: -
@@ -1814,35 +1814,35 @@ CREATE INDEX index_ads_on_round ON ads USING btree (round);
 -- Name: index_banned_addresses_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_banned_addresses_on_created_at ON banned_addresses USING btree (created_at);
+-- CREATE INDEX index_banned_addresses_on_created_at ON banned_addresses USING btree (created_at);
 
 
 --
 -- Name: index_banned_addresses_on_decay; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_banned_addresses_on_decay ON banned_addresses USING btree (decay);
+-- CREATE INDEX index_banned_addresses_on_decay ON banned_addresses USING btree (decay);
 
 
 --
 -- Name: index_banned_addresses_on_hostname; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_banned_addresses_on_hostname ON banned_addresses USING btree (hostname);
+-- CREATE UNIQUE INDEX index_banned_addresses_on_hostname ON banned_addresses USING btree (hostname);
 
 
 --
 -- Name: index_banned_addresses_on_imported_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_banned_addresses_on_imported_at ON banned_addresses USING btree (imported_at);
+-- CREATE INDEX index_banned_addresses_on_imported_at ON banned_addresses USING btree (imported_at);
 
 
 --
 -- Name: index_banned_addresses_on_weight; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_banned_addresses_on_weight ON banned_addresses USING btree (weight);
+-- CREATE INDEX index_banned_addresses_on_weight ON banned_addresses USING btree (weight);
 
 
 --
