@@ -724,14 +724,14 @@ SET search_path = public, pg_catalog;
 -- Name: ads; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE ads (
-    id uuid DEFAULT uuid_generate_v4() NOT NULL,
-    round integer NOT NULL,
-    html text NOT NULL,
-    css text DEFAULT ''::text NOT NULL,
-    created_at timestamp with time zone,
-    updated_at timestamp with time zone
-);
+-- CREATE TABLE ads (
+--     id uuid DEFAULT uuid_generate_v4() NOT NULL,
+--     round integer NOT NULL,
+--     html text NOT NULL,
+--     css text DEFAULT ''::text NOT NULL,
+--     created_at timestamp with time zone,
+--     updated_at timestamp with time zone
+-- );
 
 
 --
