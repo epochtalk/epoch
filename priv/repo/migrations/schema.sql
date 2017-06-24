@@ -786,11 +786,11 @@ SET search_path = public, pg_catalog;
 -- Name: blacklist; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE blacklist (
-    id uuid DEFAULT uuid_generate_v4() NOT NULL,
-    ip_data character varying(100) NOT NULL,
-    note character varying(255) NOT NULL
-);
+-- CREATE TABLE blacklist (
+--     id uuid DEFAULT uuid_generate_v4() NOT NULL,
+--     ip_data character varying(100) NOT NULL,
+--     note character varying(255) NOT NULL
+-- );
 
 
 --
