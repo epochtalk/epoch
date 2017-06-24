@@ -49,5 +49,7 @@ defmodule Epoch.Repo.Migrations.Configurations do
       add :"portal.board_id", :binary_id
       add :invite_only, :boolean, default: false, null: false
     end
+
+    create unique_index(:configurations, [:log_enabled])
   end
 end

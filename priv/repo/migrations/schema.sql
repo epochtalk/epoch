@@ -1793,8 +1793,8 @@ SET search_path = public, pg_catalog;
 -- Name: configurations_one_row; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX configurations_one_row ON configurations USING btree (((log_enabled IS NOT NULL)));
-
+-- CREATE UNIQUE INDEX configurations_one_row ON configurations USING btree (((log_enabled IS NOT NULL)));
+--
 
 --
 -- Name: index_ads_on_created_at; Type: INDEX; Schema: public; Owner: -
