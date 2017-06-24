@@ -819,47 +819,47 @@ SET search_path = public, pg_catalog;
 -- Name: configurations; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE configurations (
-    log_enabled boolean NOT NULL,
-    verify_registration boolean NOT NULL,
-    login_required boolean NOT NULL,
-    "website.title" character varying(255) NOT NULL,
-    "website.description" text NOT NULL,
-    "website.keywords" text NOT NULL,
-    "website.logo" character varying(2000) NOT NULL,
-    "website.favicon" character varying(2000) NOT NULL,
-    "emailer.sender" character varying(255) NOT NULL,
-    "emailer.host" character varying(2000) NOT NULL,
-    "emailer.port" integer NOT NULL,
-    "emailer.secure" boolean NOT NULL,
-    "images.storage" character varying(255) NOT NULL,
-    "images.max_size" integer NOT NULL,
-    "images.expiration" integer NOT NULL,
-    "images.interval" integer NOT NULL,
-    "images.local.dir" character varying(255) NOT NULL,
-    "images.local.path" character varying(255) NOT NULL,
-    "images.s_3.root" character varying(2000) NOT NULL,
-    "images.s_3.dir" character varying(255) NOT NULL,
-    "images.s_3.bucket" character varying(255) NOT NULL,
-    "images.s_3.region" character varying(255) NOT NULL,
-    "rate_limiting.namespace" character varying(255) DEFAULT 'ept:'::character varying NOT NULL,
-    "rate_limiting.get.interval" integer DEFAULT 1000 NOT NULL,
-    "rate_limiting.get.max_in_interval" integer DEFAULT 10 NOT NULL,
-    "rate_limiting.get.min_difference" integer DEFAULT 100 NOT NULL,
-    "rate_limiting.post.interval" integer DEFAULT 1000 NOT NULL,
-    "rate_limiting.post.max_in_interval" integer DEFAULT 2 NOT NULL,
-    "rate_limiting.post.min_difference" integer DEFAULT 500 NOT NULL,
-    "rate_limiting.put.interval" integer DEFAULT 1000 NOT NULL,
-    "rate_limiting.put.max_in_interval" integer DEFAULT 2 NOT NULL,
-    "rate_limiting.put.min_difference" integer DEFAULT 500 NOT NULL,
-    "rate_limiting.delete.interval" integer DEFAULT 1000 NOT NULL,
-    "rate_limiting.delete.max_in_interval" integer DEFAULT 2 NOT NULL,
-    "rate_limiting.delete.min_difference" integer DEFAULT 500 NOT NULL,
-    ga_key character varying(255),
-    "portal.enabled" boolean DEFAULT false,
-    "portal.board_id" uuid,
-    invite_only boolean DEFAULT false NOT NULL
-);
+-- CREATE TABLE configurations (
+--     log_enabled boolean NOT NULL,
+--     verify_registration boolean NOT NULL,
+--     login_required boolean NOT NULL,
+--     "website.title" character varying(255) NOT NULL,
+--     "website.description" text NOT NULL,
+--     "website.keywords" text NOT NULL,
+--     "website.logo" character varying(2000) NOT NULL,
+--     "website.favicon" character varying(2000) NOT NULL,
+--     "emailer.sender" character varying(255) NOT NULL,
+--     "emailer.host" character varying(2000) NOT NULL,
+--     "emailer.port" integer NOT NULL,
+--     "emailer.secure" boolean NOT NULL,
+--     "images.storage" character varying(255) NOT NULL,
+--     "images.max_size" integer NOT NULL,
+--     "images.expiration" integer NOT NULL,
+--     "images.interval" integer NOT NULL,
+--     "images.local.dir" character varying(255) NOT NULL,
+--     "images.local.path" character varying(255) NOT NULL,
+--     "images.s_3.root" character varying(2000) NOT NULL,
+--     "images.s_3.dir" character varying(255) NOT NULL,
+--     "images.s_3.bucket" character varying(255) NOT NULL,
+--     "images.s_3.region" character varying(255) NOT NULL,
+--     "rate_limiting.namespace" character varying(255) DEFAULT 'ept:'::character varying NOT NULL,
+--     "rate_limiting.get.interval" integer DEFAULT 1000 NOT NULL,
+--     "rate_limiting.get.max_in_interval" integer DEFAULT 10 NOT NULL,
+--     "rate_limiting.get.min_difference" integer DEFAULT 100 NOT NULL,
+--     "rate_limiting.post.interval" integer DEFAULT 1000 NOT NULL,
+--     "rate_limiting.post.max_in_interval" integer DEFAULT 2 NOT NULL,
+--     "rate_limiting.post.min_difference" integer DEFAULT 500 NOT NULL,
+--     "rate_limiting.put.interval" integer DEFAULT 1000 NOT NULL,
+--     "rate_limiting.put.max_in_interval" integer DEFAULT 2 NOT NULL,
+--     "rate_limiting.put.min_difference" integer DEFAULT 500 NOT NULL,
+--     "rate_limiting.delete.interval" integer DEFAULT 1000 NOT NULL,
+--     "rate_limiting.delete.max_in_interval" integer DEFAULT 2 NOT NULL,
+--     "rate_limiting.delete.min_difference" integer DEFAULT 500 NOT NULL,
+--     ga_key character varying(255),
+--     "portal.enabled" boolean DEFAULT false,
+--     "portal.board_id" uuid,
+--     invite_only boolean DEFAULT false NOT NULL
+-- );
 
 
 --
@@ -1456,8 +1456,8 @@ ALTER TABLE ONLY banned_addresses
 -- Name: blacklist blacklist_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY blacklist
-    ADD CONSTRAINT blacklist_pkey PRIMARY KEY (id);
+-- ALTER TABLE ONLY blacklist
+--     ADD CONSTRAINT blacklist_pkey PRIMARY KEY (id);
 
 
 --
