@@ -754,7 +754,7 @@ SET search_path = public, pg_catalog;
 --
 -- Name: backoff; Type: TABLE; Schema: public; Owner: -
 --
-
+--
 CREATE TABLE backoff (
     ip character varying(40),
     route character varying(255),
@@ -1432,16 +1432,16 @@ SET search_path = public, pg_catalog;
 -- Name: ads ads_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY ads
-    ADD CONSTRAINT ads_pkey PRIMARY KEY (id);
+-- ALTER TABLE ONLY ads
+--     ADD CONSTRAINT ads_pkey PRIMARY KEY (id);
 
 
 --
 -- Name: auto_moderation auto_moderation_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY auto_moderation
-    ADD CONSTRAINT auto_moderation_pkey PRIMARY KEY (id);
+-- ALTER TABLE ONLY auto_moderation
+--     ADD CONSTRAINT auto_moderation_pkey PRIMARY KEY (id);
 
 
 --
