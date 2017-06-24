@@ -755,12 +755,12 @@ SET search_path = public, pg_catalog;
 -- Name: backoff; Type: TABLE; Schema: public; Owner: -
 --
 --
-CREATE TABLE backoff (
-    ip character varying(40),
-    route character varying(255),
-    method character varying(15),
-    created_at timestamp with time zone
-);
+-- CREATE TABLE backoff (
+--     ip character varying(40),
+--     route character varying(255),
+--     method character varying(15),
+--     created_at timestamp with time zone
+-- );
 
 
 --
@@ -1954,7 +1954,7 @@ CREATE INDEX index_invitations_on_hash ON invitations USING btree (hash);
 -- Name: index_ip_route_method_on_backoff; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_ip_route_method_on_backoff ON backoff USING btree (ip, route, method);
+-- CREATE INDEX index_ip_route_method_on_backoff ON backoff USING btree (ip, route, method);
 
 
 --
