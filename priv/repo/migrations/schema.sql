@@ -797,12 +797,12 @@ SET search_path = public, pg_catalog;
 -- Name: board_mapping; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE board_mapping (
-    board_id uuid NOT NULL,
-    parent_id uuid,
-    category_id uuid,
-    view_order integer NOT NULL
-);
+-- CREATE TABLE board_mapping (
+--     board_id uuid NOT NULL,
+--     parent_id uuid,
+--     category_id uuid,
+--     view_order integer NOT NULL
+-- );
 
 
 --
