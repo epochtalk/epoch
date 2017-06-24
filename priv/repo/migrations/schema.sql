@@ -809,10 +809,10 @@ SET search_path = public, pg_catalog;
 -- Name: board_moderators; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE board_moderators (
-    user_id uuid,
-    board_id uuid
-);
+-- CREATE TABLE board_moderators (
+--     user_id uuid,
+--     board_id uuid
+-- );
 
 
 --
