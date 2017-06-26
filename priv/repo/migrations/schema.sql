@@ -15,40 +15,6 @@ SET client_min_messages = warning;
 SET row_security = off;
 SET default_tablespace = '';
 SET default_with_oids = false;
-SET search_path = factoids, pg_catalog;
-
---
--- Name: analytics; Type: TABLE; Schema: factoids; Owner: -
---
-
-CREATE TABLE analytics (
-    round integer NOT NULL,
-    total_impressions integer DEFAULT 0 NOT NULL,
-    total_authed_impressions integer DEFAULT 0 NOT NULL,
-    total_unique_ip_impressions integer DEFAULT 0 NOT NULL,
-    total_unique_authed_users_impressions integer DEFAULT 0 NOT NULL
-);
-
-
---
--- Name: authed_users; Type: TABLE; Schema: factoids; Owner: -
---
-
-CREATE TABLE authed_users (
-    round integer NOT NULL,
-    user_id uuid NOT NULL
-);
-
-
---
--- Name: unique_ip; Type: TABLE; Schema: factoids; Owner: -
---
-
-CREATE TABLE unique_ip (
-    round integer NOT NULL,
-    unique_ip character varying(255) NOT NULL
-);
-
 
 SET search_path = mentions, pg_catalog;
 
@@ -487,16 +453,6 @@ SET search_path = public, pg_catalog;
 
 ALTER TABLE ONLY migrations ALTER COLUMN id SET DEFAULT nextval('migrations_id_seq'::regclass);
 
-SET search_path = factoids, pg_catalog;
-
---
--- Name: analytics analytics_pkey; Type: CONSTRAINT; Schema: factoids; Owner: -
---
-
-ALTER TABLE ONLY analytics
-    ADD CONSTRAINT analytics_pkey PRIMARY KEY (round);
-
-
 SET search_path = mentions, pg_catalog;
 
 --
@@ -719,36 +675,6 @@ CREATE INDEX index_reports_messages_notes_on_created_at ON reports_messages_note
 --
 
 CREATE INDEX index_reports_messages_notes_on_report_id ON reports_messages_notes USING btree (report_id);
-
-
-SET search_path = factoids, pg_catalog;
-
---
--- Name: index_factoids_authed_users_on_round; Type: INDEX; Schema: factoids; Owner: -
---
-
-CREATE INDEX index_factoids_authed_users_on_round ON authed_users USING btree (round);
-
-
---
--- Name: index_factoids_authed_users_on_round_and_user_id; Type: INDEX; Schema: factoids; Owner: -
---
-
-CREATE UNIQUE INDEX index_factoids_authed_users_on_round_and_user_id ON authed_users USING btree (round, user_id);
-
-
---
--- Name: index_factoids_unique_ip_on_round; Type: INDEX; Schema: factoids; Owner: -
---
-
-CREATE INDEX index_factoids_unique_ip_on_round ON unique_ip USING btree (round);
-
-
---
--- Name: index_factoids_unique_ip_on_round_and_unique_ip; Type: INDEX; Schema: factoids; Owner: -
---
-
-CREATE UNIQUE INDEX index_factoids_unique_ip_on_round_and_unique_ip ON unique_ip USING btree (round, unique_ip);
 
 
 SET search_path = mentions, pg_catalog;
@@ -1452,17 +1378,6 @@ SET search_path = ads, pg_catalog;
 
 ALTER TABLE ONLY unique_ip
     ADD CONSTRAINT unique_ip_ad_id_fkey FOREIGN KEY (ad_id) REFERENCES public.ads(id) ON DELETE CASCADE;
-
-
-SET search_path = factoids, pg_catalog;
-
---
--- Name: authed_users authed_users_user_id_fkey; Type: FK CONSTRAINT; Schema: factoids; Owner: -
---
-
-ALTER TABLE ONLY authed_users
-    ADD CONSTRAINT authed_users_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE SET NULL;
-
 
 SET search_path = mentions, pg_catalog;
 
