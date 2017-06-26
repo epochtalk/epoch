@@ -24,37 +24,6 @@ SET default_with_oids = false;
 SET search_path = ads, pg_catalog;
 
 --
--- Name: rounds; Type: TABLE; Schema: ads; Owner: -
---
-
-CREATE TABLE rounds (
-    round integer NOT NULL,
-    current boolean DEFAULT false,
-    start_time timestamp with time zone,
-    end_time timestamp with time zone
-);
-
-
---
--- Name: rounds_round_seq; Type: SEQUENCE; Schema: ads; Owner: -
---
-
-CREATE SEQUENCE rounds_round_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: rounds_round_seq; Type: SEQUENCE OWNED BY; Schema: ads; Owner: -
---
-
-ALTER SEQUENCE rounds_round_seq OWNED BY rounds.round;
-
-
---
 -- Name: unique_ip; Type: TABLE; Schema: ads; Owner: -
 --
 
@@ -528,25 +497,6 @@ CREATE TABLE watch_threads (
     thread_id uuid NOT NULL
 );
 
-
-SET search_path = administration, pg_catalog;
-
---
--- Name: reports_statuses id; Type: DEFAULT; Schema: administration; Owner: -
---
-
-ALTER TABLE ONLY reports_statuses ALTER COLUMN id SET DEFAULT nextval('reports_statuses_id_seq'::regclass);
-
-
-SET search_path = ads, pg_catalog;
-
---
--- Name: rounds round; Type: DEFAULT; Schema: ads; Owner: -
---
-
-ALTER TABLE ONLY rounds ALTER COLUMN round SET DEFAULT nextval('rounds_round_seq'::regclass);
-
-
 SET search_path = public, pg_catalog;
 
 --
@@ -554,19 +504,6 @@ SET search_path = public, pg_catalog;
 --
 
 ALTER TABLE ONLY migrations ALTER COLUMN id SET DEFAULT nextval('migrations_id_seq'::regclass);
-
-
-SET search_path = administration, pg_catalog;
-
-SET search_path = ads, pg_catalog;
-
---
--- Name: rounds rounds_pkey; Type: CONSTRAINT; Schema: ads; Owner: -
---
-
-ALTER TABLE ONLY rounds
-    ADD CONSTRAINT rounds_pkey PRIMARY KEY (round);
-
 
 SET search_path = factoids, pg_catalog;
 
