@@ -16,40 +16,6 @@ SET row_security = off;
 SET default_tablespace = '';
 SET default_with_oids = false;
 
-SET search_path = mod, pg_catalog;
-
---
--- Name: notes; Type: TABLE; Schema: mod; Owner: -
---
-
-CREATE TABLE notes (
-    id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
-    moderator_id uuid,
-    subject character varying(255),
-    body text DEFAULT ''::text,
-    created_at timestamp with time zone,
-    updated_at timestamp with time zone,
-    imported_at timestamp with time zone
-);
-
-
---
--- Name: reports; Type: TABLE; Schema: mod; Owner: -
---
-
-CREATE TABLE reports (
-    id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
-    user_id uuid,
-    thread_id uuid,
-    post_id uuid,
-    reason_subject character varying(255),
-    reason_body text DEFAULT ''::text,
-    created_at timestamp with time zone,
-    updated_at timestamp with time zone,
-    imported_at timestamp with time zone
-);
-
-
 SET search_path = public, pg_catalog;
 
 --
@@ -433,24 +399,6 @@ SET search_path = metadata, pg_catalog;
 
 ALTER TABLE ONLY threads
     ADD CONSTRAINT threads_thread_id_key UNIQUE (thread_id);
-
-
-SET search_path = mod, pg_catalog;
-
---
--- Name: notes notes_pkey; Type: CONSTRAINT; Schema: mod; Owner: -
---
-
-ALTER TABLE ONLY notes
-    ADD CONSTRAINT notes_pkey PRIMARY KEY (id);
-
-
---
--- Name: reports reports_pkey; Type: CONSTRAINT; Schema: mod; Owner: -
---
-
-ALTER TABLE ONLY reports
-    ADD CONSTRAINT reports_pkey PRIMARY KEY (id);
 
 
 SET search_path = public, pg_catalog;
