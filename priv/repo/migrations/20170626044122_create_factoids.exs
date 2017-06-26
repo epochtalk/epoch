@@ -1,6 +1,7 @@
 defmodule Epoch.Repo.Migrations.CreateFactoids do
   use Ecto.Migration
 
+  # move to after admin
   def change do
     create table(:factoids, primary_key: false) do
       add :id, :binary_id, primary_key: true, default: fragment("uuid_generate_v4()")

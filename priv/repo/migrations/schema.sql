@@ -21,21 +21,6 @@ SET default_tablespace = '';
 
 SET default_with_oids = false;
 
-
---
--- Name: reports_users_notes; Type: TABLE; Schema: administration; Owner: -
---
-
-CREATE TABLE reports_users_notes (
-    id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
-    report_id uuid NOT NULL,
-    user_id uuid,
-    note text DEFAULT ''::text NOT NULL,
-    created_at timestamp with time zone,
-    updated_at timestamp with time zone
-);
-
-
 SET search_path = ads, pg_catalog;
 
 --
@@ -596,14 +581,6 @@ ALTER TABLE ONLY migrations ALTER COLUMN id SET DEFAULT nextval('migrations_id_s
 
 SET search_path = administration, pg_catalog;
 
---
--- Name: reports_users_notes reports_users_notes_pkey; Type: CONSTRAINT; Schema: administration; Owner: -
---
-
-ALTER TABLE ONLY reports_users_notes
-    ADD CONSTRAINT reports_users_notes_pkey PRIMARY KEY (id);
-
-
 SET search_path = ads, pg_catalog;
 
 --
@@ -854,19 +831,6 @@ CREATE INDEX index_reports_messages_notes_on_created_at ON reports_messages_note
 --
 
 CREATE INDEX index_reports_messages_notes_on_report_id ON reports_messages_notes USING btree (report_id);
-
---
--- Name: index_reports_users_notes_on_created_at; Type: INDEX; Schema: administration; Owner: -
---
-
-CREATE INDEX index_reports_users_notes_on_created_at ON reports_users_notes USING btree (created_at);
-
-
---
--- Name: index_reports_users_notes_on_report_id; Type: INDEX; Schema: administration; Owner: -
---
-
-CREATE INDEX index_reports_users_notes_on_report_id ON reports_users_notes USING btree (report_id);
 
 
 SET search_path = ads, pg_catalog;
@@ -1582,14 +1546,6 @@ ALTER TABLE ONLY reports_messages
 
 
 --
--- Name: reports_users_notes report_id_fk; Type: FK CONSTRAINT; Schema: administration; Owner: -
---
-
-ALTER TABLE ONLY reports_users_notes
-    ADD CONSTRAINT report_id_fk FOREIGN KEY (report_id) REFERENCES reports_users(id) ON DELETE CASCADE;
-
-
---
 -- Name: reports_messages_notes report_id_fk; Type: FK CONSTRAINT; Schema: administration; Owner: -
 --
 
@@ -1619,14 +1575,6 @@ ALTER TABLE ONLY reports_messages
 
 ALTER TABLE ONLY reports_messages
     ADD CONSTRAINT status_id_fk FOREIGN KEY (status_id) REFERENCES reports_statuses(id);
-
-
---
--- Name: reports_users_notes user_id_fk; Type: FK CONSTRAINT; Schema: administration; Owner: -
---
-
-ALTER TABLE ONLY reports_users_notes
-    ADD CONSTRAINT user_id_fk FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE SET NULL;
 
 
 --
