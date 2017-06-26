@@ -24,16 +24,6 @@ SET default_with_oids = false;
 SET search_path = ads, pg_catalog;
 
 --
--- Name: authed_users; Type: TABLE; Schema: ads; Owner: -
---
-
-CREATE TABLE authed_users (
-    ad_id uuid NOT NULL,
-    user_id uuid NOT NULL
-);
-
-
---
 -- Name: rounds; Type: TABLE; Schema: ads; Owner: -
 --
 
@@ -815,20 +805,6 @@ CREATE INDEX index_reports_messages_notes_on_report_id ON reports_messages_notes
 SET search_path = ads, pg_catalog;
 
 --
--- Name: index_ads_authed_users_on_ad_id; Type: INDEX; Schema: ads; Owner: -
---
-
-CREATE INDEX index_ads_authed_users_on_ad_id ON authed_users USING btree (ad_id);
-
-
---
--- Name: index_ads_authed_users_on_ad_id_and_user_id; Type: INDEX; Schema: ads; Owner: -
---
-
-CREATE UNIQUE INDEX index_ads_authed_users_on_ad_id_and_user_id ON authed_users USING btree (ad_id, user_id);
-
-
---
 -- Name: index_ads_unique_ip_on_ad_id; Type: INDEX; Schema: ads; Owner: -
 --
 
@@ -1565,21 +1541,6 @@ ALTER TABLE ONLY reports_messages_notes
 
 
 SET search_path = ads, pg_catalog;
-
---
--- Name: authed_users authed_users_ad_id_fkey; Type: FK CONSTRAINT; Schema: ads; Owner: -
---
-
-ALTER TABLE ONLY authed_users
-    ADD CONSTRAINT authed_users_ad_id_fkey FOREIGN KEY (ad_id) REFERENCES public.ads(id) ON DELETE CASCADE;
-
-
---
--- Name: authed_users authed_users_user_id_fkey; Type: FK CONSTRAINT; Schema: ads; Owner: -
---
-
-ALTER TABLE ONLY authed_users
-    ADD CONSTRAINT authed_users_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
 
 
 --
