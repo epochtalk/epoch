@@ -21,21 +21,6 @@ SET default_tablespace = '';
 
 SET default_with_oids = false;
 
---
--- Name: reports_users; Type: TABLE; Schema: administration; Owner: -
---
-
-CREATE TABLE reports_users (
-    id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
-    status_id integer NOT NULL,
-    reporter_user_id uuid,
-    reporter_reason text DEFAULT ''::text NOT NULL,
-    reviewer_user_id uuid,
-    offender_user_id uuid NOT NULL,
-    created_at timestamp with time zone,
-    updated_at timestamp with time zone
-);
-
 
 --
 -- Name: reports_users_notes; Type: TABLE; Schema: administration; Owner: -
@@ -619,14 +604,6 @@ ALTER TABLE ONLY reports_users_notes
     ADD CONSTRAINT reports_users_notes_pkey PRIMARY KEY (id);
 
 
---
--- Name: reports_users reports_users_pkey; Type: CONSTRAINT; Schema: administration; Owner: -
---
-
-ALTER TABLE ONLY reports_users
-    ADD CONSTRAINT reports_users_pkey PRIMARY KEY (id);
-
-
 SET search_path = ads, pg_catalog;
 
 --
@@ -890,20 +867,6 @@ CREATE INDEX index_reports_users_notes_on_created_at ON reports_users_notes USIN
 --
 
 CREATE INDEX index_reports_users_notes_on_report_id ON reports_users_notes USING btree (report_id);
-
-
---
--- Name: index_reports_users_on_created_at; Type: INDEX; Schema: administration; Owner: -
---
-
-CREATE INDEX index_reports_users_on_created_at ON reports_users USING btree (created_at);
-
-
---
--- Name: index_reports_users_on_status_id; Type: INDEX; Schema: administration; Owner: -
---
-
-CREATE INDEX index_reports_users_on_status_id ON reports_users USING btree (status_id);
 
 
 SET search_path = ads, pg_catalog;
@@ -1619,14 +1582,6 @@ ALTER TABLE ONLY reports_messages
 
 
 --
--- Name: reports_users offender_user_id_fk; Type: FK CONSTRAINT; Schema: administration; Owner: -
---
-
-ALTER TABLE ONLY reports_users
-    ADD CONSTRAINT offender_user_id_fk FOREIGN KEY (offender_user_id) REFERENCES public.users(id) ON DELETE CASCADE;
-
-
---
 -- Name: reports_users_notes report_id_fk; Type: FK CONSTRAINT; Schema: administration; Owner: -
 --
 
@@ -1643,14 +1598,6 @@ ALTER TABLE ONLY reports_messages_notes
 
 
 --
--- Name: reports_users reporter_user_id_fk; Type: FK CONSTRAINT; Schema: administration; Owner: -
---
-
-ALTER TABLE ONLY reports_users
-    ADD CONSTRAINT reporter_user_id_fk FOREIGN KEY (reporter_user_id) REFERENCES public.users(id) ON DELETE SET NULL;
-
-
---
 -- Name: reports_messages reporter_user_id_fk; Type: FK CONSTRAINT; Schema: administration; Owner: -
 --
 
@@ -1659,27 +1606,11 @@ ALTER TABLE ONLY reports_messages
 
 
 --
--- Name: reports_users reviewer_user_id_fk; Type: FK CONSTRAINT; Schema: administration; Owner: -
---
-
-ALTER TABLE ONLY reports_users
-    ADD CONSTRAINT reviewer_user_id_fk FOREIGN KEY (reviewer_user_id) REFERENCES public.users(id) ON DELETE SET NULL;
-
-
---
 -- Name: reports_messages reviewer_user_id_fk; Type: FK CONSTRAINT; Schema: administration; Owner: -
 --
 
 ALTER TABLE ONLY reports_messages
     ADD CONSTRAINT reviewer_user_id_fk FOREIGN KEY (reviewer_user_id) REFERENCES public.users(id) ON DELETE SET NULL;
-
-
---
--- Name: reports_users status_id_fk; Type: FK CONSTRAINT; Schema: administration; Owner: -
---
-
-ALTER TABLE ONLY reports_users
-    ADD CONSTRAINT status_id_fk FOREIGN KEY (status_id) REFERENCES reports_statuses(id);
 
 
 --
