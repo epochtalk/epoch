@@ -1369,16 +1369,6 @@ ALTER TABLE ONLY reports_messages_notes
     ADD CONSTRAINT user_id_fk FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE SET NULL;
 
 
-SET search_path = ads, pg_catalog;
-
-
---
--- Name: unique_ip unique_ip_ad_id_fkey; Type: FK CONSTRAINT; Schema: ads; Owner: -
---
-
-ALTER TABLE ONLY unique_ip
-    ADD CONSTRAINT unique_ip_ad_id_fkey FOREIGN KEY (ad_id) REFERENCES public.ads(id) ON DELETE CASCADE;
-
 SET search_path = mentions, pg_catalog;
 
 --
