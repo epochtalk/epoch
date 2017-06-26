@@ -28,11 +28,11 @@ defmodule Epoch.Repo.Migrations.FactoidsSchema do
     """
 
     create table(:unique_ip, [prefix: @schema_prefix, primary_key: false]) do
-      add :round, :index, null: false
+      add :round, :integer, null: false
       add :unique_ip, :string, null: false
     end
 
     create index(:unique_ip, [:round], prefix: @schema_prefix)
-    create unique_index(:unique_ip, [:round, :unique_id], prefix: @schema_prefix)
+    create unique_index(:unique_ip, [:round, :unique_ip], prefix: @schema_prefix)
   end
 end

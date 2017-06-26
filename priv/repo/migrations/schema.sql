@@ -16,34 +16,6 @@ SET row_security = off;
 SET default_tablespace = '';
 SET default_with_oids = false;
 
-SET search_path = mentions, pg_catalog;
-
---
--- Name: ignored; Type: TABLE; Schema: mentions; Owner: -
---
-
-CREATE TABLE ignored (
-    user_id uuid NOT NULL,
-    ignored_user_id uuid NOT NULL
-);
-
-
---
--- Name: mentions; Type: TABLE; Schema: mentions; Owner: -
---
-
-CREATE TABLE mentions (
-    id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
-    thread_id uuid NOT NULL,
-    post_id uuid NOT NULL,
-    mentioner_id uuid NOT NULL,
-    mentionee_id uuid NOT NULL,
-    created_at timestamp with time zone
-);
-
-
-SET search_path = metadata, pg_catalog;
-
 SET search_path = mod, pg_catalog;
 
 --
@@ -453,24 +425,6 @@ SET search_path = public, pg_catalog;
 
 ALTER TABLE ONLY migrations ALTER COLUMN id SET DEFAULT nextval('migrations_id_seq'::regclass);
 
-SET search_path = mentions, pg_catalog;
-
---
--- Name: ignored ignored_user_id_ignored_user_id_key; Type: CONSTRAINT; Schema: mentions; Owner: -
---
-
-ALTER TABLE ONLY ignored
-    ADD CONSTRAINT ignored_user_id_ignored_user_id_key UNIQUE (user_id, ignored_user_id);
-
-
---
--- Name: mentions mentions_pkey; Type: CONSTRAINT; Schema: mentions; Owner: -
---
-
-ALTER TABLE ONLY mentions
-    ADD CONSTRAINT mentions_pkey PRIMARY KEY (id);
-
-
 SET search_path = metadata, pg_catalog;
 
 --
@@ -675,29 +629,6 @@ CREATE INDEX index_reports_messages_notes_on_created_at ON reports_messages_note
 --
 
 CREATE INDEX index_reports_messages_notes_on_report_id ON reports_messages_notes USING btree (report_id);
-
-
-SET search_path = mentions, pg_catalog;
-
---
--- Name: index_mentions_ignored_on_ignored_user_id; Type: INDEX; Schema: mentions; Owner: -
---
-
-CREATE INDEX index_mentions_ignored_on_ignored_user_id ON ignored USING btree (ignored_user_id);
-
-
---
--- Name: index_mentions_ignored_on_user_id; Type: INDEX; Schema: mentions; Owner: -
---
-
-CREATE INDEX index_mentions_ignored_on_user_id ON ignored USING btree (user_id);
-
-
---
--- Name: index_mentions_on_mentionee_id; Type: INDEX; Schema: mentions; Owner: -
---
-
-CREATE INDEX index_mentions_on_mentionee_id ON mentions USING btree (mentionee_id);
 
 
 SET search_path = metadata, pg_catalog;
@@ -1367,57 +1298,6 @@ ALTER TABLE ONLY reports_messages
 
 ALTER TABLE ONLY reports_messages_notes
     ADD CONSTRAINT user_id_fk FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE SET NULL;
-
-
-SET search_path = mentions, pg_catalog;
-
---
--- Name: ignored ignored_ignored_user_id_fkey; Type: FK CONSTRAINT; Schema: mentions; Owner: -
---
-
-ALTER TABLE ONLY ignored
-    ADD CONSTRAINT ignored_ignored_user_id_fkey FOREIGN KEY (ignored_user_id) REFERENCES public.users(id) ON DELETE CASCADE;
-
-
---
--- Name: ignored ignored_user_id_fkey; Type: FK CONSTRAINT; Schema: mentions; Owner: -
---
-
-ALTER TABLE ONLY ignored
-    ADD CONSTRAINT ignored_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
-
-
---
--- Name: mentions mentions_mentionee_id_fkey; Type: FK CONSTRAINT; Schema: mentions; Owner: -
---
-
-ALTER TABLE ONLY mentions
-    ADD CONSTRAINT mentions_mentionee_id_fkey FOREIGN KEY (mentionee_id) REFERENCES public.users(id) ON DELETE CASCADE;
-
-
---
--- Name: mentions mentions_mentioner_id_fkey; Type: FK CONSTRAINT; Schema: mentions; Owner: -
---
-
-ALTER TABLE ONLY mentions
-    ADD CONSTRAINT mentions_mentioner_id_fkey FOREIGN KEY (mentioner_id) REFERENCES public.users(id);
-
-
---
--- Name: mentions mentions_post_id_fkey; Type: FK CONSTRAINT; Schema: mentions; Owner: -
---
-
-ALTER TABLE ONLY mentions
-    ADD CONSTRAINT mentions_post_id_fkey FOREIGN KEY (post_id) REFERENCES public.posts(id) ON DELETE CASCADE;
-
-
---
--- Name: mentions mentions_thread_id_fkey; Type: FK CONSTRAINT; Schema: mentions; Owner: -
---
-
-ALTER TABLE ONLY mentions
-    ADD CONSTRAINT mentions_thread_id_fkey FOREIGN KEY (thread_id) REFERENCES public.threads(id) ON DELETE CASCADE;
-
 
 SET search_path = metadata, pg_catalog;
 
