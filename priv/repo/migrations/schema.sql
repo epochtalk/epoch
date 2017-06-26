@@ -15,31 +15,11 @@ SET client_min_messages = warning;
 SET row_security = off;
 SET search_path = public, pg_catalog;
 
-
-
-
-
 SET search_path = administration, pg_catalog;
 
 SET default_tablespace = '';
 
 SET default_with_oids = false;
-
-
---
--- Name: reports_posts; Type: TABLE; Schema: administration; Owner: -
---
-
-CREATE TABLE reports_posts (
-    id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
-    status_id integer NOT NULL,
-    reporter_user_id uuid,
-    reporter_reason text DEFAULT ''::text NOT NULL,
-    reviewer_user_id uuid,
-    offender_post_id uuid NOT NULL,
-    created_at timestamp with time zone,
-    updated_at timestamp with time zone
-);
 
 
 --
@@ -54,37 +34,6 @@ CREATE TABLE reports_posts_notes (
     created_at timestamp with time zone,
     updated_at timestamp with time zone
 );
-
-
---
--- Name: reports_statuses; Type: TABLE; Schema: administration; Owner: -
---
-
-CREATE TABLE reports_statuses (
-    id integer NOT NULL,
-    priority integer NOT NULL,
-    status character varying(255) DEFAULT ''::character varying NOT NULL
-);
-
-
---
--- Name: reports_statuses_id_seq; Type: SEQUENCE; Schema: administration; Owner: -
---
-
-CREATE SEQUENCE reports_statuses_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: reports_statuses_id_seq; Type: SEQUENCE OWNED BY; Schema: administration; Owner: -
---
-
-ALTER SEQUENCE reports_statuses_id_seq OWNED BY reports_statuses.id;
-
 
 --
 -- Name: reports_users; Type: TABLE; Schema: administration; Owner: -
@@ -686,22 +635,6 @@ ALTER TABLE ONLY reports_posts_notes
 
 
 --
--- Name: reports_posts reports_posts_pkey; Type: CONSTRAINT; Schema: administration; Owner: -
---
-
-ALTER TABLE ONLY reports_posts
-    ADD CONSTRAINT reports_posts_pkey PRIMARY KEY (id);
-
-
---
--- Name: reports_statuses reports_statuses_pkey; Type: CONSTRAINT; Schema: administration; Owner: -
---
-
-ALTER TABLE ONLY reports_statuses
-    ADD CONSTRAINT reports_statuses_pkey PRIMARY KEY (id);
-
-
---
 -- Name: reports_users_notes reports_users_notes_pkey; Type: CONSTRAINT; Schema: administration; Owner: -
 --
 
@@ -715,14 +648,6 @@ ALTER TABLE ONLY reports_users_notes
 
 ALTER TABLE ONLY reports_users
     ADD CONSTRAINT reports_users_pkey PRIMARY KEY (id);
-
-
---
--- Name: reports_posts unique_index_reports_posts_on_offender_post_id_and_reporter_use; Type: CONSTRAINT; Schema: administration; Owner: -
---
-
-ALTER TABLE ONLY reports_posts
-    ADD CONSTRAINT unique_index_reports_posts_on_offender_post_id_and_reporter_use UNIQUE (offender_post_id, reporter_user_id);
 
 
 SET search_path = ads, pg_catalog;
@@ -978,13 +903,6 @@ CREATE INDEX index_reports_messages_notes_on_report_id ON reports_messages_notes
 
 
 --
--- Name: index_reports_messages_on_offender_post_id_and_reporter_user_id; Type: INDEX; Schema: administration; Owner: -
---
-
-CREATE INDEX index_reports_messages_on_offender_post_id_and_reporter_user_id ON reports_posts USING btree (offender_post_id, reporter_user_id);
-
-
---
 -- Name: index_reports_posts_notes_on_created_at; Type: INDEX; Schema: administration; Owner: -
 --
 
@@ -996,20 +914,6 @@ CREATE INDEX index_reports_posts_notes_on_created_at ON reports_posts_notes USIN
 --
 
 CREATE INDEX index_reports_posts_notes_on_report_id ON reports_posts_notes USING btree (report_id);
-
-
---
--- Name: index_reports_posts_on_created_at; Type: INDEX; Schema: administration; Owner: -
---
-
-CREATE INDEX index_reports_posts_on_created_at ON reports_posts USING btree (created_at);
-
-
---
--- Name: index_reports_posts_on_status_id; Type: INDEX; Schema: administration; Owner: -
---
-
-CREATE INDEX index_reports_posts_on_status_id ON reports_posts USING btree (status_id);
 
 
 --
@@ -1753,14 +1657,6 @@ ALTER TABLE ONLY reports_messages
 
 
 --
--- Name: reports_posts offender_post_id_fk; Type: FK CONSTRAINT; Schema: administration; Owner: -
---
-
-ALTER TABLE ONLY reports_posts
-    ADD CONSTRAINT offender_post_id_fk FOREIGN KEY (offender_post_id) REFERENCES public.posts(id) ON DELETE CASCADE;
-
-
---
 -- Name: reports_users offender_user_id_fk; Type: FK CONSTRAINT; Schema: administration; Owner: -
 --
 
@@ -1793,14 +1689,6 @@ ALTER TABLE ONLY reports_messages_notes
 
 
 --
--- Name: reports_posts reporter_user_id_fk; Type: FK CONSTRAINT; Schema: administration; Owner: -
---
-
-ALTER TABLE ONLY reports_posts
-    ADD CONSTRAINT reporter_user_id_fk FOREIGN KEY (reporter_user_id) REFERENCES public.users(id) ON DELETE SET NULL;
-
-
---
 -- Name: reports_users reporter_user_id_fk; Type: FK CONSTRAINT; Schema: administration; Owner: -
 --
 
@@ -1814,14 +1702,6 @@ ALTER TABLE ONLY reports_users
 
 ALTER TABLE ONLY reports_messages
     ADD CONSTRAINT reporter_user_id_fk FOREIGN KEY (reporter_user_id) REFERENCES public.users(id) ON DELETE SET NULL;
-
-
---
--- Name: reports_posts reviewer_user_id_fk; Type: FK CONSTRAINT; Schema: administration; Owner: -
---
-
-ALTER TABLE ONLY reports_posts
-    ADD CONSTRAINT reviewer_user_id_fk FOREIGN KEY (reviewer_user_id) REFERENCES public.users(id) ON DELETE SET NULL;
 
 
 --
@@ -1845,14 +1725,6 @@ ALTER TABLE ONLY reports_messages
 --
 
 ALTER TABLE ONLY reports_users
-    ADD CONSTRAINT status_id_fk FOREIGN KEY (status_id) REFERENCES reports_statuses(id);
-
-
---
--- Name: reports_posts status_id_fk; Type: FK CONSTRAINT; Schema: administration; Owner: -
---
-
-ALTER TABLE ONLY reports_posts
     ADD CONSTRAINT status_id_fk FOREIGN KEY (status_id) REFERENCES reports_statuses(id);
 
 
