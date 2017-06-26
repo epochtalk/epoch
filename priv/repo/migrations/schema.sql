@@ -13,26 +13,8 @@ SET standard_conforming_strings = on;
 SET check_function_bodies = false;
 SET client_min_messages = warning;
 SET row_security = off;
-SET search_path = public, pg_catalog;
-
-SET search_path = administration, pg_catalog;
-
 SET default_tablespace = '';
-
 SET default_with_oids = false;
-
-SET search_path = ads, pg_catalog;
-
---
--- Name: unique_ip; Type: TABLE; Schema: ads; Owner: -
---
-
-CREATE TABLE unique_ip (
-    ad_id uuid NOT NULL,
-    unique_ip character varying(255) NOT NULL
-);
-
-
 SET search_path = factoids, pg_catalog;
 
 --
@@ -737,22 +719,6 @@ CREATE INDEX index_reports_messages_notes_on_created_at ON reports_messages_note
 --
 
 CREATE INDEX index_reports_messages_notes_on_report_id ON reports_messages_notes USING btree (report_id);
-
-
-SET search_path = ads, pg_catalog;
-
---
--- Name: index_ads_unique_ip_on_ad_id; Type: INDEX; Schema: ads; Owner: -
---
-
-CREATE INDEX index_ads_unique_ip_on_ad_id ON unique_ip USING btree (ad_id);
-
-
---
--- Name: index_ads_unique_ip_on_ad_id_and_unique_ip; Type: INDEX; Schema: ads; Owner: -
---
-
-CREATE UNIQUE INDEX index_ads_unique_ip_on_ad_id_and_unique_ip ON unique_ip USING btree (ad_id, unique_ip);
 
 
 SET search_path = factoids, pg_catalog;
