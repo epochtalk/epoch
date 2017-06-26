@@ -42,36 +42,6 @@ CREATE TABLE invitations (
 
 
 --
--- Name: migrations; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE migrations (
-    id integer NOT NULL,
-    name character varying(255) NOT NULL,
-    run_on timestamp without time zone NOT NULL
-);
-
-
---
--- Name: migrations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE migrations_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: migrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE migrations_id_seq OWNED BY migrations.id;
-
-
---
 -- Name: moderation_log; Type: TABLE; Schema: public; Owner: -
 --
 
