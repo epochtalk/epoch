@@ -24,19 +24,6 @@ SET default_with_oids = false;
 SET search_path = ads, pg_catalog;
 
 --
--- Name: analytics; Type: TABLE; Schema: ads; Owner: -
---
-
-CREATE TABLE analytics (
-    ad_id uuid NOT NULL,
-    total_impressions integer DEFAULT 0 NOT NULL,
-    total_authed_impressions integer DEFAULT 0 NOT NULL,
-    total_unique_ip_impressions integer DEFAULT 0 NOT NULL,
-    total_unique_authed_users_impressions integer DEFAULT 0 NOT NULL
-);
-
-
---
 -- Name: authed_users; Type: TABLE; Schema: ads; Owner: -
 --
 
@@ -582,14 +569,6 @@ ALTER TABLE ONLY migrations ALTER COLUMN id SET DEFAULT nextval('migrations_id_s
 SET search_path = administration, pg_catalog;
 
 SET search_path = ads, pg_catalog;
-
---
--- Name: analytics analytics_pkey; Type: CONSTRAINT; Schema: ads; Owner: -
---
-
-ALTER TABLE ONLY analytics
-    ADD CONSTRAINT analytics_pkey PRIMARY KEY (ad_id);
-
 
 --
 -- Name: rounds rounds_pkey; Type: CONSTRAINT; Schema: ads; Owner: -
@@ -1586,14 +1565,6 @@ ALTER TABLE ONLY reports_messages_notes
 
 
 SET search_path = ads, pg_catalog;
-
---
--- Name: analytics analytics_ad_id_fkey; Type: FK CONSTRAINT; Schema: ads; Owner: -
---
-
-ALTER TABLE ONLY analytics
-    ADD CONSTRAINT analytics_ad_id_fkey FOREIGN KEY (ad_id) REFERENCES public.ads(id) ON DELETE CASCADE;
-
 
 --
 -- Name: authed_users authed_users_ad_id_fkey; Type: FK CONSTRAINT; Schema: ads; Owner: -
