@@ -4,7 +4,7 @@ defmodule Epoch.Repo.Migrations.CreateAdsAnalytics do
 
   def change do
     create table(:analytics, [prefix: @schema_prefix, primary_key: false]) do
-      add :ad_id, :binary_id, primary_id: true
+      add :ad_id, :binary_id, primary_key: true
       add :total_impressions, :integer, default: 0, null: false
       add :total_authed_impressions, :integer, default: 0, null: false
       add :total_unique_ip_impressions, :integer, default: 0, null: false
