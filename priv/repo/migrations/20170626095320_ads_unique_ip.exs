@@ -9,7 +9,7 @@ defmodule Epoch.Repo.Migrations.CreateAdsUniqueIp do
     end
 
     create index(:unique_ip, [:ad_id], prefix: @schema_prefix)
-    create unique_index(:unique_ip, [:ad_id, :unique_id], prefix: @schema_prefix)
+    create unique_index(:unique_ip, [:ad_id, :unique_ip], prefix: @schema_prefix)
 
     execute """
     ALTER TABLE ONLY #{@schema_prefix}.unique_ip
