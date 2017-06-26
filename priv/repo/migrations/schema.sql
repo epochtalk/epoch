@@ -15,89 +15,6 @@ SET client_min_messages = warning;
 SET row_security = off;
 SET search_path = public, pg_catalog;
 
---
--- Name: moderation_action_type; Type: TYPE; Schema: public; Owner: -
---
-
-CREATE TYPE moderation_action_type AS ENUM (
-    'adminBoards.updateCategories',
-    'adminModerators.add',
-    'adminModerators.remove',
-    'adminReports.createMessageReportNote',
-    'adminReports.updateMessageReportNote',
-    'adminReports.createPostReportNote',
-    'adminReports.updatePostReportNote',
-    'adminReports.createUserReportNote',
-    'adminReports.updateUserReportNote',
-    'adminReports.updateMessageReport',
-    'adminReports.updatePostReport',
-    'adminReports.updateUserReport',
-    'adminRoles.add',
-    'adminRoles.remove',
-    'adminRoles.update',
-    'adminRoles.reprioritize',
-    'adminSettings.update',
-    'adminSettings.addToBlacklist',
-    'adminSettings.updateBlacklist',
-    'adminSettings.deleteFromBlacklist',
-    'adminSettings.setTheme',
-    'adminSettings.resetTheme',
-    'adminUsers.update',
-    'adminUsers.addRoles',
-    'adminUsers.removeRoles',
-    'userNotes.create',
-    'userNotes.update',
-    'userNotes.delete',
-    'bans.ban',
-    'bans.unban',
-    'bans.banFromBoards',
-    'bans.unbanFromBoards',
-    'bans.addAddresses',
-    'bans.editAddress',
-    'bans.deleteAddress',
-    'boards.create',
-    'boards.update',
-    'boards.delete',
-    'threads.title',
-    'threads.sticky',
-    'threads.createPoll',
-    'threads.lock',
-    'threads.move',
-    'threads.lockPoll',
-    'threads.purge',
-    'threads.editPoll',
-    'posts.update',
-    'posts.undelete',
-    'posts.delete',
-    'posts.purge',
-    'users.update',
-    'users.delete',
-    'users.reactivate',
-    'users.deactivate',
-    'conversations.delete',
-    'messages.delete',
-    'reports.createMessageReportNote',
-    'reports.updateMessageReportNote',
-    'reports.createPostReportNote',
-    'reports.updatePostReportNote',
-    'reports.createUserReportNote',
-    'reports.updateUserReportNote',
-    'reports.updateMessageReport',
-    'reports.updatePostReport',
-    'reports.updateUserReport'
-);
-
-
---
--- Name: polls_display_enum; Type: TYPE; Schema: public; Owner: -
---
-
-CREATE TYPE polls_display_enum AS ENUM (
-    'always',
-    'voted',
-    'expired'
-);
-
 
 --
 -- Name: create_post(); Type: FUNCTION; Schema: public; Owner: -
@@ -719,16 +636,6 @@ CREATE TABLE reports (
 
 
 SET search_path = public, pg_catalog;
-
---
--- Name: image_expirations; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE image_expirations (
-    expiration timestamp with time zone,
-    image_url text NOT NULL
-);
-
 
 --
 -- Name: images_posts; Type: TABLE; Schema: public; Owner: -
@@ -1744,20 +1651,6 @@ CREATE INDEX index_factoids_on_created_at ON factoids USING btree (created_at);
 --
 
 CREATE INDEX index_factoids_on_enabled ON factoids USING btree (enabled);
-
-
---
--- Name: index_image_expirations_on_expiration; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_image_expirations_on_expiration ON image_expirations USING btree (expiration);
-
-
---
--- Name: index_image_expirations_on_image_url; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_image_expirations_on_image_url ON image_expirations USING btree (image_url);
 
 
 --
