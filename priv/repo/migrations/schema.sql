@@ -1131,14 +1131,6 @@ ALTER TABLE ONLY board_moderators
 
 
 --
--- Name: configurations configurations_portal.board_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY configurations
-    ADD CONSTRAINT "configurations_portal.board_id_fkey" FOREIGN KEY ("portal.board_id") REFERENCES boards(id);
-
-
---
 -- Name: images_posts images_posts_post_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
