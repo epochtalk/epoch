@@ -13,7 +13,7 @@ defmodule Epoch.Repo.Migrations.CreateUsers do
       add :created_at, :timestamp
       add :imported_at, :timestamp
       add :updated_at, :timestamp
-      add :deleted, :boolean
+      add :deleted, :boolean, default: false
       add :malicious_score, :integer
     end
     create unique_index(:users, [:username])
