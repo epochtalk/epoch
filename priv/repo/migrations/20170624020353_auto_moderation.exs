@@ -7,8 +7,9 @@ defmodule Epoch.Repo.Migrations.CreateAutoModeration do
       add :name, :string, null: false
       add :description, :string, size: 1000
       add :message, :string, size: 1000
+      add :conditions, :json, null: false
       add :actions, :json, null: false
-      add :options, :json, null: false
+      add :options, :json
       add :created_at, :timestamp
       add :updated_at, :timestamp
     end
