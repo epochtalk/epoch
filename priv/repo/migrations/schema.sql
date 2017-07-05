@@ -20,21 +20,6 @@ SET search_path = public, pg_catalog;
 
 
 --
--- Name: notifications; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE notifications (
-    id uuid DEFAULT uuid_generate_v4() NOT NULL,
-    sender_id uuid NOT NULL,
-    receiver_id uuid NOT NULL,
-    data json,
-    created_at timestamp with time zone,
-    viewed boolean DEFAULT false,
-    type character varying(255) NOT NULL
-);
-
-
---
 -- Name: poll_answers; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -375,14 +360,6 @@ ALTER TABLE ONLY trust_boards
 
 
 --
--- Name: notifications notifications_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY notifications
-    ADD CONSTRAINT notifications_pkey PRIMARY KEY (id);
-
-
---
 -- Name: poll_answers poll_answers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -566,12 +543,6 @@ CREATE INDEX index_factoids_on_enabled ON factoids USING btree (enabled);
 --
 
 -- CREATE INDEX index_ip_route_method_on_backoff ON backoff USING btree (ip, route, method);
-
---
--- Name: index_notifications_on_type; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_notifications_on_type ON notifications USING btree (type);
 
 
 --
@@ -995,22 +966,6 @@ ALTER TABLE ONLY board_moderators
 
 ALTER TABLE ONLY board_moderators
     ADD CONSTRAINT board_moderators_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: notifications notifications_receiver_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY notifications
-    ADD CONSTRAINT notifications_receiver_id_fkey FOREIGN KEY (receiver_id) REFERENCES users(id) ON DELETE CASCADE;
-
-
---
--- Name: notifications notifications_sender_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY notifications
-    ADD CONSTRAINT notifications_sender_id_fkey FOREIGN KEY (sender_id) REFERENCES users(id) ON DELETE CASCADE;
 
 
 --
