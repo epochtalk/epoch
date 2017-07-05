@@ -18,43 +18,6 @@ SET default_with_oids = false;
 
 SET search_path = public, pg_catalog;
 
-
---
--- Name: poll_answers; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE poll_answers (
-    id uuid DEFAULT uuid_generate_v4() NOT NULL,
-    poll_id uuid NOT NULL,
-    answer text NOT NULL
-);
-
-
---
--- Name: poll_responses; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE poll_responses (
-    answer_id uuid NOT NULL,
-    user_id uuid NOT NULL
-);
-
-
---
--- Name: polls; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE polls (
-    id uuid DEFAULT uuid_generate_v4() NOT NULL,
-    thread_id uuid NOT NULL,
-    question text NOT NULL,
-    locked boolean DEFAULT false,
-    max_answers integer DEFAULT 1 NOT NULL,
-    expiration timestamp with time zone,
-    change_vote boolean DEFAULT false NOT NULL,
-    display_mode polls_display_enum DEFAULT 'always'::polls_display_enum NOT NULL
-);
-
 --
 -- Name: posts_history; Type: TABLE; Schema: public; Owner: -
 --
@@ -360,22 +323,6 @@ ALTER TABLE ONLY trust_boards
 
 
 --
--- Name: poll_answers poll_answers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY poll_answers
-    ADD CONSTRAINT poll_answers_pkey PRIMARY KEY (id);
-
-
---
--- Name: polls polls_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY polls
-    ADD CONSTRAINT polls_pkey PRIMARY KEY (id);
-
-
---
 -- Name: posts_history posts_history_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -543,34 +490,6 @@ CREATE INDEX index_factoids_on_enabled ON factoids USING btree (enabled);
 --
 
 -- CREATE INDEX index_ip_route_method_on_backoff ON backoff USING btree (ip, route, method);
-
-
---
--- Name: index_poll_answers_on_poll_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_poll_answers_on_poll_id ON poll_answers USING btree (poll_id);
-
-
---
--- Name: index_poll_responses_on_answer_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_poll_responses_on_answer_id ON poll_responses USING btree (answer_id);
-
-
---
--- Name: index_poll_responses_on_user_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_poll_responses_on_user_id ON poll_responses USING btree (user_id);
-
-
---
--- Name: index_polls_on_thread_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_polls_on_thread_id ON polls USING btree (thread_id);
 
 
 --
@@ -966,39 +885,6 @@ ALTER TABLE ONLY board_moderators
 
 ALTER TABLE ONLY board_moderators
     ADD CONSTRAINT board_moderators_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: poll_answers poll_answers_poll_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY poll_answers
-    ADD CONSTRAINT poll_answers_poll_id_fkey FOREIGN KEY (poll_id) REFERENCES polls(id) ON DELETE CASCADE;
-
-
---
--- Name: poll_responses poll_responses_answer_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY poll_responses
-    ADD CONSTRAINT poll_responses_answer_id_fkey FOREIGN KEY (answer_id) REFERENCES poll_answers(id) ON DELETE CASCADE;
-
-
---
--- Name: poll_responses poll_responses_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY poll_responses
-    ADD CONSTRAINT poll_responses_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
-
-
---
--- Name: polls polls_thread_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY polls
-    ADD CONSTRAINT polls_thread_id_fkey FOREIGN KEY (thread_id) REFERENCES threads(id) ON DELETE CASCADE;
-
 
 --
 -- Name: private_messages private_messages_conversation_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
