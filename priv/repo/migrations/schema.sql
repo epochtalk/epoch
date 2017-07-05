@@ -19,18 +19,6 @@ SET default_with_oids = false;
 SET search_path = public, pg_catalog;
 
 --
--- Name: invitations; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE invitations (
-    email citext NOT NULL,
-    hash character varying(255) NOT NULL,
-    created_at timestamp with time zone NOT NULL,
-    CONSTRAINT invitations_email_check CHECK ((length((email)::text) <= 255))
-);
-
-
---
 -- Name: moderation_log; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -588,27 +576,6 @@ CREATE INDEX index_factoids_on_created_at ON factoids USING btree (created_at);
 --
 
 CREATE INDEX index_factoids_on_enabled ON factoids USING btree (enabled);
-
-
---
--- Name: index_invitations_on_created_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_invitations_on_created_at ON invitations USING btree (created_at);
-
-
---
--- Name: index_invitations_on_email; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_invitations_on_email ON invitations USING btree (email);
-
-
---
--- Name: index_invitations_on_hash; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_invitations_on_hash ON invitations USING btree (hash);
 
 
 --
