@@ -19,17 +19,6 @@ SET default_with_oids = false;
 SET search_path = public, pg_catalog;
 
 --
--- Name: images_posts; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE images_posts (
-    id uuid DEFAULT uuid_generate_v4() NOT NULL,
-    post_id uuid,
-    image_url text NOT NULL
-);
-
-
---
 -- Name: invitations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -415,14 +404,6 @@ ALTER TABLE ONLY trust_boards
 
 
 --
--- Name: images_posts images_posts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY images_posts
-    ADD CONSTRAINT images_posts_pkey PRIMARY KEY (id);
-
-
---
 -- Name: notifications notifications_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -607,20 +588,6 @@ CREATE INDEX index_factoids_on_created_at ON factoids USING btree (created_at);
 --
 
 CREATE INDEX index_factoids_on_enabled ON factoids USING btree (enabled);
-
-
---
--- Name: index_images_posts_on_image_url; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_images_posts_on_image_url ON images_posts USING btree (image_url);
-
-
---
--- Name: index_images_posts_on_post_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_images_posts_on_post_id ON images_posts USING btree (post_id);
 
 
 --
@@ -1128,14 +1095,6 @@ ALTER TABLE ONLY board_moderators
 
 ALTER TABLE ONLY board_moderators
     ADD CONSTRAINT board_moderators_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: images_posts images_posts_post_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY images_posts
-    ADD CONSTRAINT images_posts_post_id_fkey FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE SET NULL;
 
 
 --
