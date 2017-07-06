@@ -21,109 +21,6 @@ SET search_path = public, pg_catalog;
 
 SET search_path = users, pg_catalog;
 
---
--- Name: bans; Type: TABLE; Schema: users; Owner: -
---
-
-CREATE TABLE bans (
-    id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
-    user_id uuid NOT NULL,
-    expiration timestamp with time zone NOT NULL,
-    created_at timestamp with time zone,
-    updated_at timestamp with time zone
-);
-
-
---
--- Name: board_bans; Type: TABLE; Schema: users; Owner: -
---
-
-CREATE TABLE board_bans (
-    user_id uuid NOT NULL,
-    board_id uuid NOT NULL
-);
-
-
---
--- Name: ignored; Type: TABLE; Schema: users; Owner: -
---
-
-CREATE TABLE ignored (
-    user_id uuid NOT NULL,
-    ignored_user_id uuid NOT NULL,
-    created_at timestamp with time zone
-);
-
-
---
--- Name: ips; Type: TABLE; Schema: users; Owner: -
---
-
-CREATE TABLE ips (
-    user_id uuid NOT NULL,
-    user_ip character varying(255) NOT NULL,
-    created_at timestamp with time zone
-);
-
-
---
--- Name: preferences; Type: TABLE; Schema: users; Owner: -
---
-
-CREATE TABLE preferences (
-    user_id uuid,
-    posts_per_page integer DEFAULT 25,
-    threads_per_page integer DEFAULT 25,
-    collapsed_categories json DEFAULT '{"cats":[]}'::json
-);
-
-
---
--- Name: profiles; Type: TABLE; Schema: users; Owner: -
---
-
-CREATE TABLE profiles (
-    id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
-    user_id uuid,
-    avatar character varying(255) DEFAULT '/static/img/avatar.png'::character varying,
-    "position" character varying(255),
-    signature text,
-    post_count integer DEFAULT 0,
-    fields json,
-    raw_signature text,
-    last_active timestamp with time zone
-);
-
-
---
--- Name: thread_views; Type: TABLE; Schema: users; Owner: -
---
-
-CREATE TABLE thread_views (
-    user_id uuid,
-    thread_id uuid,
-    "time" timestamp with time zone
-);
-
-
---
--- Name: watch_boards; Type: TABLE; Schema: users; Owner: -
---
-
-CREATE TABLE watch_boards (
-    user_id uuid NOT NULL,
-    board_id uuid NOT NULL
-);
-
-
---
--- Name: watch_threads; Type: TABLE; Schema: users; Owner: -
---
-
-CREATE TABLE watch_threads (
-    user_id uuid NOT NULL,
-    thread_id uuid NOT NULL
-);
 
 
 SET search_path = metadata, pg_catalog;
@@ -144,21 +41,6 @@ ALTER TABLE ONLY banned_addresses
 
 
 SET search_path = users, pg_catalog;
-
---
--- Name: bans bans_pkey; Type: CONSTRAINT; Schema: users; Owner: -
---
-
-ALTER TABLE ONLY bans
-    ADD CONSTRAINT bans_pkey PRIMARY KEY (id);
-
-
---
--- Name: profiles profiles_pkey; Type: CONSTRAINT; Schema: users; Owner: -
---
-
-ALTER TABLE ONLY profiles
-    ADD CONSTRAINT profiles_pkey PRIMARY KEY (id);
 
 
 SET search_path = administration, pg_catalog;
