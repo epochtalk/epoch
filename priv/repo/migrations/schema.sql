@@ -16,41 +16,7 @@ SET row_security = off;
 SET default_tablespace = '';
 SET default_with_oids = false;
 
-SET search_path = public, pg_catalog;
-
-
-SET search_path = users, pg_catalog;
-
-
-
-SET search_path = metadata, pg_catalog;
-
-
-SET search_path = public, pg_catalog;
-
-
-ALTER TABLE ONLY banned_addresses
-    ADD CONSTRAINT banned_addresses_unique_ip_contraint UNIQUE (ip1, ip2, ip3, ip4);
-
-
-SET search_path = users, pg_catalog;
-
-
 SET search_path = administration, pg_catalog;
-
---
--- Name: index_reports_messages_notes_on_created_at; Type: INDEX; Schema: administration; Owner: -
---
-
-CREATE INDEX index_reports_messages_notes_on_created_at ON reports_messages_notes USING btree (created_at);
-
-
---
--- Name: index_reports_messages_notes_on_report_id; Type: INDEX; Schema: administration; Owner: -
---
-
-CREATE INDEX index_reports_messages_notes_on_report_id ON reports_messages_notes USING btree (report_id);
-
 
 SET search_path = metadata, pg_catalog;
 

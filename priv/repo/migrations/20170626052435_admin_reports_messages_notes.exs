@@ -12,5 +12,8 @@ defmodule Epoch.Repo.Migrations.CreateAdminReportsMessagesNotes do
       add :created_at, :timestamp
       add :updated_at, :timestamp
     end
+
+    create index(:reports_messages_notes, [:created_at], prefix: @schema_prefix)
+    create index(:reports_messages_notes, [:report_id], prefix: @schema_prefix)
   end
 end

@@ -26,5 +26,7 @@ defmodule Epoch.Repo.Migrations.BannedAddresses do
     create unique_index(:banned_addresses, [:hostname])
     create index(:banned_addresses, :imported_at)
     create index(:banned_addresses, :weight)
+
+    execute "ALTER TABLE ONLY banned_addresses ADD CONSTRAINT banned_addresses_unique_ip_contraint UNIQUE (ip1, ip2, ip3, ip4)"
   end
 end
