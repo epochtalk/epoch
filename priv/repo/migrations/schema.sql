@@ -18,31 +18,6 @@ SET default_with_oids = false;
 
 SET search_path = public, pg_catalog;
 
---
--- Name: user_activity; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE user_activity (
-    user_id uuid NOT NULL,
-    current_period_start timestamp with time zone,
-    current_period_offset timestamp with time zone,
-    remaining_period_activity integer DEFAULT 14 NOT NULL,
-    total_activity integer DEFAULT 0 NOT NULL
-);
-
-
---
--- Name: user_notes; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE user_notes (
-    id uuid DEFAULT uuid_generate_v4() NOT NULL,
-    user_id uuid NOT NULL,
-    author_id uuid NOT NULL,
-    note text DEFAULT ''::text NOT NULL,
-    created_at timestamp with time zone,
-    updated_at timestamp with time zone
-);
 
 SET search_path = users, pg_catalog;
 
@@ -163,36 +138,9 @@ ALTER TABLE ONLY threads
 
 SET search_path = public, pg_catalog;
 
---
--- Name: ads ads_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
--- ALTER TABLE ONLY ads
---     ADD CONSTRAINT ads_pkey PRIMARY KEY (id);
-
-
---
--- Name: auto_moderation auto_moderation_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
--- ALTER TABLE ONLY auto_moderation
---     ADD CONSTRAINT auto_moderation_pkey PRIMARY KEY (id);
-
-
---
--- Name: banned_addresses banned_addresses_unique_ip_contraint; Type: CONSTRAINT; Schema: public; Owner: -
---
 
 ALTER TABLE ONLY banned_addresses
     ADD CONSTRAINT banned_addresses_unique_ip_contraint UNIQUE (ip1, ip2, ip3, ip4);
-
-
---
--- Name: user_notes user_notes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY user_notes
-    ADD CONSTRAINT user_notes_pkey PRIMARY KEY (id);
 
 
 SET search_path = users, pg_catalog;
@@ -314,32 +262,6 @@ CREATE INDEX index_threads_on_sticky ON threads USING btree (board_id) WHERE (st
 
 CREATE INDEX index_threads_on_updated_at ON threads USING btree (updated_at);
 
---
--- Name: index_user_activity_on_total_activity; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_user_activity_on_total_activity ON user_activity USING btree (total_activity);
-
-
---
--- Name: index_user_activity_on_user_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_user_activity_on_user_id ON user_activity USING btree (user_id);
-
-
---
--- Name: index_user_notes_on_created_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_user_notes_on_created_at ON user_notes USING btree (created_at);
-
-
---
--- Name: index_user_notes_on_user_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_user_notes_on_user_id ON user_notes USING btree (user_id);
 
 SET search_path = users, pg_catalog;
 
@@ -618,13 +540,6 @@ ALTER TABLE ONLY board_moderators
 ALTER TABLE ONLY board_moderators
     ADD CONSTRAINT board_moderators_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
---
--- Name: trust_feedback reporter_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY trust_feedback
-    ADD CONSTRAINT reporter_id_fk FOREIGN KEY (reporter_id) REFERENCES users(id) ON DELETE CASCADE;
-
 
 --
 -- Name: threads threads_board_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
@@ -632,54 +547,6 @@ ALTER TABLE ONLY trust_feedback
 
 ALTER TABLE ONLY threads
     ADD CONSTRAINT threads_board_id_fk FOREIGN KEY (board_id) REFERENCES boards(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: user_notes user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY user_notes
-    ADD CONSTRAINT user_id_fk FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
-
-
---
--- Name: user_activity user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY user_activity
-    ADD CONSTRAINT user_id_fk FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
-
-
---
--- Name: trust user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY trust
-    ADD CONSTRAINT user_id_fk FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
-
-
---
--- Name: trust_feedback user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY trust_feedback
-    ADD CONSTRAINT user_id_fk FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
-
-
---
--- Name: trust_max_depth user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY trust_max_depth
-    ADD CONSTRAINT user_id_fk FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
-
-
---
--- Name: trust user_id_trusted_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY trust
-    ADD CONSTRAINT user_id_trusted_fk FOREIGN KEY (user_id_trusted) REFERENCES users(id) ON DELETE CASCADE;
 
 
 SET search_path = users, pg_catalog;
