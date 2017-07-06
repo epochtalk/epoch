@@ -18,50 +18,50 @@ SET default_with_oids = false;
 
 SET search_path = public, pg_catalog;
 
+-- --
+-- -- Name: trust; Type: TABLE; Schema: public; Owner: -
+-- --
 --
--- Name: trust; Type: TABLE; Schema: public; Owner: -
+-- CREATE TABLE trust (
+--     user_id uuid NOT NULL,
+--     user_id_trusted uuid NOT NULL,
+--     type smallint
+-- );
 --
-
-CREATE TABLE trust (
-    user_id uuid NOT NULL,
-    user_id_trusted uuid NOT NULL,
-    type smallint
-);
-
-
 --
--- Name: trust_boards; Type: TABLE; Schema: public; Owner: -
+-- --
+-- -- Name: trust_boards; Type: TABLE; Schema: public; Owner: -
+-- --
 --
-
-CREATE TABLE trust_boards (
-    board_id uuid NOT NULL
-);
-
-
+-- CREATE TABLE trust_boards (
+--     board_id uuid NOT NULL
+-- );
 --
--- Name: trust_feedback; Type: TABLE; Schema: public; Owner: -
 --
-
-CREATE TABLE trust_feedback (
-    id uuid DEFAULT uuid_generate_v4() NOT NULL,
-    user_id uuid NOT NULL,
-    reporter_id uuid NOT NULL,
-    risked_btc double precision,
-    scammer boolean,
-    reference text,
-    comments text,
-    created_at timestamp with time zone
-);
-
-
+-- --
+-- -- Name: trust_feedback; Type: TABLE; Schema: public; Owner: -
+-- --
 --
--- Name: trust_max_depth; Type: TABLE; Schema: public; Owner: -
+-- CREATE TABLE trust_feedback (
+--     id uuid DEFAULT uuid_generate_v4() NOT NULL,
+--     user_id uuid NOT NULL,
+--     reporter_id uuid NOT NULL,
+--     risked_btc double precision,
+--     scammer boolean,
+--     reference text,
+--     comments text,
+--     created_at timestamp with time zone
+-- );
 --
-
-CREATE TABLE trust_max_depth (
-    user_id uuid NOT NULL,
-    max_depth smallint DEFAULT 2 NOT NULL
-);
+--
+-- --
+-- -- Name: trust_max_depth; Type: TABLE; Schema: public; Owner: -
+-- --
+--
+-- CREATE TABLE trust_max_depth (
+--     user_id uuid NOT NULL,
+--     max_depth smallint DEFAULT 2 NOT NULL
+-- );
 
 
 --
@@ -234,46 +234,6 @@ ALTER TABLE ONLY banned_addresses
 
 
 --
--- Name: blacklist blacklist_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
--- ALTER TABLE ONLY blacklist
---     ADD CONSTRAINT blacklist_pkey PRIMARY KEY (id);
-
-
---
--- Name: trust_boards board_id_unique; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY trust_boards
-    ADD CONSTRAINT board_id_unique UNIQUE (board_id);
-
-
---
--- Name: factoids factoids_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
--- ALTER TABLE ONLY factoids
---     ADD CONSTRAINT factoids_pkey PRIMARY KEY (id);
-
-
---
--- Name: trust_feedback trust_feedback_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY trust_feedback
-    ADD CONSTRAINT trust_feedback_pkey PRIMARY KEY (id);
-
-
---
--- Name: trust_max_depth user_id_unique; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY trust_max_depth
-    ADD CONSTRAINT user_id_unique UNIQUE (user_id);
-
-
---
 -- Name: user_notes user_notes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -399,56 +359,6 @@ CREATE INDEX index_threads_on_sticky ON threads USING btree (board_id) WHERE (st
 --
 
 CREATE INDEX index_threads_on_updated_at ON threads USING btree (updated_at);
-
-
---
--- Name: index_trust_feedback_on_created_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_trust_feedback_on_created_at ON trust_feedback USING btree (created_at);
-
-
---
--- Name: index_trust_feedback_on_reporter_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_trust_feedback_on_reporter_id ON trust_feedback USING btree (reporter_id);
-
-
---
--- Name: index_trust_feedback_on_scammer; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_trust_feedback_on_scammer ON trust_feedback USING btree (scammer);
-
-
---
--- Name: index_trust_feedback_on_user_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_trust_feedback_on_user_id ON trust_feedback USING btree (user_id);
-
-
---
--- Name: index_trust_on_type; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_trust_on_type ON trust USING btree (type);
-
-
---
--- Name: index_trust_on_user_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_trust_on_user_id ON trust USING btree (user_id);
-
-
---
--- Name: index_trust_on_user_id_trusted; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_trust_on_user_id_trusted ON trust USING btree (user_id_trusted);
-
 
 --
 -- Name: index_user_activity_on_total_activity; Type: INDEX; Schema: public; Owner: -
