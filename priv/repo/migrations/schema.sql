@@ -18,44 +18,6 @@ SET default_with_oids = false;
 
 SET search_path = public, pg_catalog;
 
---
--- Name: posts_history; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE posts_history (
-    id uuid DEFAULT uuid_generate_v4() NOT NULL,
-    post_id uuid,
-    raw_body text DEFAULT ''::text,
-    body text DEFAULT ''::text NOT NULL,
-    created_at timestamp with time zone
-);
-
-
---
--- Name: private_conversations; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE private_conversations (
-    id uuid DEFAULT uuid_generate_v4() NOT NULL,
-    created_at timestamp with time zone
-);
-
-
---
--- Name: private_messages; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE private_messages (
-    id uuid DEFAULT uuid_generate_v4() NOT NULL,
-    conversation_id uuid NOT NULL,
-    sender_id uuid,
-    receiver_id uuid,
-    copied_ids uuid[],
-    body text DEFAULT ''::text NOT NULL,
-    created_at timestamp with time zone,
-    viewed boolean DEFAULT false
-);
-
 
 --
 -- Name: roles; Type: TABLE; Schema: public; Owner: -
@@ -323,29 +285,6 @@ ALTER TABLE ONLY trust_boards
 
 
 --
--- Name: posts_history posts_history_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY posts_history
-    ADD CONSTRAINT posts_history_pkey PRIMARY KEY (id);
-
---
--- Name: private_conversations private_conversations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY private_conversations
-    ADD CONSTRAINT private_conversations_pkey PRIMARY KEY (id);
-
-
---
--- Name: private_messages private_messages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY private_messages
-    ADD CONSTRAINT private_messages_pkey PRIMARY KEY (id);
-
-
---
 -- Name: roles roles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -456,21 +395,6 @@ CREATE INDEX index_board_moderators_on_user_id ON board_moderators USING btree (
 
 CREATE UNIQUE INDEX index_board_moderators_on_user_id_and_board_id ON board_moderators USING btree (user_id, board_id);
 
-
---
--- Name: index_conversation_id_on_private_messages; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_conversation_id_on_private_messages ON private_messages USING btree (conversation_id);
-
-
---
--- Name: index_created_at_on_private_messages; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_created_at_on_private_messages ON private_messages USING btree (created_at DESC);
-
-
 --
 -- Name: index_factoids_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
@@ -493,24 +417,10 @@ CREATE INDEX index_factoids_on_enabled ON factoids USING btree (enabled);
 
 
 --
--- Name: index_receiver_id_on_private_messages; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_receiver_id_on_private_messages ON private_messages USING btree (receiver_id);
-
-
---
 -- Name: index_roles_on_lookup; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_roles_on_lookup ON roles USING btree (lookup);
-
-
---
--- Name: index_sender_id_on_private_messages; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_sender_id_on_private_messages ON private_messages USING btree (sender_id);
 
 
 --
@@ -885,30 +795,6 @@ ALTER TABLE ONLY board_moderators
 
 ALTER TABLE ONLY board_moderators
     ADD CONSTRAINT board_moderators_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
---
--- Name: private_messages private_messages_conversation_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY private_messages
-    ADD CONSTRAINT private_messages_conversation_id_fkey FOREIGN KEY (conversation_id) REFERENCES private_conversations(id) ON DELETE CASCADE;
-
-
---
--- Name: private_messages private_messages_receiver_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY private_messages
-    ADD CONSTRAINT private_messages_receiver_id_fkey FOREIGN KEY (receiver_id) REFERENCES users(id) ON DELETE CASCADE;
-
-
---
--- Name: private_messages private_messages_sender_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY private_messages
-    ADD CONSTRAINT private_messages_sender_id_fkey FOREIGN KEY (sender_id) REFERENCES users(id) ON DELETE CASCADE;
-
 
 --
 -- Name: trust_feedback reporter_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
