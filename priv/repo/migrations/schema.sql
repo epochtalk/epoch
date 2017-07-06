@@ -18,33 +18,6 @@ SET default_with_oids = false;
 
 SET search_path = public, pg_catalog;
 
-
---
--- Name: roles; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE roles (
-    id uuid DEFAULT uuid_generate_v4() NOT NULL,
-    name character varying(255) DEFAULT ''::character varying NOT NULL,
-    description text DEFAULT ''::text NOT NULL,
-    permissions json,
-    created_at timestamp with time zone,
-    updated_at timestamp with time zone,
-    lookup character varying(255) NOT NULL,
-    priority integer NOT NULL,
-    highlight_color character varying(255) DEFAULT NULL::character varying
-);
-
-
---
--- Name: roles_users; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE roles_users (
-    role_id uuid,
-    user_id uuid
-);
-
 --
 -- Name: trust; Type: TABLE; Schema: public; Owner: -
 --
@@ -285,13 +258,6 @@ ALTER TABLE ONLY trust_boards
 
 
 --
--- Name: roles roles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY roles
-    ADD CONSTRAINT roles_pkey PRIMARY KEY (id);
-
---
 -- Name: trust_feedback trust_feedback_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -414,14 +380,6 @@ CREATE INDEX index_factoids_on_enabled ON factoids USING btree (enabled);
 --
 
 -- CREATE INDEX index_ip_route_method_on_backoff ON backoff USING btree (ip, route, method);
-
-
---
--- Name: index_roles_on_lookup; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_roles_on_lookup ON roles USING btree (lookup);
-
 
 --
 -- Name: index_threads_lookup; Type: INDEX; Schema: public; Owner: -
