@@ -20,7 +20,7 @@ defmodule Epoch.Repo.Migrations.CreateMetadata do
     end
 
     execute("ALTER TABLE ONLY metadata.boards ADD CONSTRAINT boards_board_id_fkey FOREIGN KEY (board_id) REFERENCES public.boards(id) ON UPDATE CASCADE ON DELETE CASCADE")
-    create index(:boards, [:board_id], prefix: @schema_prefix)
+    create unique_index(:boards, [:board_id], prefix: @schema_prefix)
 
     create table(:threads, [prefix: @schema_prefix, primary_key: false]) do
       add :id, :binary_id, primary_key: true, default: fragment("uuid_generate_v4()") 

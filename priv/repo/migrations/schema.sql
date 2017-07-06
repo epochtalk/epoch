@@ -20,20 +20,6 @@ SET search_path = administration, pg_catalog;
 
 SET search_path = metadata, pg_catalog;
 
---
--- Name: index_boards_on_board_id; Type: INDEX; Schema: metadata; Owner: -
---
-
-CREATE UNIQUE INDEX index_boards_on_board_id ON boards USING btree (board_id);
-
-
---
--- Name: index_threads_on_thread_id; Type: INDEX; Schema: metadata; Owner: -
---
-
-CREATE UNIQUE INDEX index_threads_on_thread_id ON threads USING btree (thread_id);
-
-
 SET search_path = public, pg_catalog;
 
 
