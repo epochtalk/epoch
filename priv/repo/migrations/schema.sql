@@ -25,13 +25,6 @@ SET search_path = users, pg_catalog;
 
 SET search_path = metadata, pg_catalog;
 
---
--- Name: threads threads_thread_id_key; Type: CONSTRAINT; Schema: metadata; Owner: -
---
-
-ALTER TABLE ONLY threads
-    ADD CONSTRAINT threads_thread_id_key UNIQUE (thread_id);
-
 
 SET search_path = public, pg_catalog;
 
