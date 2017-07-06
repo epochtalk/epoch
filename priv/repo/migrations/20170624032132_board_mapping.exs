@@ -8,5 +8,7 @@ defmodule Epoch.Repo.Migrations.BoardMapping do
       add :category_id, :binary_id
       add :view_order, :integer, null: false
     end
+
+    create index(:board_mapping, [:board_id])
   end
 end

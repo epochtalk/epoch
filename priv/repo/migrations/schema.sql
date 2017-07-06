@@ -24,13 +24,6 @@ SET search_path = public, pg_catalog;
 
 
 --
--- Name: index_board_mapping_on_board_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_board_mapping_on_board_id ON board_mapping USING btree (board_id);
-
-
---
 -- Name: index_board_moderators_on_board_id; Type: INDEX; Schema: public; Owner: -
 --
 
