@@ -97,7 +97,7 @@ defmodule Epoch.Repo.Migrations.UsersSchema do
     create unique_index(:watch_boards, [:user_id, :board_id], prefix: @schema_prefix)
 
     execute("ALTER TABLE ONLY users.watch_boards ADD CONSTRAINT watch_boards_board_id_fkey FOREIGN KEY (board_id) REFERENCES public.boards(id) ON DELETE CASCADE")
-    exeucte("ALTER TABLE ONLY users.watch_boards ADD CONSTRAINT watch_boards_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE)")
+    execute("ALTER TABLE ONLY users.watch_boards ADD CONSTRAINT watch_boards_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE)")
 
     create table(:watch_threads, [prefix: @schema_prefix, primary_key: false]) do
       add :user_id, :binary_id

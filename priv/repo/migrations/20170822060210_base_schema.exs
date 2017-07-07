@@ -7,10 +7,6 @@ defmodule Epoch.Repo.Migrations.BaseSchema do
     functions_path = Path.join [:code.priv_dir(:epoch), "repo", "migrations", "functions.sql"]
     System.cmd("psql",["-d", database, "-f", functions_path])
 
-    IO.puts "Loading Schema..."
-    schema_path = Path.join [:code.priv_dir(:epoch), "repo", "migrations", "schema.sql"]
-    System.cmd("psql",["-d", database, "-f", schema_path], into: IO.stream(:stdio, :line))
-
     IO.puts "Loading Triggers..."
     triggers_path = Path.join [:code.priv_dir(:epoch), "repo", "migrations", "triggers.sql"]
     System.cmd("psql",["-d", database, "-f", triggers_path])
