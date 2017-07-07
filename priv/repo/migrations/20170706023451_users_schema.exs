@@ -62,6 +62,9 @@ defmodule Epoch.Repo.Migrations.UsersSchema do
       add :last_active, :timestamp
     end
 
+    create unique_index(:profiles, [:user_id], prefix: @schema_prefix)
+    create index(:profiles, ["last_active DESC"], prefix: @schema_prefix)
+
     create table(:thread_views, [prefix: @schema_prefix, primary_key: false]) do
       add :user_id, :binary_id
       add :thread_id, :binary_id
