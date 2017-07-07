@@ -22,22 +22,6 @@ SET search_path = metadata, pg_catalog;
 
 SET search_path = public, pg_catalog;
 
-
-
---
--- Name: index_factoids_on_created_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_factoids_on_created_at ON factoids USING btree (created_at);
-
-
---
--- Name: index_factoids_on_enabled; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_factoids_on_enabled ON factoids USING btree (enabled);
-
-
 --
 -- Name: index_ip_route_method_on_backoff; Type: INDEX; Schema: public; Owner: -
 --
