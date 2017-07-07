@@ -16,15 +16,6 @@ SET row_security = off;
 SET default_tablespace = '';
 SET default_with_oids = false;
 
-SET search_path = metadata, pg_catalog;
-
---
--- Name: boards boards_last_thread_id_fk; Type: FK CONSTRAINT; Schema: metadata; Owner: -
---
-
-ALTER TABLE ONLY boards
-    ADD CONSTRAINT boards_last_thread_id_fk FOREIGN KEY (last_thread_id) REFERENCES public.threads(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
 SET search_path = public, pg_catalog;
 
 --

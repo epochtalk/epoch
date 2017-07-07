@@ -30,5 +30,7 @@ defmodule Epoch.Repo.Migrations.CreateMetadata do
 
     execute("ALTER TABLE ONLY metadata.threads ADD CONSTRAINT threads_thread_id_fkey FOREIGN KEY (thread_id) REFERENCES public.threads(id) ON UPDATE CASCADE ON DELETE CASCADE")
     create unique_index(:threads, [:thread_id], prefix: @schema_prefix)
+
+    execute("ALTER TABLE ONLY metadata.boards ADD CONSTRAINT boards_last_thread_id_fkey FOREIGN KEY (last_thread_id) REFERENCES public.threads(id) ON UPDATE CASCADE ON DELETE SET NULL")
   end
 end
