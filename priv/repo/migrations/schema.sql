@@ -16,30 +16,6 @@ SET row_security = off;
 SET default_tablespace = '';
 SET default_with_oids = false;
 
-SET search_path = users, pg_catalog;
-
-
---
--- Name: index_watch_threads_on_thread_id; Type: INDEX; Schema: users; Owner: -
---
-
-CREATE INDEX index_watch_threads_on_thread_id ON watch_threads USING btree (thread_id);
-
-
---
--- Name: index_watch_threads_on_user_id; Type: INDEX; Schema: users; Owner: -
---
-
-CREATE INDEX index_watch_threads_on_user_id ON watch_threads USING btree (user_id);
-
-
---
--- Name: index_watch_threads_on_user_id_and_thread_id; Type: INDEX; Schema: users; Owner: -
---
-
-CREATE UNIQUE INDEX index_watch_threads_on_user_id_and_thread_id ON watch_threads USING btree (user_id, thread_id);
-
-
 SET search_path = administration, pg_catalog;
 
 --

@@ -90,5 +90,9 @@ defmodule Epoch.Repo.Migrations.UsersSchema do
       add :thread_id, :binary_id
     end
 
+    create index(:watch_threads, [:thread_id], prefix: @schema_prefix)
+    create index(:watch_threads, [:user_id], prefix: @schema_prefix)
+    create unique_index(:watch_threads, [:user_id, :thread_id], prefix: @schema_prefix)
+
   end
 end
