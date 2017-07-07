@@ -56,7 +56,7 @@ defmodule Epoch.Repo.Migrations.UsersSchema do
     create table(:profiles, [prefix: @schema_prefix, primary_key: false]) do
       add :id, :binary_id, [primary_key: true, default: fragment("uuid_generate_v4()")]
       add :user_id, :binary_id
-      add :avatar, :string
+      add :avatar, :string, default: ""
       add :position, :string
       add :signature, :text
       add :post_count, :integer, default: 0
