@@ -50,6 +50,8 @@ defmodule Epoch.Repo.Migrations.UsersSchema do
       add :collapsed_categories, :json, default: fragment("'{\"cats\": []}'::json")
     end
 
+    create index(:preferences, [:user_id], prefix: @schema_prefix)
+
     create table(:profiles, [prefix: @schema_prefix, primary_key: false]) do
       add :id, :binary_id, [primary_key: true, default: fragment("uuid_generate_v4()")]
       add :user_id, :binary_id

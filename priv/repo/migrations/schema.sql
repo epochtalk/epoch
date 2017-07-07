@@ -18,12 +18,6 @@ SET default_with_oids = false;
 
 SET search_path = users, pg_catalog;
 
---
--- Name: index_users_preferences_on_user_id; Type: INDEX; Schema: users; Owner: -
---
-
-CREATE INDEX index_users_preferences_on_user_id ON preferences USING btree (user_id);
-
 
 --
 -- Name: index_watch_boards_on_board_id; Type: INDEX; Schema: users; Owner: -
