@@ -81,6 +81,10 @@ defmodule Epoch.Repo.Migrations.UsersSchema do
       add :board_id, :binary_id
     end
 
+    create index(:watch_boards, [:board_id], prefix: @schema_prefix)
+    create index(:watch_boards, [:user_id], prefix: @schema_prefix)
+    create unique_index(:watch_boards, [:user_id, :board_id], prefix: @schema_prefix)
+
     create table(:watch_threads, [prefix: @schema_prefix, primary_key: false]) do
       add :user_id, :binary_id
       add :thread_id, :binary_id

@@ -20,27 +20,6 @@ SET search_path = users, pg_catalog;
 
 
 --
--- Name: index_watch_boards_on_board_id; Type: INDEX; Schema: users; Owner: -
---
-
-CREATE INDEX index_watch_boards_on_board_id ON watch_boards USING btree (board_id);
-
-
---
--- Name: index_watch_boards_on_user_id; Type: INDEX; Schema: users; Owner: -
---
-
-CREATE INDEX index_watch_boards_on_user_id ON watch_boards USING btree (user_id);
-
-
---
--- Name: index_watch_boards_on_user_id_and_board_id; Type: INDEX; Schema: users; Owner: -
---
-
-CREATE UNIQUE INDEX index_watch_boards_on_user_id_and_board_id ON watch_boards USING btree (user_id, board_id);
-
-
---
 -- Name: index_watch_threads_on_thread_id; Type: INDEX; Schema: users; Owner: -
 --
 
