@@ -71,6 +71,9 @@ defmodule Epoch.Repo.Migrations.UsersSchema do
       add :time, :timestamp
     end
 
+    create index(:thread_views, [:user_id], prefix: @schema_prefix)
+    create unique_index(:thread_views, [:user_id, :thread_id], prefix: @schema_prefix)
+
     create table(:watch_boards, [prefix: @schema_prefix, primary_key: false]) do
       add :user_id, :binary_id
       add :board_id, :binary_id

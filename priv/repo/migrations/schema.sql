@@ -19,20 +19,6 @@ SET default_with_oids = false;
 SET search_path = users, pg_catalog;
 
 --
--- Name: index_thread_views_on_user_id; Type: INDEX; Schema: users; Owner: -
---
-
-CREATE INDEX index_thread_views_on_user_id ON thread_views USING btree (user_id);
-
-
---
--- Name: index_thread_views_on_user_id_and_thread_id; Type: INDEX; Schema: users; Owner: -
---
-
-CREATE UNIQUE INDEX index_thread_views_on_user_id_and_thread_id ON thread_views USING btree (user_id, thread_id);
-
-
---
 -- Name: index_users_preferences_on_user_id; Type: INDEX; Schema: users; Owner: -
 --
 
