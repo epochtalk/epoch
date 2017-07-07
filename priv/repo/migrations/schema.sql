@@ -19,22 +19,6 @@ SET default_with_oids = false;
 SET search_path = public, pg_catalog;
 
 --
--- Name: board_moderators board_moderators_board_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY board_moderators
-    ADD CONSTRAINT board_moderators_board_id_fkey FOREIGN KEY (board_id) REFERENCES boards(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: board_moderators board_moderators_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY board_moderators
-    ADD CONSTRAINT board_moderators_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
 -- Name: threads threads_board_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 

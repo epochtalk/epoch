@@ -3,8 +3,8 @@ defmodule Epoch.Repo.Migrations.BoardModerators do
 
   def change do
     create table(:board_moderators, primary_key: false) do
-      add :user_id, :binary_id
-      add :board_id, :binary_id
+      add :user_id, references(:users, type: :uuid, on_update: :update_all, on_delete: :delete_all)
+      add :board_id, references(:boards, type: :uuid, on_update: :update_all, on_delete: :delete_all)
     end
 
     create index(:board_moderators, [:board_id])
