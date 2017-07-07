@@ -20,14 +20,6 @@ SET default_with_oids = false;
 SET search_path = users, pg_catalog;
 
 --
--- Name: bans bans_user_id_fk; Type: FK CONSTRAINT; Schema: users; Owner: -
---
-
-ALTER TABLE ONLY bans
-    ADD CONSTRAINT bans_user_id_fk FOREIGN KEY (user_id) REFERENCES public.users(id);
-
-
---
 -- Name: board_bans board_bans_board_id_fk; Type: FK CONSTRAINT; Schema: users; Owner: -
 --
 

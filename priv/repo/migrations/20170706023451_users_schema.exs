@@ -12,6 +12,7 @@ defmodule Epoch.Repo.Migrations.UsersSchema do
     end
 
     create unique_index(:bans, [:user_id], prefix: @schema_prefix)
+    execute("ALTER TABLE ONLY users.bans ADD CONSTRAINT bans_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id)")
 
     create table(:board_bans, [prefix: @schema_prefix, primary_key: false]) do
       add :user_id, :binary_id, null: false
