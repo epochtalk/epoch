@@ -19,14 +19,6 @@ SET default_with_oids = false;
 SET search_path = public, pg_catalog;
 
 --
--- Name: user_notes author_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY user_notes
-    ADD CONSTRAINT author_user_id_fk FOREIGN KEY (author_id) REFERENCES users(id) ON DELETE CASCADE;
-
-
---
 -- Name: trust_boards board_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
