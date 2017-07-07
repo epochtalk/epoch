@@ -19,27 +19,6 @@ SET default_with_oids = false;
 SET search_path = users, pg_catalog;
 
 --
--- Name: index_ignored_on_user_id; Type: INDEX; Schema: users; Owner: -
---
-
-CREATE INDEX index_ignored_on_user_id ON ignored USING btree (user_id);
-
-
---
--- Name: index_ignored_on_user_id_ignored_user_id; Type: INDEX; Schema: users; Owner: -
---
-
-CREATE UNIQUE INDEX index_ignored_on_user_id_ignored_user_id ON ignored USING btree (user_id, ignored_user_id);
-
-
---
--- Name: index_ignored_on_user_ip; Type: INDEX; Schema: users; Owner: -
---
-
-CREATE INDEX index_ignored_on_user_ip ON ignored USING btree (ignored_user_id);
-
-
---
 -- Name: index_ips_on_created_at; Type: INDEX; Schema: users; Owner: -
 --
 

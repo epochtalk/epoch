@@ -28,6 +28,10 @@ defmodule Epoch.Repo.Migrations.UsersSchema do
       add :created_at, :timestamp
     end
 
+    create index(:ignored, [:user_id], prefix: @schema_prefix)
+    create index(:ignored, [:ignored_user_id], prefix: @schema_prefix)
+    create unique_index(:ignored, [:user_id, :ignored_user_id], prefix: @schema_prefix)
+
     create table(:ips, [prefix: @schema_prefix, primary_key: false]) do
       add :user_id, :binary_id, null: false
       add :user_ip, :string, null: false
