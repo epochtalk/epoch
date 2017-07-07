@@ -16,55 +16,6 @@ SET row_security = off;
 SET default_tablespace = '';
 SET default_with_oids = false;
 
-SET search_path = administration, pg_catalog;
-
---
--- Name: reports_messages offender_message_id_fk; Type: FK CONSTRAINT; Schema: administration; Owner: -
---
-
-ALTER TABLE ONLY reports_messages
-    ADD CONSTRAINT offender_message_id_fk FOREIGN KEY (offender_message_id) REFERENCES public.private_messages(id) ON DELETE CASCADE;
-
-
---
--- Name: reports_messages_notes report_id_fk; Type: FK CONSTRAINT; Schema: administration; Owner: -
---
-
-ALTER TABLE ONLY reports_messages_notes
-    ADD CONSTRAINT report_id_fk FOREIGN KEY (report_id) REFERENCES reports_messages(id) ON DELETE CASCADE;
-
-
---
--- Name: reports_messages reporter_user_id_fk; Type: FK CONSTRAINT; Schema: administration; Owner: -
---
-
-ALTER TABLE ONLY reports_messages
-    ADD CONSTRAINT reporter_user_id_fk FOREIGN KEY (reporter_user_id) REFERENCES public.users(id) ON DELETE SET NULL;
-
-
---
--- Name: reports_messages reviewer_user_id_fk; Type: FK CONSTRAINT; Schema: administration; Owner: -
---
-
-ALTER TABLE ONLY reports_messages
-    ADD CONSTRAINT reviewer_user_id_fk FOREIGN KEY (reviewer_user_id) REFERENCES public.users(id) ON DELETE SET NULL;
-
-
---
--- Name: reports_messages status_id_fk; Type: FK CONSTRAINT; Schema: administration; Owner: -
---
-
-ALTER TABLE ONLY reports_messages
-    ADD CONSTRAINT status_id_fk FOREIGN KEY (status_id) REFERENCES reports_statuses(id);
-
-
---
--- Name: reports_messages_notes user_id_fk; Type: FK CONSTRAINT; Schema: administration; Owner: -
---
-
-ALTER TABLE ONLY reports_messages_notes
-    ADD CONSTRAINT user_id_fk FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE SET NULL;
-
 SET search_path = metadata, pg_catalog;
 
 --
