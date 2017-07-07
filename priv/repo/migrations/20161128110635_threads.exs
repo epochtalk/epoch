@@ -13,5 +13,9 @@ defmodule Epoch.Repo.Migrations.CreateThreads do
       add :imported_at, :timestamp
       add :updated_at, :timestamp
     end
+
+    create index(:threads, [:board_id, "updated_at DESC"])
+    create index(:threads, [:board_id], where: "sticky = true")
+    create index(:threads, [:updated_at])
   end
 end
