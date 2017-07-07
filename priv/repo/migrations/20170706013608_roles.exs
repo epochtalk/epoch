@@ -6,7 +6,7 @@ defmodule Epoch.Repo.Migrations.Roles do
       add :id, :binary_id, primary_key: true, default: fragment("uuid_generate_v4()")
       add :name, :string, default: "", null: false
       add :description, :text, default: "", null: false
-      add :permissions, :json
+      add :permissions, :jsonb
       add :created_at, :timestamp
       add :updated_at, :timestamp
       add :lookup, :string, null: false

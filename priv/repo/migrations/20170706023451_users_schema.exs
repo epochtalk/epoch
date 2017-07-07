@@ -51,7 +51,7 @@ defmodule Epoch.Repo.Migrations.UsersSchema do
       add :user_id, :binary_id, null: false
       add :posts_per_page, :integer, default: 25
       add :threads_per_page, :integer, default: 25
-      add :collapsed_categories, :json, default: fragment("'{\"cats\": []}'::json")
+      add :collapsed_categories, :jsonb, default: fragment("'{\"cats\": []}'::jsonb")
     end
 
     create index(:preferences, [:user_id], prefix: @schema_prefix)
@@ -64,7 +64,7 @@ defmodule Epoch.Repo.Migrations.UsersSchema do
       add :position, :string
       add :signature, :text
       add :post_count, :integer, default: 0
-      add :fields, :json
+      add :fields, :jsonb
       add :raw_signature, :text
       add :last_active, :timestamp
     end
@@ -81,7 +81,7 @@ defmodule Epoch.Repo.Migrations.UsersSchema do
     end
 
     execute("ALTER TABLE ONLY users.thread_views ADD CONSTRAINT thread_views_thread_id_fkey FOREIGN KEY (thread_id) REFERENCES public.threads(id) ON UPDATE CASCADE ON DELETE CASCADE")
-    execute("ALTER TABLE ONLY users.thread_views ADD CONSTRAINT thread_views_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id) ON UPDATE CASCADE ON DELETE CASCADE)")
+    execute("ALTER TABLE ONLY users.thread_views ADD CONSTRAINT thread_views_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id) ON UPDATE CASCADE ON DELETE CASCADE")
 
 
     create index(:thread_views, [:user_id], prefix: @schema_prefix)
@@ -97,7 +97,7 @@ defmodule Epoch.Repo.Migrations.UsersSchema do
     create unique_index(:watch_boards, [:user_id, :board_id], prefix: @schema_prefix)
 
     execute("ALTER TABLE ONLY users.watch_boards ADD CONSTRAINT watch_boards_board_id_fkey FOREIGN KEY (board_id) REFERENCES public.boards(id) ON DELETE CASCADE")
-    execute("ALTER TABLE ONLY users.watch_boards ADD CONSTRAINT watch_boards_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE)")
+    execute("ALTER TABLE ONLY users.watch_boards ADD CONSTRAINT watch_boards_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE")
 
     create table(:watch_threads, [prefix: @schema_prefix, primary_key: false]) do
       add :user_id, :binary_id
@@ -108,7 +108,7 @@ defmodule Epoch.Repo.Migrations.UsersSchema do
     create index(:watch_threads, [:user_id], prefix: @schema_prefix)
     create unique_index(:watch_threads, [:user_id, :thread_id], prefix: @schema_prefix)
 
-    execute("ALTER TABLE ONLY users.watch_threads ADD CONSTRAINT watch_threads_thread_id_fkey FOREIGN KEY (thread_id) REFERENCES public.threads(id) ON DELETE CASCADE)")
+    execute("ALTER TABLE ONLY users.watch_threads ADD CONSTRAINT watch_threads_thread_id_fkey FOREIGN KEY (thread_id) REFERENCES public.threads(id) ON DELETE CASCADE")
     execute("ALTER TABLE ONLY users.watch_threads ADD CONSTRAINT watch_threads_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE")
   end
 end

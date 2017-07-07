@@ -8,7 +8,7 @@ defmodule Epoch.Repo.Migrations.ModerationLog do
       add :mod_ip, :string
       add :action_api_url, :varchar, size: 2000, null: false
       add :action_api_method, :varchar, size: 25, null: false
-      add :action_obj, :json, null: false
+      add :action_obj, :jsonb, null: false
       add :action_taken_at, :timestamp, null: false
       add :action_type, :moderation_action_type, null: false
       add :action_display_text, :text, null: false

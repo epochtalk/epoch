@@ -6,7 +6,7 @@ defmodule Epoch.Repo.Migrations.Notifications do
       add :id, :binary_id, primary_key: true, default: fragment("uuid_generate_v4()")
       add :sender_id, references(:users, type: :uuid), null: false
       add :receiver_id, references(:users, type: :uuid), null: false
-      add :data, :json
+      add :data, :jsonb
       add :created_at, :timestamp
       add :viewed, :boolean, default: false
       add :type, :string
