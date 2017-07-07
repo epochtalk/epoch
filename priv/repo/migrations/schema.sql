@@ -23,25 +23,6 @@ SET search_path = metadata, pg_catalog;
 SET search_path = public, pg_catalog;
 
 
---
--- Name: index_board_moderators_on_board_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_board_moderators_on_board_id ON board_moderators USING btree (board_id);
-
-
---
--- Name: index_board_moderators_on_user_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_board_moderators_on_user_id ON board_moderators USING btree (user_id);
-
-
---
--- Name: index_board_moderators_on_user_id_and_board_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_board_moderators_on_user_id_and_board_id ON board_moderators USING btree (user_id, board_id);
 
 --
 -- Name: index_factoids_on_created_at; Type: INDEX; Schema: public; Owner: -
