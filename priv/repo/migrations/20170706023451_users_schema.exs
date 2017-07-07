@@ -11,10 +11,16 @@ defmodule Epoch.Repo.Migrations.UsersSchema do
       add :updated_at, :timestamp
     end
 
+    create unique_index(:bans, [:user_id], prefix: @schema_prefix)
+
     create table(:board_bans, [prefix: @schema_prefix, primary_key: false]) do
       add :user_id, :binary_id, null: false
       add :board_id, :binary_id, null: false
     end
+
+    create index(:board_bans, [:board_id], prefix: @schema_prefix)
+    create index(:board_bans, [:user_id], prefix: @schema_prefix)
+    create unique_index(:board_bans, [:board_id, :user_id], prefix: @schema_prefix)
 
     create table(:ignored, [prefix: @schema_prefix, primary_key: false]) do
       add :user_id, :binary_id, null: false
