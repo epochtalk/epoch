@@ -18,33 +18,6 @@ SET default_with_oids = false;
 
 SET search_path = users, pg_catalog;
 
---
--- Name: index_ips_on_created_at; Type: INDEX; Schema: users; Owner: -
---
-
-CREATE INDEX index_ips_on_created_at ON ips USING btree (created_at);
-
-
---
--- Name: index_ips_on_user_id; Type: INDEX; Schema: users; Owner: -
---
-
-CREATE INDEX index_ips_on_user_id ON ips USING btree (user_id);
-
-
---
--- Name: index_ips_on_user_id_and_user_ip; Type: INDEX; Schema: users; Owner: -
---
-
-CREATE UNIQUE INDEX index_ips_on_user_id_and_user_ip ON ips USING btree (user_id, user_ip);
-
-
---
--- Name: index_ips_on_user_ip; Type: INDEX; Schema: users; Owner: -
---
-
-CREATE INDEX index_ips_on_user_ip ON ips USING btree (user_ip);
-
 
 --
 -- Name: index_profiles_on_user_id; Type: INDEX; Schema: users; Owner: -

@@ -38,6 +38,11 @@ defmodule Epoch.Repo.Migrations.UsersSchema do
       add :created_at, :timestamp
     end
 
+    create index(:ips, [:created_at], prefix: @schema_prefix)
+    create index(:ips, [:user_id], prefix: @schema_prefix)
+    create index(:ips, [:user_ip], prefix: @schema_prefix)
+    create unique_index(:ips, [:user_id, :user_ip], prefix: @schema_prefix)
+
     create table(:preferences, [prefix: @schema_prefix, primary_key: false]) do
       add :user_id, :binary_id, null: false
       add :posts_per_page, :integer, default: 25
