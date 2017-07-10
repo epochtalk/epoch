@@ -3,16 +3,16 @@ SET search_path = ads, pg_catalog;
 --
 -- Name: authed_users update_unique_authed_user_score_on_ad_trigger; Type: TRIGGER; Schema: ads; Owner: -
 --
-
-CREATE TRIGGER update_unique_authed_user_score_on_ad_trigger AFTER INSERT ON authed_users FOR EACH ROW EXECUTE PROCEDURE public.update_unique_authed_user_score_on_ad();
+--
+-- CREATE TRIGGER update_unique_authed_user_score_on_ad_trigger AFTER INSERT ON authed_users FOR EACH ROW EXECUTE PROCEDURE public.update_unique_authed_user_score_on_ad();
 
 
 --
 -- Name: unique_ip update_unique_ip_score_on_ad_trigger; Type: TRIGGER; Schema: ads; Owner: -
 --
 
-CREATE TRIGGER update_unique_ip_score_on_ad_trigger AFTER INSERT ON unique_ip FOR EACH ROW EXECUTE PROCEDURE public.update_unique_ip_score_on_ad();
-
+-- CREATE TRIGGER update_unique_ip_score_on_ad_trigger AFTER INSERT ON unique_ip FOR EACH ROW EXECUTE PROCEDURE public.update_unique_ip_score_on_ad();
+--
 
 SET search_path = factoids, pg_catalog;
 

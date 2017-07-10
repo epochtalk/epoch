@@ -245,18 +245,6 @@ CREATE FUNCTION update_thread() RETURNS trigger
 $$;
     ")
 
-    execute("
-CREATE FUNCTION update_unique_authed_user_score_on_ad() RETURNS trigger
-    LANGUAGE plpgsql
-    AS $$
-  BEGIN
-    -- increment total_unique_authed_users_impressions
-    UPDATE ads.analytics SET total_unique_authed_users_impressions = total_unique_authed_users_impressions + 1 WHERE ad_id = NEW.ad_id;
-
-    RETURN NEW;
-  END;
-$$;
-    ")
 
     execute("
 CREATE FUNCTION update_unique_authed_user_score_on_factoid() RETURNS trigger
@@ -271,18 +259,6 @@ CREATE FUNCTION update_unique_authed_user_score_on_factoid() RETURNS trigger
 $$;
     ")
 
-    execute("
-CREATE FUNCTION update_unique_ip_score_on_ad() RETURNS trigger
-    LANGUAGE plpgsql
-    AS $$
-  BEGIN
-    -- increment total_unique_ip_impressions
-    UPDATE ads.analytics SET total_unique_ip_impressions = total_unique_ip_impressions + 1 WHERE ad_id = NEW.ad_id;
-
-    RETURN NEW;
-  END;
-$$;
-    ")
 
     execute("
 CREATE FUNCTION update_unique_ip_score_on_factoids() RETURNS trigger

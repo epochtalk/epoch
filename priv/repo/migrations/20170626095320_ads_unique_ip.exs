@@ -17,5 +17,23 @@ defmodule Epoch.Repo.Migrations.CreateAdsUniqueIp do
     FOREIGN KEY (ad_id)
     REFERENCES public.ads(id) ON DELETE CASCADE;
     """
+    execute("
+    CREATE FUNCTION update_unique_ip_score_on_ad() RETURNS trigger
+        LANGUAGE plpgsql
+        AS $$
+      BEGIN
+        -- increment total_unique_ip_impressions
+        UPDATE ads.analytics SET total_unique_ip_impressions = total_unique_ip_impressions + 1 WHERE ad_id = NEW.ad_id;
+
+        RETURN NEW;
+      END;
+    $$;
+    ")
+
+    execute """
+    CREATE TRIGGER update_unique_ip_score_on_ad_trigger
+    AFTER INSERT ON #{@schema_prefix}.unique_ip
+    FOR EACH ROW EXECUTE PROCEDURE public.update_unique_ip_score_on_ad();
+    """
   end
 end
