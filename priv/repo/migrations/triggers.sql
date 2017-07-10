@@ -20,7 +20,7 @@ SET search_path = factoids, pg_catalog;
 -- Name: authed_users update_unique_authed_user_score_on_factoid_trigger; Type: TRIGGER; Schema: factoids; Owner: -
 --
 
-CREATE TRIGGER update_unique_authed_user_score_on_factoid_trigger AFTER INSERT ON authed_users FOR EACH ROW EXECUTE PROCEDURE public.update_unique_authed_user_score_on_factoid();
+-- CREATE TRIGGER update_unique_authed_user_score_on_factoid_trigger AFTER INSERT ON authed_users FOR EACH ROW EXECUTE PROCEDURE public.update_unique_authed_user_score_on_factoid();
 
 
 --

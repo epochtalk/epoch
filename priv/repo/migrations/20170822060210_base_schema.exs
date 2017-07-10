@@ -246,32 +246,7 @@ $$;
     ")
 
 
-    execute("
-CREATE FUNCTION update_unique_authed_user_score_on_factoid() RETURNS trigger
-    LANGUAGE plpgsql
-    AS $$
-  BEGIN
-    -- increment total_unique_authed_users_impressions
-    UPDATE factoids.analytics SET total_unique_authed_users_impressions = total_unique_authed_users_impressions + 1 WHERE round = NEW.round;
 
-    RETURN NEW;
-  END;
-$$;
-    ")
-
-
-    execute("
-CREATE FUNCTION update_unique_ip_score_on_factoids() RETURNS trigger
-    LANGUAGE plpgsql
-    AS $$
-  BEGIN
-    -- increment total_unique_ip_impressions
-    UPDATE factoids.analytics SET total_unique_ip_impressions = total_unique_ip_impressions + 1 WHERE round = NEW.round;
-
-    RETURN NEW;
-  END;
-$$;
-    ")
 
     database = :epoch |> Application.get_env(Epoch.Repo) |> Keyword.get(:database)
     IO.puts "Loading Triggers..."
