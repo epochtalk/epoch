@@ -24,3 +24,7 @@ jobs:
       - run: mix ecto.create
       - run: mix ecto.migrate
       - run: mix test
+      - run: mix archive.build
+
+      - store_artifacts:
+          path: /epoch-0.0.1.ez
