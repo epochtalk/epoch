@@ -29,7 +29,7 @@ defmodule Epoch.Repo.Migrations.CreateUsers do
     end
 
     create index(:user_activity, [:total_activity])
-    create index(:user_activity, [:user_id])
+    create unique_index(:user_activity, [:user_id])
 
     create table(:user_notes, primary_key: false) do
       add :id, :binary_id, [primary_key: true, default: fragment("uuid_generate_v4()")]
