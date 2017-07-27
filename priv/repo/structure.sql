@@ -799,7 +799,7 @@ CREATE TABLE blacklist (
 
 CREATE TABLE board_mapping (
     board_id uuid NOT NULL,
-    parent_id uuid NOT NULL,
+    parent_id uuid,
     category_id uuid,
     view_order integer NOT NULL
 );
@@ -1034,8 +1034,8 @@ CREATE TABLE roles (
     permissions jsonb,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    lookup character varying(255) NOT NULL,
-    priority integer NOT NULL,
+    lookup character varying(255),
+    priority integer,
     highlight_color character varying(255)
 );
 
@@ -2233,7 +2233,7 @@ CREATE INDEX user_activity_total_activity_index ON user_activity USING btree (to
 -- Name: user_activity_user_id_index; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX user_activity_user_id_index ON user_activity USING btree (user_id);
+CREATE UNIQUE INDEX user_activity_user_id_index ON user_activity USING btree (user_id);
 
 
 --
