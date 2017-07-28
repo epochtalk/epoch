@@ -89,5 +89,14 @@ defmodule Epoch.Repo.Migrations.PostgresConfig do
         'expired'
     );
     """
+
+    execute """
+    CREATE TYPE report_status_type AS ENUM (
+        'Pending',
+        'Reviewed',
+        'Ignored',
+        'Bad Report'
+    );
+    """
   end
 end
