@@ -13,7 +13,6 @@ defmodule Epoch.Repo.Migrations.CreateAdminReportsUsers do
       add :created_at, :timestamp
       add :updated_at, :timestamp
     end
-    create unique_index(:reports_users, [:offender_user_id, :reporter_user_id], prefix: @schema_prefix)
     create index(:reports_users, [:created_at], prefix: @schema_prefix)
 
     execute """
