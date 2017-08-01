@@ -9,8 +9,8 @@ defmodule Epoch.Repo.Migrations.Roles do
       add :permissions, :jsonb
       add :created_at, :timestamp
       add :updated_at, :timestamp
-      add :lookup, :string, null: false
-      add :priority, :integer, null: false
+      add :lookup, :string
+      add :priority, :integer
       add :highlight_color, :string
     end
 
