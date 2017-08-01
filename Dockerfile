@@ -11,4 +11,4 @@ COPY config/deploy.secret.exs config/prod.secret.exs
 ENV MIX_ENV=prod
 RUN mix compile
 
-CMD mix do ecto.create, ecto.migrate
+CMD until mix do ecto.create, ecto.migrate; do sleep 1; done
