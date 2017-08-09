@@ -8,8 +8,8 @@
 
 ##### Build/Deploy
 
-Create a `config/prod.secrets.exs` (see
-[example.prod.secrets.exs](./config/example.prod.secrets.exs)
+Create a `config/prod.secret.exs` (see
+[example.prod.secret.exs](./config/example.prod.secret.exs)
 
 Then do:
 
@@ -19,7 +19,7 @@ Then do:
 
 `docker build -t epoch:[tag] .`
 
-The image will copy `config/deploy.secrets.exs to `config/prod.secrets.exs`, which
+The image will copy `config/deploy.secret.exs to `config/prod.secret.exs`, which
 allows configuration through environment variables.
 
 ```
