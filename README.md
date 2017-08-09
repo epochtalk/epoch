@@ -9,7 +9,7 @@
 ##### Build/Deploy
 
 Create a `config/prod.secret.exs` (see
-[example.prod.secret.exs](./config/example.prod.secret.exs)
+[example.prod.secret.exs](./config/example.prod.secret.exs))
 
 Then do:
 
