@@ -192,6 +192,18 @@ CREATE TYPE polls_display_enum AS ENUM (
 
 
 --
+-- Name: report_status_type; Type: TYPE; Schema: public; Owner: -
+--
+
+CREATE TYPE report_status_type AS ENUM (
+    'Pending',
+    'Reviewed',
+    'Ignored',
+    'Bad Report'
+);
+
+
+--
 -- Name: create_thread(); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -411,7 +423,7 @@ SET default_with_oids = false;
 
 CREATE TABLE reports_messages (
     id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
-    status_id integer NOT NULL,
+    status public.report_status_type DEFAULT 'Pending'::public.report_status_type NOT NULL,
     reporter_user_id uuid,
     reporter_reason text DEFAULT ''::text NOT NULL,
     reviewer_user_id uuid,
@@ -441,7 +453,7 @@ CREATE TABLE reports_messages_notes (
 
 CREATE TABLE reports_posts (
     id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
-    status_id integer NOT NULL,
+    status public.report_status_type DEFAULT 'Pending'::public.report_status_type NOT NULL,
     reporter_user_id uuid,
     reporter_reason text DEFAULT ''::text NOT NULL,
     reviewer_user_id uuid,
@@ -466,42 +478,12 @@ CREATE TABLE reports_posts_notes (
 
 
 --
--- Name: reports_statuses; Type: TABLE; Schema: administration; Owner: -
---
-
-CREATE TABLE reports_statuses (
-    id integer NOT NULL,
-    priority integer NOT NULL,
-    status character varying(255) DEFAULT ''::character varying NOT NULL
-);
-
-
---
--- Name: reports_statuses_id_seq; Type: SEQUENCE; Schema: administration; Owner: -
---
-
-CREATE SEQUENCE reports_statuses_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: reports_statuses_id_seq; Type: SEQUENCE OWNED BY; Schema: administration; Owner: -
---
-
-ALTER SEQUENCE reports_statuses_id_seq OWNED BY reports_statuses.id;
-
-
---
 -- Name: reports_users; Type: TABLE; Schema: administration; Owner: -
 --
 
 CREATE TABLE reports_users (
     id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
-    status_id integer NOT NULL,
+    status public.report_status_type DEFAULT 'Pending'::public.report_status_type NOT NULL,
     reporter_user_id uuid,
     reporter_reason text DEFAULT ''::text NOT NULL,
     reviewer_user_id uuid,
@@ -1277,15 +1259,6 @@ CREATE TABLE watch_threads (
 );
 
 
-SET search_path = administration, pg_catalog;
-
---
--- Name: reports_statuses id; Type: DEFAULT; Schema: administration; Owner: -
---
-
-ALTER TABLE ONLY reports_statuses ALTER COLUMN id SET DEFAULT nextval('reports_statuses_id_seq'::regclass);
-
-
 SET search_path = ads, pg_catalog;
 
 --
@@ -1327,14 +1300,6 @@ ALTER TABLE ONLY reports_posts_notes
 
 ALTER TABLE ONLY reports_posts
     ADD CONSTRAINT reports_posts_pkey PRIMARY KEY (id);
-
-
---
--- Name: reports_statuses reports_statuses_pkey; Type: CONSTRAINT; Schema: administration; Owner: -
---
-
-ALTER TABLE ONLY reports_statuses
-    ADD CONSTRAINT reports_statuses_pkey PRIMARY KEY (id);
 
 
 --
@@ -1646,13 +1611,6 @@ CREATE UNIQUE INDEX reports_messages_offender_message_id_reporter_user_id_index 
 
 
 --
--- Name: reports_messages_status_id_index; Type: INDEX; Schema: administration; Owner: -
---
-
-CREATE INDEX reports_messages_status_id_index ON reports_messages USING btree (status_id);
-
-
---
 -- Name: reports_posts_created_at_index; Type: INDEX; Schema: administration; Owner: -
 --
 
@@ -1681,13 +1639,6 @@ CREATE UNIQUE INDEX reports_posts_offender_post_id_reporter_user_id_index ON rep
 
 
 --
--- Name: reports_posts_status_id_index; Type: INDEX; Schema: administration; Owner: -
---
-
-CREATE INDEX reports_posts_status_id_index ON reports_posts USING btree (status_id);
-
-
---
 -- Name: reports_users_created_at_index; Type: INDEX; Schema: administration; Owner: -
 --
 
@@ -1706,20 +1657,6 @@ CREATE INDEX reports_users_notes_created_at_index ON reports_users_notes USING b
 --
 
 CREATE INDEX reports_users_notes_report_id_index ON reports_users_notes USING btree (report_id);
-
-
---
--- Name: reports_users_offender_user_id_reporter_user_id_index; Type: INDEX; Schema: administration; Owner: -
---
-
-CREATE UNIQUE INDEX reports_users_offender_user_id_reporter_user_id_index ON reports_users USING btree (offender_user_id, reporter_user_id);
-
-
---
--- Name: reports_users_status_id_index; Type: INDEX; Schema: administration; Owner: -
---
-
-CREATE INDEX reports_users_status_id_index ON reports_users USING btree (status_id);
 
 
 SET search_path = ads, pg_catalog;
@@ -2581,30 +2518,6 @@ ALTER TABLE ONLY reports_messages
 
 
 --
--- Name: reports_posts status_id_fkey; Type: FK CONSTRAINT; Schema: administration; Owner: -
---
-
-ALTER TABLE ONLY reports_posts
-    ADD CONSTRAINT status_id_fkey FOREIGN KEY (status_id) REFERENCES reports_statuses(id);
-
-
---
--- Name: reports_users status_id_fkey; Type: FK CONSTRAINT; Schema: administration; Owner: -
---
-
-ALTER TABLE ONLY reports_users
-    ADD CONSTRAINT status_id_fkey FOREIGN KEY (status_id) REFERENCES reports_statuses(id);
-
-
---
--- Name: reports_messages status_id_fkey; Type: FK CONSTRAINT; Schema: administration; Owner: -
---
-
-ALTER TABLE ONLY reports_messages
-    ADD CONSTRAINT status_id_fkey FOREIGN KEY (status_id) REFERENCES reports_statuses(id);
-
-
---
 -- Name: reports_posts_notes user_id_fkey; Type: FK CONSTRAINT; Schema: administration; Owner: -
 --
 
@@ -2885,7 +2798,7 @@ ALTER TABLE ONLY polls
 --
 
 ALTER TABLE ONLY posts
-    ADD CONSTRAINT posts_thread_id_fkey FOREIGN KEY (thread_id) REFERENCES threads(id);
+    ADD CONSTRAINT posts_thread_id_fkey FOREIGN KEY (thread_id) REFERENCES threads(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -2893,7 +2806,7 @@ ALTER TABLE ONLY posts
 --
 
 ALTER TABLE ONLY posts
-    ADD CONSTRAINT posts_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id);
+    ADD CONSTRAINT posts_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -3110,5 +3023,5 @@ ALTER TABLE ONLY watch_threads
 -- PostgreSQL database dump complete
 --
 
-INSERT INTO "schema_migrations" (version) VALUES (20161128043108), (20161128043113), (20161128110411), (20161128110632), (20161128110635), (20161128110637), (20170422030247), (20170624020344), (20170624020353), (20170624020359), (20170624020413), (20170624032125), (20170624032132), (20170624032151), (20170624032211), (20170626040044), (20170626044122), (20170626045438), (20170626052435), (20170626053401), (20170626060658), (20170626060977), (20170626063026), (20170626063032), (20170626091633), (20170626091646), (20170626091654), (20170626095320), (20170626100933), (20170626102518), (20170626112240), (20170705202124), (20170705204430), (20170705205615), (20170705210807), (20170705231842), (20170705234016), (20170706013608), (20170706014848), (20170706023451), (20170707012515);
+INSERT INTO "schema_migrations" (version) VALUES (20161128043108), (20161128043113), (20161128110411), (20161128110632), (20161128110635), (20161128110637), (20170422030247), (20170624020344), (20170624020353), (20170624020359), (20170624020413), (20170624032125), (20170624032132), (20170624032151), (20170624032211), (20170626040044), (20170626044122), (20170626045438), (20170626052435), (20170626060658), (20170626060977), (20170626063026), (20170626063032), (20170626091633), (20170626091646), (20170626091654), (20170626095320), (20170626100933), (20170626102518), (20170626112240), (20170705202124), (20170705204430), (20170705205615), (20170705210807), (20170705231842), (20170705234016), (20170706013608), (20170706014848), (20170706023451), (20170707012515);
 

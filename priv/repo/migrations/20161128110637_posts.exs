@@ -4,8 +4,8 @@ defmodule Epoch.Repo.Migrations.CreatePosts do
   def change do
     create table(:posts, primary_key: false) do
       add :id, :binary_id, primary_key: true, default: fragment("uuid_generate_v4()")
-      add :thread_id, references(:threads, type: :uuid)
-      add :user_id, references(:users, type: :uuid)
+      add :thread_id, references(:threads, type: :uuid, on_delete: :delete_all, on_update: :update_all)
+      add :user_id, references(:users, type: :uuid, on_delete: :delete_all, on_update: :update_all)
       add :content, :jsonb
       add :deleted, :boolean
       add :locked, :boolean
