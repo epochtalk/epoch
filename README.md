@@ -8,7 +8,26 @@
 
 ##### Build/Deploy
 
+Create a `config/prod.secret.exs` (see
+[example.prod.secret.exs](./config/example.prod.secret.exs))
+
+Then do:
+
 `MIX_ENV=prod mix do compile, release --env=prod --verbose`
+
+##### Build a Docker image
+
+`docker build -t epoch:[tag] .`
+
+The image will copy `config/deploy.secret.exs` to `config/prod.secret.exs`, which
+allows configuration through environment variables.
+
+```
+  username: System.get_env("DATABASE_USER"),
+  password: System.get_env("DATABASE_PASSWORD"),
+  database: System.get_env("DATABASE_NAME"),
+  hostname: System.get_env("DATABASE_HOST"),
+```
 
 ##### Database Management
 
