@@ -411,6 +411,30 @@ CREATE FUNCTION update_unique_ip_score_on_factoids() RETURNS trigger
 $$;
 
 
+--
+-- Name: _uuid_ops; Type: OPERATOR FAMILY; Schema: public; Owner: -
+--
+
+CREATE OPERATOR FAMILY _uuid_ops USING gin;
+
+
+--
+-- Name: _uuid_ops; Type: OPERATOR CLASS; Schema: public; Owner: -
+--
+
+CREATE OPERATOR CLASS _uuid_ops
+    DEFAULT FOR TYPE uuid[] USING gin FAMILY _uuid_ops AS
+    STORAGE uuid ,
+    OPERATOR 1 &&(anyarray,anyarray) ,
+    OPERATOR 2 @>(anyarray,anyarray) ,
+    OPERATOR 3 <@(anyarray,anyarray) ,
+    OPERATOR 4 =(anyarray,anyarray) ,
+    FUNCTION 1 (uuid[], uuid[]) uuid_cmp(uuid,uuid) ,
+    FUNCTION 2 (uuid[], uuid[]) ginarrayextract(anyarray,internal,internal) ,
+    FUNCTION 3 (uuid[], uuid[]) ginqueryarrayextract(anyarray,internal,smallint,internal,internal,internal,internal) ,
+    FUNCTION 4 (uuid[], uuid[]) ginarrayconsistent(internal,smallint,anyarray,integer,internal,internal,internal,internal);
+
+
 SET search_path = administration, pg_catalog;
 
 SET default_tablespace = '';
@@ -985,7 +1009,8 @@ CREATE TABLE posts (
 
 CREATE TABLE private_conversations (
     id uuid DEFAULT uuid_generate_v4() NOT NULL,
-    created_at timestamp without time zone
+    created_at timestamp without time zone,
+    deleted_by_user_ids uuid[]
 );
 
 
@@ -998,10 +1023,10 @@ CREATE TABLE private_messages (
     conversation_id uuid NOT NULL,
     sender_id uuid,
     receiver_id uuid,
-    copied_ids uuid[],
     body text DEFAULT ''::text NOT NULL,
     created_at timestamp without time zone,
-    viewed boolean DEFAULT false
+    viewed boolean DEFAULT false,
+    deleted_by_user_ids uuid[]
 );
 
 
@@ -2041,6 +2066,13 @@ CREATE INDEX posts_user_id_index ON posts USING btree (user_id);
 
 
 --
+-- Name: private_conversations_deleted_by_user_ids_gin; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX private_conversations_deleted_by_user_ids_gin ON private_conversations USING gin (deleted_by_user_ids);
+
+
+--
 -- Name: private_messages_conversation_id_index; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2052,6 +2084,13 @@ CREATE INDEX private_messages_conversation_id_index ON private_messages USING bt
 --
 
 CREATE INDEX private_messages_created_at_index ON private_messages USING btree (created_at);
+
+
+--
+-- Name: private_messages_deleted_by_user_ids_gin; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX private_messages_deleted_by_user_ids_gin ON private_messages USING gin (deleted_by_user_ids);
 
 
 --
@@ -3023,5 +3062,5 @@ ALTER TABLE ONLY watch_threads
 -- PostgreSQL database dump complete
 --
 
-INSERT INTO "schema_migrations" (version) VALUES (20161128043108), (20161128043113), (20161128110411), (20161128110632), (20161128110635), (20161128110637), (20170422030247), (20170624020344), (20170624020353), (20170624020359), (20170624020413), (20170624032125), (20170624032132), (20170624032151), (20170624032211), (20170626040044), (20170626044122), (20170626045438), (20170626052435), (20170626060658), (20170626060977), (20170626063026), (20170626063032), (20170626091633), (20170626091646), (20170626091654), (20170626095320), (20170626100933), (20170626102518), (20170626112240), (20170705202124), (20170705204430), (20170705205615), (20170705210807), (20170705231842), (20170705234016), (20170706013608), (20170706014848), (20170706023451), (20170707012515);
+INSERT INTO "schema_migrations" (version) VALUES (20161128043108), (20161128043113), (20161128110411), (20161128110632), (20161128110635), (20161128110637), (20170422030247), (20170624020344), (20170624020353), (20170624020359), (20170624020413), (20170624032125), (20170624032132), (20170624032151), (20170624032211), (20170626040044), (20170626044122), (20170626045438), (20170626052435), (20170626060658), (20170626060977), (20170626063026), (20170626063032), (20170626091633), (20170626091646), (20170626091654), (20170626095320), (20170626100933), (20170626102518), (20170626112240), (20170705202124), (20170705204430), (20170705205615), (20170705210807), (20170705231842), (20170705234016), (20170706013608), (20170706014848), (20170706023451), (20170707012515), (20170829000600);
 
