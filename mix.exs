@@ -26,7 +26,7 @@ defmodule Epoch.Mixfile do
   defp deps do
     [
       {:distillery, "~> 1.4"},
-      {:ecto, "~> 2.1"},
+      {:ecto, "~> 2.2.1"},
       {:postgrex, "~> 0.13.2"}
     ]
   end
