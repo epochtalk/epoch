@@ -2,15 +2,18 @@ defmodule Epoch.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :epoch,
-     version: "0.0.1",
-     elixir: "~> 1.4",
-     build_embedded: Mix.env == :prod,
-     start_permanent: Mix.env == :prod,
-     aliases: aliases(),
-     deps: deps(),
-     description: description(),
-     package: package()]
+    [
+      app: :epoch,
+      version: "0.0.1",
+      elixir: "~> 1.5",
+      elixirc_paths: elixirc_paths(Mix.env),
+      compilers: [:phoenix, :gettext] ++ Mix.compilers,
+      start_permanent: Mix.env == :prod,
+      aliases: aliases(),
+      deps: deps(),
+      description: description(),
+      package: package()
+    ]
   end
 
   # Configuration for the OTP application.
@@ -18,16 +21,24 @@ defmodule Epoch.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {Epoch, []},
-      applications: [:logger, :ecto, :postgrex]
+      mod: {Epoch.Application, []},
+      extra_applications: [:logger, :runtime_tools]
     ]
   end
+
+    # Specifies which paths to compile per environment.
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(_),     do: ["lib"]
 
   defp deps do
     [
       {:distillery, "~> 1.4"},
       {:ecto, "~> 2.2.1"},
-      {:postgrex, "~> 0.13.2"}
+      {:phoenix, "~> 1.3"},
+      {:phoenix_live_reload, "~> 1.0", only: :dev},
+      {:postgrex, "~> 0.13.2"},
+      {:gettext, "~> 0.11"},
+      {:cowboy, "~> 1.0"}
     ]
   end
 
