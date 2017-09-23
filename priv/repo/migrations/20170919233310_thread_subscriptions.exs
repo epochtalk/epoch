@@ -17,5 +17,8 @@ defmodule Epoch.Repo.Migrations.ThreadSubscriptions do
       add :notify_replied_threads, :boolean, default: true
     end
 
+    drop index(:preferences, [:user_id], prefix: @schema_prefix)
+    create unique_index(:preferences, [:user_id], prefix: @schema_prefix)
+
   end
 end
