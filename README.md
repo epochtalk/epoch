@@ -19,7 +19,7 @@ Then do:
 
 `docker build -t epoch:[tag] .`
 
-The image will copy `config/deploy.secret.exs` to `config/prod.secret.exs`, which
+The image will copy `config/docker.secret.exs` to `config/prod.secret.exs`, which
 allows configuration through environment variables.
 
 ```
