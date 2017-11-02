@@ -3,7 +3,7 @@
 --
 
 -- Dumped from database version 9.6.3
--- Dumped by pg_dump version 9.6.3
+-- Dumped by pg_dump version 9.6.5
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -1010,7 +1010,7 @@ CREATE TABLE posts (
 CREATE TABLE private_conversations (
     id uuid DEFAULT uuid_generate_v4() NOT NULL,
     created_at timestamp without time zone,
-    deleted_by_user_ids uuid[]
+    deleted_by_user_ids uuid[] DEFAULT ARRAY[]::uuid[]
 );
 
 
@@ -1022,11 +1022,12 @@ CREATE TABLE private_messages (
     id uuid DEFAULT uuid_generate_v4() NOT NULL,
     conversation_id uuid NOT NULL,
     sender_id uuid,
-    receiver_id uuid,
     body text DEFAULT ''::text NOT NULL,
     created_at timestamp without time zone,
     viewed boolean DEFAULT false,
-    deleted_by_user_ids uuid[]
+    deleted_by_user_ids uuid[] DEFAULT ARRAY[]::uuid[],
+    subject character varying(255) NOT NULL,
+    receiver_ids uuid[] DEFAULT ARRAY[]::uuid[]
 );
 
 
@@ -2094,10 +2095,10 @@ CREATE INDEX private_messages_deleted_by_user_ids_gin ON private_messages USING 
 
 
 --
--- Name: private_messages_receiver_id_index; Type: INDEX; Schema: public; Owner: -
+-- Name: private_messages_receiver_ids_gin; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX private_messages_receiver_id_index ON private_messages USING btree (receiver_id);
+CREATE INDEX private_messages_receiver_ids_gin ON private_messages USING gin (receiver_ids);
 
 
 --
@@ -2857,14 +2858,6 @@ ALTER TABLE ONLY private_messages
 
 
 --
--- Name: private_messages private_messages_receiver_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY private_messages
-    ADD CONSTRAINT private_messages_receiver_id_fkey FOREIGN KEY (receiver_id) REFERENCES users(id) ON DELETE CASCADE;
-
-
---
 -- Name: private_messages private_messages_sender_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3062,5 +3055,5 @@ ALTER TABLE ONLY watch_threads
 -- PostgreSQL database dump complete
 --
 
-INSERT INTO "schema_migrations" (version) VALUES (20161128043108), (20161128043113), (20161128110411), (20161128110632), (20161128110635), (20161128110637), (20170422030247), (20170624020344), (20170624020353), (20170624020359), (20170624020413), (20170624032125), (20170624032132), (20170624032151), (20170624032211), (20170626040044), (20170626044122), (20170626045438), (20170626052435), (20170626060658), (20170626060977), (20170626063026), (20170626063032), (20170626091633), (20170626091646), (20170626091654), (20170626095320), (20170626100933), (20170626102518), (20170626112240), (20170705202124), (20170705204430), (20170705205615), (20170705210807), (20170705231842), (20170705234016), (20170706013608), (20170706014848), (20170706023451), (20170707012515), (20170829000600);
+INSERT INTO "schema_migrations" (version) VALUES (20161128043108), (20161128043113), (20161128110411), (20161128110632), (20161128110635), (20161128110637), (20170422030247), (20170624020344), (20170624020353), (20170624020359), (20170624020413), (20170624032125), (20170624032132), (20170624032151), (20170624032211), (20170626040044), (20170626044122), (20170626045438), (20170626052435), (20170626060658), (20170626060977), (20170626063026), (20170626063032), (20170626091633), (20170626091646), (20170626091654), (20170626095320), (20170626100933), (20170626102518), (20170626112240), (20170705202124), (20170705204430), (20170705205615), (20170705210807), (20170705231842), (20170705234016), (20170706013608), (20170706014848), (20170706023451), (20170707012515), (20170829000600), (20170829220306), (20170906005549), (20170908203626);
 
