@@ -1,5 +1,5 @@
-defmodule EpochTest do
-  use ExUnit.Case
+defmodule EpochTest do 
+ use Epoch.DataCase
   doctest Epoch
 
   test "board" do
