@@ -80,6 +80,7 @@ defmodule Epoch.Mixfile do
     |> handle_file_version()
     |> String.replace_leading("v", "")
     |> String.replace("-", ".", global: false)
+    |> String.trim
   end
 
 
@@ -87,7 +88,7 @@ defmodule Epoch.Mixfile do
 
   defp handle_file_version({:ok, content}), do: content
 
-  defp handle_file_version({:error, _}), do: retrieve_version_from_git
+  defp handle_file_version({:error, _}), do: retrieve_version_from_git()
 
   defp retrieve_version_from_git do
     require Logger
