@@ -4,7 +4,7 @@ defmodule Epoch.Mixfile do
   def project do
     [
       app: :epoch,
-      version: "0.0.1",
+      version: get_version(),
       elixir: "~> 1.5",
       elixirc_paths: elixirc_paths(Mix.env),
       compilers: [:phoenix, :gettext] ++ Mix.compilers,
@@ -66,5 +66,34 @@ defmodule Epoch.Mixfile do
       licenses: ["MIT"],
       links: %{"GitHub" => "https://github.com/epochtalk/epoch"}
     ]
+  end
+
+  defp get_version do
+    # version_from_file
+    # |> handle_file_version
+    # |> String.split("-")
+    # |> case do
+    #   [tag] -> tag
+    #   [tag, _num_commits, commit] -> "#{tag}-#{commit}"
+    # end
+    version_from_file()
+    |> handle_file_version()
+    |> String.replace_leading("v", "")
+    |> String.replace("-", ".", global: false)
+  end
+
+
+  defp version_from_file(file \\ "VERSION"), do: File.read(file)
+
+  defp handle_file_version({:ok, content}), do: content
+
+  defp handle_file_version({:error, _}), do: retrieve_version_from_git
+
+  defp retrieve_version_from_git do
+    require Logger
+    Logger.warn "Calling out to `git describe` for the version number. This is slow! You should think about a hook to set the VERSION file"
+    System.cmd("git", ~w{describe --dirty --always --tags --first-parent}) 
+    |> elem(0) 
+    |> String.trim
   end
 end
