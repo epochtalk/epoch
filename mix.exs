@@ -35,7 +35,7 @@ defmodule Epoch.Mixfile do
       {:distillery, "~> 1.4"},
       {:ecto, "~> 2.2.1"},
       {:phoenix, "~> 1.3"},
-      {:phoenix_live_reload, "~> 1.0", only: :dev},
+      {:phoenix_html, "~> 2.10"},
       {:postgrex, "~> 0.13.2"},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"}

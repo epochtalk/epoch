@@ -14,16 +14,16 @@ defmodule Epoch.Router do
   end
 
   scope "/", Epoch do
-    pipe_through :api # Use the default browser stack
+    pipe_through :browser # Use the default browser stack
     get "/", RootController, :index
-    get "/version", MetaController, :version
 
     # get "/", PageController, :index
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", Epoch do
-  #   pipe_through :api
-  # end
+  scope "/api", Epoch do
+    pipe_through :api
+    get "/version", MetaController, :version
+  end
 end
 

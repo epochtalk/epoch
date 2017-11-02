@@ -28,7 +28,7 @@ defmodule Epoch.Web do
 
   def view do
     quote do
-      use Phoenix.View, root: "lib/testapp_web/templates",
+      use Phoenix.View, root: "lib/epoch/templates",
                         namespace: Epoch
 
       # Import convenience functions from controllers
