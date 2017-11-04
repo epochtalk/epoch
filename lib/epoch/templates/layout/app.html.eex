@@ -1,9 +1,0 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Epoch</title>
-</head>
-<body>
-<%= render @view_module, @view_template, assigns %>	
-</body>
-</html>

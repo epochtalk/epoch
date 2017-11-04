@@ -36,6 +36,7 @@ defmodule Epoch.Mixfile do
       {:phoenix_ecto, "~> 3.2"},
       {:phoenix, "~> 1.3"},
       {:phoenix_html, "~> 2.10"},
+      {:phoenix_slime, "~> 0.8.0"},
       {:postgrex, "~> 0.13.2"},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"}
