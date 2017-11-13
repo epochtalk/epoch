@@ -7,5 +7,10 @@ html lang="en"
     meta content="" name="description"
     meta content="" name="author"
     title Epoch
+    css:
+      body {
+        font-family: "Verdana", sans-serif;
+        font-size: 0.7em;
+      }
   body
     = render @view_module, @view_template, assigns
