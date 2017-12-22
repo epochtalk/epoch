@@ -3,7 +3,7 @@
 --
 
 -- Dumped from database version 9.6.3
--- Dumped by pg_dump version 9.6.5
+-- Dumped by pg_dump version 10.0
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -1233,7 +1233,8 @@ CREATE TABLE preferences (
     user_id uuid NOT NULL,
     posts_per_page integer DEFAULT 25,
     threads_per_page integer DEFAULT 25,
-    collapsed_categories jsonb DEFAULT '{"cats": []}'::jsonb
+    collapsed_categories jsonb DEFAULT '{"cats": []}'::jsonb,
+    notify_replied_threads boolean DEFAULT true
 );
 
 
@@ -1251,6 +1252,16 @@ CREATE TABLE profiles (
     fields jsonb,
     raw_signature text,
     last_active timestamp without time zone
+);
+
+
+--
+-- Name: thread_subscriptions; Type: TABLE; Schema: users; Owner: -
+--
+
+CREATE TABLE thread_subscriptions (
+    user_id uuid NOT NULL,
+    thread_id uuid NOT NULL
 );
 
 
@@ -2324,7 +2335,7 @@ CREATE INDEX ips_user_ip_index ON ips USING btree (user_ip);
 -- Name: preferences_user_id_index; Type: INDEX; Schema: users; Owner: -
 --
 
-CREATE INDEX preferences_user_id_index ON preferences USING btree (user_id);
+CREATE UNIQUE INDEX preferences_user_id_index ON preferences USING btree (user_id);
 
 
 --
@@ -2339,6 +2350,27 @@ CREATE INDEX "profiles_last_active_DESC_index" ON profiles USING btree (last_act
 --
 
 CREATE UNIQUE INDEX profiles_user_id_index ON profiles USING btree (user_id);
+
+
+--
+-- Name: thread_subscriptions_thread_id_index; Type: INDEX; Schema: users; Owner: -
+--
+
+CREATE INDEX thread_subscriptions_thread_id_index ON thread_subscriptions USING btree (thread_id);
+
+
+--
+-- Name: thread_subscriptions_user_id_index; Type: INDEX; Schema: users; Owner: -
+--
+
+CREATE INDEX thread_subscriptions_user_id_index ON thread_subscriptions USING btree (user_id);
+
+
+--
+-- Name: thread_subscriptions_user_id_thread_id_index; Type: INDEX; Schema: users; Owner: -
+--
+
+CREATE UNIQUE INDEX thread_subscriptions_user_id_thread_id_index ON thread_subscriptions USING btree (user_id, thread_id);
 
 
 --
@@ -3055,5 +3087,5 @@ ALTER TABLE ONLY watch_threads
 -- PostgreSQL database dump complete
 --
 
-INSERT INTO "schema_migrations" (version) VALUES (20161128043108), (20161128043113), (20161128110411), (20161128110632), (20161128110635), (20161128110637), (20170422030247), (20170624020344), (20170624020353), (20170624020359), (20170624020413), (20170624032125), (20170624032132), (20170624032151), (20170624032211), (20170626040044), (20170626044122), (20170626045438), (20170626052435), (20170626060658), (20170626060977), (20170626063026), (20170626063032), (20170626091633), (20170626091646), (20170626091654), (20170626095320), (20170626100933), (20170626102518), (20170626112240), (20170705202124), (20170705204430), (20170705205615), (20170705210807), (20170705231842), (20170705234016), (20170706013608), (20170706014848), (20170706023451), (20170707012515), (20170829000600), (20170829220306), (20170906005549), (20170908203626);
+INSERT INTO "schema_migrations" (version) VALUES (20161128043108), (20161128043113), (20161128110411), (20161128110632), (20161128110635), (20161128110637), (20170422030247), (20170624020344), (20170624020353), (20170624020359), (20170624020413), (20170624032125), (20170624032132), (20170624032151), (20170624032211), (20170626040044), (20170626044122), (20170626045438), (20170626052435), (20170626060658), (20170626060977), (20170626063026), (20170626063032), (20170626091633), (20170626091646), (20170626091654), (20170626095320), (20170626100933), (20170626102518), (20170626112240), (20170705202124), (20170705204430), (20170705205615), (20170705210807), (20170705231842), (20170705234016), (20170706013608), (20170706014848), (20170706023451), (20170707012515), (20170829000600), (20170829220306), (20170906005549), (20170908203626), (20170919233310);
 
