@@ -1,1 +1,8 @@
-div "testing"
+p
+  strong = raw(@board.name)
+
+  = Enum.map @threads, fn(thread) ->
+    p
+      a href="/threads/#{thread.id}"
+        = thread.id
+      = thread.posts |> Enum.count

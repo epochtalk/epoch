@@ -1,10 +1,8 @@
 = Enum.map @cats, fn(c) ->
   p
     strong = raw(c.name)
-    sup = " #{c.id}"
   = Enum.map c.boards, fn(b) ->
     p
       a href="/boards/#{b.id}"
         = raw(b.name)
-      sup = " #{b.id}"
   hr

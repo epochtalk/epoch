@@ -8,9 +8,10 @@ defmodule Epoch.Thread do
     field :sticky, :boolean
     field :moderated, :boolean
     field :post_count, :integer
-    field :created_at, Ecto.DateTime
-    field :imported_at, Ecto.DateTime
-    field :updated_at, Ecto.DateTime
+    field :created_at, :naive_datetime
+    field :imported_at, :naive_datetime
+    field :updated_at, :naive_datetime
+    has_many :posts, Epoch.Post
   end
 end
 
