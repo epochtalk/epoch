@@ -9,7 +9,7 @@ html lang="en"
     title Epoch
     css:
       a, a:visited, a:hover {
-        color: #555;
+        color: #777;
         text-decoration: none;
       }
       a:hover {
@@ -20,8 +20,11 @@ html lang="en"
         font-family: "Verdana", sans-serif;
         font-size: 0.7em;
       }
-      sup {
-        color: #999;
+
+      .uuid {
+        color: #eee;
+        font-family: "Menlo", monospace;
       }
+
   body
     = render @view_module, @view_template, assigns

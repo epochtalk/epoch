@@ -24,6 +24,8 @@ defmodule Epoch.BoardController do
       )
     threads = threads_query |> Epoch.Repo.all
 
+    threads |> hd |> Map.get(:posts) |> hd |> IO.inspect
+
     render conn, "show.html", board: board, threads: threads
   end
 end

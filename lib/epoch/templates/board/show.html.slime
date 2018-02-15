@@ -3,6 +3,8 @@ p
 
   = Enum.map @threads, fn(thread) ->
     p
-      a href="/threads/#{thread.id}"
-        = thread.id
-      = thread.posts |> Enum.count
+      span.uuid
+        a href="/threads/#{thread.id}"
+          = thread.id
+      = " - "
+      = thread.posts |> hd |> Map.get(:content) |> Map.get("title")
