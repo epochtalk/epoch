@@ -59,10 +59,10 @@ defmodule EpochTest do
     assert t.id == p.thread_id
   end
 
-  test "new" do
-    create_boards
+  test "boards sql" do
+    create_boards()
     {:ok, result} = Epoch.Repo.query("SELECT * FROM boards")
     boards = Epoch.Board.from_result(result)
-    boards |> Enum.count |> IO.puts
+    assert Enum.count(boards) == 3
   end
 end
