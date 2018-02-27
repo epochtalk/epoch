@@ -1,15 +1,21 @@
 defmodule EpochTest.BoardTest do 
- use Epoch.DataCase
+  use Epoch.DataCase
+  import Ecto.Query
+  alias Epoch.Board
+  alias Epoch.Repo
+
   doctest Epoch
 
   test "board" do
-    b = %Epoch.Board{
-      name: "Testing Board",
-      description: "Testing grounds for discussion",
-      created_at: Ecto.DateTime.utc(),
-      updated_at: Ecto.DateTime.utc()
-    } |> Epoch.Repo.insert!
-    assert b.name == "Testing Board"
+    board_created = EpochTest.create_board
+    board_retrieved = from(
+      b in Board,
+      where: b.id == ^board_created.id
+    ) |> Epoch.Repo.one
+    
+    assert board_created.name == board_retrieved.name
+    assert board_created == board_retrieved
+
   end
 
   test "boards sql" do

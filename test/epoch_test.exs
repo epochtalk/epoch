@@ -6,8 +6,10 @@ defmodule EpochTest do
     %Epoch.Board{
       name: name,
       description: "Testing grounds for discussion",
-      created_at: Ecto.DateTime.utc(),
-      updated_at: Ecto.DateTime.utc()
+      created_at: NaiveDateTime.utc_now(),
+      updated_at: NaiveDateTime.utc_now(),
+      post_count: 0,
+      thread_count: 0
     } |> Epoch.Repo.insert!
   end
 
