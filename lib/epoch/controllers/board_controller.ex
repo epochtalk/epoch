@@ -1,9 +1,8 @@
 defmodule Epoch.BoardController do
   use Epoch.Web, :controller
   alias Epoch.Board
-  alias Epoch.Category
   alias Epoch.Thread
-  alias Epoch.Post
+  alias Epoch.Repo
 
   import Ecto.Query
 
@@ -13,7 +12,7 @@ defmodule Epoch.BoardController do
         b in Board,
         where: b.id == ^id
       )
-    board = board_query |> Epoch.Repo.one
+    board = board_query |> Repo.one
 
     threads_query =
       from(
@@ -22,8 +21,7 @@ defmodule Epoch.BoardController do
         order_by: [desc: t.created_at],
         limit: 10
       )
-    threads = threads_query |> Epoch.Repo.all
-
+    threads = threads_query |> Repo.all
     threads |> hd |> Map.get(:posts) |> hd |> IO.inspect
 
     render conn, "show.html", board: board, threads: threads

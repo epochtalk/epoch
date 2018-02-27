@@ -7,13 +7,19 @@ defmodule EpochTest do
       name: name,
       description: "Testing grounds for discussion",
       created_at: NaiveDateTime.utc_now(),
-      updated_at: NaiveDateTime.utc_now(),
-      post_count: 0,
-      thread_count: 0
+      updated_at: NaiveDateTime.utc_now()
     } |> Epoch.Repo.insert!
   end
 
   def create_boards(count \\ 3) do
     Enum.each(1..count, &(create_board("Testing Board #{&1}")))
+  end
+  
+  def create_thread(board \\ create_board()) do
+    %Epoch.Thread{
+      board: board,
+      created_at: NaiveDateTime.utc_now(),
+      updated_at: NaiveDateTime.utc_now()
+    } |> Epoch.Repo.insert!
   end
 end

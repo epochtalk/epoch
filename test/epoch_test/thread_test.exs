@@ -1,19 +1,17 @@
 defmodule EpochTest.ThreadTest do 
  use Epoch.DataCase
+  import Ecto.Query
+  alias Epoch.Thread
+  alias Epoch.Repo
   doctest Epoch
 
   test "thread" do
-    b = %Epoch.Board{
-      name: "Testing Board",
-      description: "Testing grounds for discussion",
-      created_at: Ecto.DateTime.utc(),
-      updated_at: Ecto.DateTime.utc()
-    } |> Epoch.Repo.insert!
-    t = %Epoch.Thread{
-      board: b,
-      created_at: Ecto.DateTime.utc(),
-      updated_at: Ecto.DateTime.utc()
-    } |> Epoch.Repo.insert!
-    assert b.id == t.board_id
+    thread_created = EpochTest.create_thread()
+    thread_retrieved = from(
+      t in Thread,
+      where: t.id == ^thread_created.id,
+      preload: [:board]
+    ) |> Repo.one
+    assert thread_created.id == thread_retrieved.id
   end
 end
