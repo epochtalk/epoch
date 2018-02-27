@@ -1,68 +1,17 @@
 defmodule EpochTest do 
  use Epoch.DataCase
   doctest Epoch
-  
+
+  def create_board(name \\ "Testing Board") do
+    %Epoch.Board{
+      name: name,
+      description: "Testing grounds for discussion",
+      created_at: Ecto.DateTime.utc(),
+      updated_at: Ecto.DateTime.utc()
+    } |> Epoch.Repo.insert!
+  end
+
   def create_boards(count \\ 3) do
-    Enum.each(1..count, fn(i) ->
-      %Epoch.Board{
-        name: "Testing Board #{i}",
-        description: "Testing grounds for discussion",
-        created_at: Ecto.DateTime.utc(),
-        updated_at: Ecto.DateTime.utc()
-      } |> Epoch.Repo.insert!
-    end)
-  end
-
-  test "board" do
-    b = %Epoch.Board{
-      name: "Testing Board",
-      description: "Testing grounds for discussion",
-      created_at: Ecto.DateTime.utc(),
-      updated_at: Ecto.DateTime.utc()
-    } |> Epoch.Repo.insert!
-    assert b.name == "Testing Board"
-  end
-
-  test "thread" do
-    b = %Epoch.Board{
-      name: "Testing Board",
-      description: "Testing grounds for discussion",
-      created_at: Ecto.DateTime.utc(),
-      updated_at: Ecto.DateTime.utc()
-    } |> Epoch.Repo.insert!
-    t = %Epoch.Thread{
-      board: b,
-      created_at: Ecto.DateTime.utc(),
-      updated_at: Ecto.DateTime.utc()
-    } |> Epoch.Repo.insert!
-    assert b.id == t.board_id
-  end
-
-  test "post" do
-    b = %Epoch.Board{
-      name: "Testing Board",
-      description: "Testing grounds for discussion",
-      created_at: Ecto.DateTime.utc(),
-      updated_at: Ecto.DateTime.utc()
-    } |> Epoch.Repo.insert!
-    t = %Epoch.Thread{
-      board: b,
-      created_at: Ecto.DateTime.utc(),
-      updated_at: Ecto.DateTime.utc()
-    } |> Epoch.Repo.insert!
-    assert b.id == t.board_id
-    p = %Epoch.Post{
-      thread: t,
-      created_at: Ecto.DateTime.utc(),
-      updated_at: Ecto.DateTime.utc()
-    } |> Epoch.Repo.insert!
-    assert t.id == p.thread_id
-  end
-
-  test "boards sql" do
-    create_boards()
-    {:ok, result} = Epoch.Repo.query("SELECT * FROM boards")
-    boards = Epoch.Board.from_result(result)
-    assert Enum.count(boards) == 3
+    Enum.each(1..count, &(create_board("Testing Board #{&1}")))
   end
 end
