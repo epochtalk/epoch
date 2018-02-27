@@ -15,4 +15,12 @@ defmodule Epoch.Board do
     field :meta, :map
     many_to_many :categories, Epoch.Category, join_through: "board_mapping"
   end
+
+  def from_row(cols, row, acc \\ %Epoch.Board{})
+  def from_row([col | ctl], [row | rtl], acc) do
+    from_row(ctl, rtl, acc |> Map.put(String.to_atom(col), row))
+  end
+  def from_row([], [], acc), do: acc
+
+  def from_result(res), do: res.rows |> Enum.map(&(from_row(res.columns, &1)))
 end

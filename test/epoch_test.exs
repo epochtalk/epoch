@@ -1,6 +1,17 @@
 defmodule EpochTest do 
  use Epoch.DataCase
   doctest Epoch
+  
+  def create_boards(count \\ 3) do
+    Enum.each(1..count, fn(i) ->
+      %Epoch.Board{
+        name: "Testing Board #{i}",
+        description: "Testing grounds for discussion",
+        created_at: Ecto.DateTime.utc(),
+        updated_at: Ecto.DateTime.utc()
+      } |> Epoch.Repo.insert!
+    end)
+  end
 
   test "board" do
     b = %Epoch.Board{
@@ -46,5 +57,12 @@ defmodule EpochTest do
       updated_at: Ecto.DateTime.utc()
     } |> Epoch.Repo.insert!
     assert t.id == p.thread_id
+  end
+
+  test "new" do
+    create_boards
+    {:ok, result} = Epoch.Repo.query("SELECT * FROM boards")
+    boards = Epoch.Board.from_result(result)
+    boards |> Enum.count |> IO.puts
   end
 end
