@@ -1,6 +1,5 @@
 defmodule Epoch.RootController do
   use Epoch.Web, :controller
-  alias Epoch.Board
   alias Epoch.Category
   import Ecto.Query
 

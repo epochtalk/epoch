@@ -6,7 +6,7 @@ defmodule Epoch.BoardController do
 
   import Ecto.Query
 
-  def show(conn, %{"id" => id} = params) do
+  def show(conn, %{"id" => id}) do
     board_query =
       from(
         b in Board,

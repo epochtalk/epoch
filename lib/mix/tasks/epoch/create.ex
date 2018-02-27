@@ -3,7 +3,7 @@ defmodule Mix.Tasks.Epoch.Create do
 
   @shortdoc "Epoch Create"
 
-  def run(args) do
+  def run(_args) do
     Mix.Task.run("ecto.create")
   end
 end

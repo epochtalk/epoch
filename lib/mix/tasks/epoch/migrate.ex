@@ -3,7 +3,7 @@ defmodule Mix.Tasks.Epoch.Migrate do
 
   @shortdoc "Epoch Migrate"
 
-  def run(args) do
+  def run(_args) do
     Mix.Task.run("ecto.migrate")
   end
 end

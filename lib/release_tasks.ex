@@ -42,5 +42,4 @@ defmodule Epoch.ReleaseTasks do
   end
 
   defp migrations_path(app), do: Path.join([priv_dir(app), "repo", "migrations"])
-  defp seed_path(app), do: Path.join([priv_dir(app), "repo", "seeds.exs"])
 end

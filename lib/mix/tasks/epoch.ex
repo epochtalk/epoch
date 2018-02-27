@@ -3,7 +3,7 @@ defmodule Mix.Tasks.Epoch do
 
   @shortdoc "Epoch base stub task"
 
-  def run(args) do
+  def run(_args) do
     IO.puts "Epoch"
   end
 end
