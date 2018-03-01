@@ -1,4 +1,8 @@
 FROM elixir:1.6
+# work in /app instead of /
+RUN mkdir -p /app
+WORKDIR /app
+
 RUN mix local.hex --force
 RUN mix local.rebar --force
 ADD . .
