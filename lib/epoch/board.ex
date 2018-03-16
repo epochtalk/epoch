@@ -17,8 +17,8 @@ defmodule Epoch.Board do
   end
 
   def from_row(cols, row, acc \\ %Epoch.Board{})
-  def from_row([col | ctl], [row | rtl], acc) do
-    from_row(ctl, rtl, acc |> Map.put(String.to_atom(col), row))
+  def from_row([col | ctl], [val | rtl], acc) do
+    from_row(ctl, rtl, acc |> Map.put(String.to_atom(col), val))
   end
   def from_row([], [], acc), do: acc
 
