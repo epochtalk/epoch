@@ -1,8 +1,9 @@
+h1 = "Epoch"
 = Enum.map @cats, fn(c) ->
   p
     strong = raw(c.name)
   = Enum.map c.boards, fn(b) ->
     p
-      a href="/boards/#{b.id}"
+      a href="/threads?board_id=#{b.id}"
         = raw(b.name)
   hr
