@@ -16,7 +16,7 @@ defmodule Epoch.Router do
   scope "/", Epoch do
     pipe_through :browser # Use the default browser stack
     get "/", RootController, :index
-    resources "/boards", BoardController, only: [:show]
+    resources "/boards", BoardController, only: [:index]
     resources "/threads", ThreadController, only: [:index]
   end
 
