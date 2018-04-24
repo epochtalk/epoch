@@ -9,8 +9,8 @@ defmodule Epoch.Repo.Migrations.Ranks do
 
     create(unique_index(:ranks, [:number]))
 
-    create table(:metric_rank_map, primary_key: false) do
-      add(:map, :jsonb, null: false)
+    create table(:metric_rank_maps, primary_key: false) do
+      add(:maps, :jsonb, null: false)
     end
   end
 end
