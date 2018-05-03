@@ -27,9 +27,9 @@ defmodule Epoch.Repo.Migrations.BctMerit do
     # - Column merit in smf_members, which is just a cached calculation from smf_merit_ledger
     create table(:merit_users, primary_key: false) do
       add(:user_id, references(:users, type: :uuid, on_delete: :delete_all))
-      add(:amount, :integer, null: false)
+      add(:merit, :integer, null: false)
     end
 
-    create(index(:merit_users, [:amount]))
+    create(index(:merit_users, [:merit]))
   end
 end
