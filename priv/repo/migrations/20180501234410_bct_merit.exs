@@ -8,21 +8,21 @@ defmodule Epoch.Repo.Migrations.BctMerit do
       add(:to_user_id, references(:users, type: :uuid))
       add(:post_id, references(:posts, type: :uuid))
       add(:amount, :integer, null: false)
-      add(:created_at, :timestamp)
+      add(:time, :timestamp)
     end
 
     create(index(:merit_ledger, [:amount]))
-    create(index(:merit_ledger, [:created_at]))
+    create(index(:merit_ledger, [:time]))
 
     # - Table smf_merit_sources(ID_MEMBER unsigned, time unsigned, amount unsigned)
     create table(:merit_sources, primary_key: false) do
       add(:user_id, references(:users, type: :uuid, on_delete: :delete_all))
       add(:amount, :integer, null: false)
-      add(:created_at, :timestamp)
+      add(:time, :timestamp)
     end
 
     create(index(:merit_sources, [:amount]))
-    create(index(:merit_sources, [:created_at]))
+    create(index(:merit_sources, [:time]))
 
     # - Column merit in smf_members, which is just a cached calculation from smf_merit_ledger
     create table(:merit_users, primary_key: false) do
