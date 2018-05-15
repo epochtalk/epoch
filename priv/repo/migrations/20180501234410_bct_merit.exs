@@ -31,5 +31,6 @@ defmodule Epoch.Repo.Migrations.BctMerit do
     end
 
     create(index(:merit_users, [:merit]))
+    create(unique_index(:merit_users, [:user_id]))
   end
 end
