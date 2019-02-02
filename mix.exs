@@ -33,7 +33,7 @@ defmodule Epoch.Mixfile do
   defp deps do
     [
       {:dialyxir, "~> 0.4", only: [:dev]},
-      {:distillery, "~> 1.4"},
+      {:distillery, "~> 2.0"},
       {:phoenix_ecto, "~> 3.3"},
       {:phoenix, "~> 1.3"},
       {:phoenix_html, "~> 2.10"},

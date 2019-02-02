@@ -15,7 +15,7 @@ defmodule Epoch.ReleaseTasks do
   def migrate do
     IO.puts "Loading epoch.."
     # Load the code for epoch, but don't start it
-    :ok = Application.load(:epoch)
+    Application.load(:epoch)
 
     IO.puts "Starting dependencies.."
     # Start apps necessary for executing migrations
