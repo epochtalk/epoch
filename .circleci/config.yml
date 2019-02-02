@@ -27,4 +27,5 @@ jobs:
       - run: MIX_ENV=prod mix release --env=prod
 
       - store_artifacts:
-          path: _build/prod/rel/epoch/bin/epoch
+          path: _build/prod/rel/epoch
+          destination: epoch
