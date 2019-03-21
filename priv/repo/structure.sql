@@ -2980,7 +2980,7 @@ ALTER TABLE ONLY users.board_bans
 --
 
 ALTER TABLE ONLY users.preferences
-    ADD CONSTRAINT preferences_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id);
+    ADD CONSTRAINT preferences_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
 
 
 --
