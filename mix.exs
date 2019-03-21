@@ -21,7 +21,6 @@ defmodule Epoch.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {Epoch.Application, []},
       extra_applications: [:logger, :runtime_tools]
     ]
   end
