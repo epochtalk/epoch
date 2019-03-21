@@ -7,7 +7,7 @@ defmodule Epoch.Mixfile do
       version: get_version(),
       elixir: "~> 1.6",
       elixirc_paths: elixirc_paths(Mix.env),
-      compilers: [:phoenix, :gettext] ++ Mix.compilers,
+      compilers: [:gettext] ++ Mix.compilers,
       start_permanent: Mix.env == :prod,
       aliases: aliases(),
       deps: deps(),
@@ -33,10 +33,7 @@ defmodule Epoch.Mixfile do
     [
       {:dialyxir, "~> 0.4", only: [:dev]},
       {:distillery, "~> 2.0"},
-      {:phoenix_ecto, "~> 3.3"},
-      {:phoenix, "~> 1.3"},
-      {:phoenix_html, "~> 2.10"},
-      {:phoenix_slime, "~> 0.8.0"},
+      {:ecto, "~> 2.2.11"},
       {:postgrex, "~> 0.13.3"},
       {:gettext, "~> 0.14"},
       {:cowboy, "~> 1.0"}
