@@ -12,7 +12,6 @@ config :logger, level: :warn
 
 # Configure your database
 config :epoch, Epoch.Repo,
-  adapter: Ecto.Adapters.Postgres,
   username: "postgres",
   password: "postgres",
   database: "epoch_test",
