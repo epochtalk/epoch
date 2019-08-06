@@ -7,7 +7,7 @@ jobs:
     docker:
       # specify the version here
       - image: circleci/elixir:1.8.1
-      
+
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
@@ -24,7 +24,7 @@ jobs:
       - run: mix ecto.create
       - run: mix ecto.migrate
       - run: mix test
-      - run: MIX_ENV=prod mix release --env=prod
+      - run: MIX_ENV=prod mix release
 
       - store_artifacts:
           path: _build/prod/rel/epoch
