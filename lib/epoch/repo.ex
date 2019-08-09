@@ -1,6 +1,8 @@
 defmodule Epoch.Repo do
-  use Ecto.Repo, otp_app: :epoch
-  
+  use Ecto.Repo,
+    otp_app: :epoch,
+    adapter: Ecto.Adapters.Postgres
+
   @doc """
   Dynamically loads the repository url from the
   DATABASE_URL environment variable.

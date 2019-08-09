@@ -34,8 +34,9 @@ defmodule Epoch.Mixfile do
     [
       {:dialyxir, "~> 0.4", only: [:dev]},
       {:distillery, "~> 2.0"},
-      {:ecto, "~> 2.2.11"},
-      {:postgrex, "~> 0.13.3"},
+      {:ecto, "~> 3.1.7"},
+      {:ecto_sql, "~> 3.1.6"},
+      {:postgrex, ">= 0.0.0"},
       {:gettext, "~> 0.14"},
       {:cowboy, "~> 1.0"}
     ]
@@ -82,8 +83,8 @@ defmodule Epoch.Mixfile do
   defp handle_file_version({:error, _}), do: retrieve_version_from_git()
 
   defp retrieve_version_from_git do
-    System.cmd("git", ~w{describe --dirty --always --tags --first-parent}) 
-    |> elem(0) 
+    System.cmd("git", ~w{describe --dirty --always --tags --first-parent})
+    |> elem(0)
     |> String.trim
   end
 end
