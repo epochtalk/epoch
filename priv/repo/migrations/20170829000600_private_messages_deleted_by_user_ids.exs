@@ -10,10 +10,10 @@ defmodule Epoch.Repo.Migrations.PrivateMessagesDeletedByUserIds do
       remove :copied_ids
     end
 
-    create_operator_class_uuid_ops()
+    # create_operator_class_uuid_ops()
 
-    create index(:private_conversations, [:deleted_by_user_ids], name: :private_conversations_deleted_by_user_ids_gin, using: "GIN")
-    create index(:private_messages, [:deleted_by_user_ids], name: :private_messages_deleted_by_user_ids_gin, using: "GIN")
+    # create index(:private_conversations, [:deleted_by_user_ids], name: :private_conversations_deleted_by_user_ids_gin, using: "GIN")
+    # create index(:private_messages, [:deleted_by_user_ids], name: :private_messages_deleted_by_user_ids_gin, using: "GIN")
   end
 
   defp create_operator_class_uuid_ops do
