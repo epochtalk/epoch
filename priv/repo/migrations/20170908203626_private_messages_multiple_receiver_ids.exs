@@ -8,7 +8,7 @@ defmodule Epoch.Repo.Migrations.PrivateMessagesMultipleReceiverIds do
       add :receiver_ids, {:array, :uuid}, default: []
     end
 
-    create index(:private_messages, [:receiver_ids], name: :private_messages_receiver_ids_gin, using: "GIN")
+    # create index(:private_messages, [:receiver_ids], name: :private_messages_receiver_ids_gin, using: "GIN")
 
   end
 end
