@@ -36,3 +36,8 @@ jobs:
       - checkout
       - run: yarn install
       - run: npx semantic-release
+workflows:
+  version: 2
+  release:
+    jobs:
+      - release
