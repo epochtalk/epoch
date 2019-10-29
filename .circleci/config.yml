@@ -29,3 +29,15 @@ jobs:
       - store_artifacts:
           path: _build/prod/rel/epoch
           destination: epoch
+  release:
+    docker:
+      - image: circleci/node:10.16.0
+    steps:
+      - checkout
+      - run: yarn install
+      - run: npx semantic-release
+workflows:
+  version: 2
+  release:
+    jobs:
+      - release
