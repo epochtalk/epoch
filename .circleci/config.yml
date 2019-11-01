@@ -40,4 +40,7 @@ workflows:
   version: 2
   release:
     jobs:
-      - release
+      - build
+      - release:
+          requires:
+            - build
