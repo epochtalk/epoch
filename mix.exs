@@ -72,7 +72,6 @@ defmodule Epoch.Mixfile do
     version_from_file()
     |> handle_file_version()
     |> String.replace_leading("v", "")
-    |> String.replace("-", ".", global: false)
     |> String.trim
   end
 
