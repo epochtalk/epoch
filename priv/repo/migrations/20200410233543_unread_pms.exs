@@ -6,6 +6,7 @@ defmodule Epoch.Repo.Migrations.UnreadPms do
       add :read_by_user_ids, {:array, :uuid}, default: []
     end
     alter table(:private_messages, [prefix: @schema_prefix]) do
+      remove :viewed
       add :read_by_user_ids, {:array, :uuid}, default: []
     end
   end
