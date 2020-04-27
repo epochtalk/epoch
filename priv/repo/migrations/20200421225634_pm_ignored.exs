@@ -8,6 +8,10 @@ defmodule Epoch.Repo.Migrations.PmIgnored do
       add :created_at, :timestamp
     end
 
+    alter table(:preferences, [prefix: "users"]) do
+      add :email_messages, :boolean, default: true
+    end
+
     create index(:ignored, [:user_id], prefix: @schema_prefix)
     create index(:ignored, [:ignored_user_id], prefix: @schema_prefix)
     create unique_index(:ignored, [:user_id, :ignored_user_id], prefix: @schema_prefix)
