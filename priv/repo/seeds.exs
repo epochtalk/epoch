@@ -1,5 +1,5 @@
 b = %Epoch.Board{
-  name: "Tesing Board",
+  name: "Testing Board",
   description: "Testing grounds for discussion",
   created_at: NaiveDateTime.truncate(NaiveDateTime.utc_now(), :second),
   updated_at: NaiveDateTime.truncate(NaiveDateTime.utc_now(), :second)
