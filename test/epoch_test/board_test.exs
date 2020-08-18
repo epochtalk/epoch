@@ -1,10 +1,15 @@
-defmodule EpochTest.BoardTest do 
+defmodule EpochTest.BoardTest do
   use Epoch.DataCase
   import Ecto.Query
   alias Epoch.Board
   alias Epoch.Repo
 
   doctest Epoch
+
+  setup do
+    Repo.delete_all(Board)
+    :ok
+  end
 
   test "board" do
     board_created = EpochTest.create_board()

@@ -11,6 +11,7 @@ defmodule EpochTest.PostTest do
     } |> Epoch.Repo.insert!
     t = %Epoch.Thread{
       board: b,
+      slug: :crypto.strong_rand_bytes(5) |> Base.url_encode64 |> binary_part(0, 5),
       created_at: NaiveDateTime.truncate(NaiveDateTime.utc_now(), :second),
       updated_at: NaiveDateTime.truncate(NaiveDateTime.utc_now(), :second)
     } |> Epoch.Repo.insert!
