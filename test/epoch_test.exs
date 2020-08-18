@@ -18,6 +18,7 @@ defmodule EpochTest do
   def create_thread(board \\ create_board()) do
     %Epoch.Thread{
       board: board,
+      slug: :crypto.strong_rand_bytes(5) |> Base.url_encode64 |> binary_part(0, 5),
       created_at: NaiveDateTime.truncate(NaiveDateTime.utc_now(), :second),
       updated_at: NaiveDateTime.truncate(NaiveDateTime.utc_now(), :second)
     } |> Epoch.Repo.insert!

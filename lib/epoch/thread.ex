@@ -6,6 +6,7 @@ defmodule Epoch.Thread do
     belongs_to :board, Epoch.Board, type: :binary_id
     field :locked, :boolean
     field :sticky, :boolean
+    field :slug, :string
     field :moderated, :boolean
     field :post_count, :integer
     field :created_at, :naive_datetime
