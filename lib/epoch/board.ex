@@ -4,6 +4,7 @@ defmodule Epoch.Board do
   @primary_key {:id, :binary_id, autogenerate: true}
   schema "boards" do
     field :name, :string
+    field :slug, :string
     field :description, :string
     field :post_count, :integer
     field :thread_count, :integer
