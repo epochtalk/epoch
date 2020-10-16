@@ -1,4 +1,4 @@
-FROM elixir:1.9.1
+FROM elixir:1.11.0
 # work in /app instead of /
 RUN mkdir -p /app
 WORKDIR /app
