@@ -2,6 +2,19 @@
 
 ##### Dependencies
 
+* Postgres
+
+```
+brew install postgres
+```
+
+Create `postgres` superuser for development. Change this to suit needs for local
+environment.
+```
+createuser -s postgres
+```
+
+
 * Ecto
 * Postgrex
 * Distillery
