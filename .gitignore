@@ -1,8 +1,14 @@
-# App artifacts
+# Artifacts
 /_build
-/db
+/cover
 /deps
-/*.ez
+/doc
+/.fetch
+erl_crash.dump
+*.ez
+*.beam
+/config/*.secret.exs
+.elixir_ls/
 
 # Generated on crash by the VM
 erl_crash.dump
