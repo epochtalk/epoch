@@ -1,11 +1,9 @@
 defmodule Epoch.Application do
   use Application
   def start(_type, _args) do
-    import Supervisor.Spec
-
-    # Define workers and child supervisors to be supervised
     children = [
-      supervisor(Epoch.Repo, []),
+      Epoch.Repo,
+      EpochWeb.Endpoint
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
