@@ -1,7 +1,6 @@
 defmodule Epoch.Board do
   use Ecto.Schema
 
-  @primary_key {:id, :binary_id, autogenerate: true}
   schema "boards" do
     field :name, :string
     field :slug, :string

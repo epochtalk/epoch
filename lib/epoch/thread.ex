@@ -1,9 +1,8 @@
 defmodule Epoch.Thread do
   use Ecto.Schema
 
-  @primary_key {:id, :binary_id, autogenerate: true}
   schema "threads" do
-    belongs_to :board, Epoch.Board, type: :binary_id
+    belongs_to :board, Epoch.Board
     field :locked, :boolean
     field :sticky, :boolean
     field :slug, :string
