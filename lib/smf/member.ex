@@ -18,17 +18,13 @@ defmodule SMF.Member do
     |> to_user()
 
     case user do
-      nil -> nil
+      nil -> {:error, "user not found"}
       _ ->
-        case %User{} |> User.changeset(user) |> Repo.insert() do
-          {:ok, user} -> user
-          {:error, _cs} ->
-            IO.puts(:stderr, "unable to upsert user")
-            :error
-        end
+        %User{}
+        |> User.changeset(user)
+        |> Repo.insert(conflict_target: :id, on_conflict: :replace_all)
     end
   end
-
 
   def find_member(id) when is_binary(id) do
     String.to_integer(id)

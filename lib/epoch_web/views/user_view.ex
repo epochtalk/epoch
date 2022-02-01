@@ -12,6 +12,8 @@ defmodule EpochWeb.Views.UserView do
   def user_json(user) do
     %{
       id: user.id,
+      email: user.email,
+      username: user.username,
       created_at: user.created_at,
       updated_at: user.updated_at
     }

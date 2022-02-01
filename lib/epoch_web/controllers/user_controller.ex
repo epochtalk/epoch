@@ -1,6 +1,5 @@
 defmodule EpochWeb.Controllers.UserController do
   use EpochWeb, :controller
-
   alias Epoch.Repo
   alias Epoch.User
 
@@ -12,12 +11,19 @@ defmodule EpochWeb.Controllers.UserController do
   def show(conn, %{"id" => id}) do
     case Helper.enable_smf_fallback? do
       true ->
-        {:ok, user} = Member.migrate(id)
+        case Member.migrate(id) do
+          {:ok, user} ->
+            conn
+            |> put_view(UserView)
+            |> render("show.json", user: user)
+          {:error, _err} ->
+            text conn, "error migrating user id: #{id}"
+        end
+      _ ->
+        u = Repo.get(User, id)
         conn
         |> put_view(UserView)
-        |> render("show.json", user: user)
-      _ ->
-        text conn, "user id: #{id}"
+        |> render("show.json", user: u)
     end
   end
 end
