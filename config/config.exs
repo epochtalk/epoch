@@ -4,6 +4,9 @@ import Config
 config :epoch,
   ecto_repos: [Epoch.Repo]
 
+config :epoch, Epoch,
+  enable_smf_fallback: false
+
 # Configures the endpoint
 config :epoch, EpochWeb.Endpoint,
   url: [host: "localhost"]
