@@ -1,0 +1,2 @@
+defmodule SMF do
+end

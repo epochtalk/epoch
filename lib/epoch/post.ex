@@ -7,5 +7,6 @@ defmodule Epoch.Post do
     field :content, :map
     field :created_at, :naive_datetime
     field :updated_at, :naive_datetime
+    field :smf_message, :map
   end
 end

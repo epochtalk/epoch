@@ -7,6 +7,10 @@ defmodule EpochWeb.Views.BoardView do
     }
   end
 
+  def render("show.json", %{board: board}) do
+    board
+  end
+
   def board_json(board) do
     %{
       name: board.name,

@@ -37,6 +37,7 @@ defmodule Epoch.Mixfile do
       {:ecto_sql, "~> 3.7.2"},
       {:gettext, "~> 0.18"},
       {:jason, "~> 1.2"},
+      {:myxql, ">= 0.0.0"},
       {:phoenix, "~> 1.6.6"},
       {:plug_cowboy, "~> 2.5"},
       {:postgrex, ">= 0.16.1"}

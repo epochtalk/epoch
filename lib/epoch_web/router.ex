@@ -7,8 +7,8 @@ defmodule EpochWeb.Router do
 
   scope "/", EpochWeb do
     pipe_through :api
-    resources "/boards", BoardController, only: [:index]
-    resources "/threads", ThreadController, only: [:index]
-    resources "/posts", PostController, only: [:index]
+    resources "/boards", BoardController, only: [:index, :show]
+    resources "/threads", ThreadController, only: [:index, :show]
+    resources "/posts", PostController, only: [:index, :show]
   end
 end

@@ -7,6 +7,14 @@ defmodule EpochWeb.Views.ThreadView do
     }
   end
 
+  def render("index.json", %{topics: topics}) do
+    topics
+  end
+
+  def render("show.json", %{topic: topic}) do
+    topic
+  end
+
   def thread_json(thread) do
     %{
       board_id: thread.board_id
