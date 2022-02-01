@@ -10,5 +10,6 @@ defmodule EpochWeb.Router do
     resources "/boards", BoardController, only: [:index, :show]
     resources "/threads", ThreadController, only: [:index, :show]
     resources "/posts", PostController, only: [:index, :show]
+    resources "/users", UserController, only: [:show]
   end
 end

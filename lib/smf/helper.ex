@@ -28,4 +28,8 @@ defmodule SMF.Helper do
       second: elem(time, 2),
       microsecond: {0, 0}}
   end
+
+  def cs_cols(tbl_name) do
+    Enum.join(Application.fetch_env!(:epoch, Epoch.SmfRepo)[:select_cols][tbl_name], ",")
+  end
 end

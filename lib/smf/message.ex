@@ -36,13 +36,22 @@ defmodule SMF.Message do
   end
 
   def to_post(message) do
-    IO.inspect message
     %Epoch.Post{
+      thread_id: message["ID_TOPIC"],
       user_id: message["ID_MEMBER"],
+      content: %{body: message["body"]},
       created_at: message["posterTime"]
+      |> DateTime.from_unix!()
+      |> DateTime.to_naive(),
+      updated_at: message["modifiedTime"]
       |> DateTime.from_unix!()
       |> DateTime.to_naive(),
       smf_message: message
     }
+  end
+
+  def migrate(message) do
+    message["ID_TOPIC"] |> SMF.Topic.migrate()
+    message["ID_MEMBER"] |> SMF.Member.migrate()
   end
 end

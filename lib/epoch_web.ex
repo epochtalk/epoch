@@ -50,6 +50,7 @@ defmodule EpochWeb do
       alias Controllers.BoardController
       alias Controllers.ThreadController
       alias Controllers.PostController
+      alias Controllers.UserController
     end
   end
 
