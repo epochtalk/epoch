@@ -32,6 +32,7 @@ defmodule Epoch.Mixfile do
 
   defp deps do
     [
+      {:corsica, "~> 1.0"},
       {:distillery, "~> 2.0"},
       {:ecto, "~> 3.7.1"},
       {:ecto_sql, "~> 3.7.2"},
