@@ -59,6 +59,7 @@ defmodule SMF.Message do
 
   def to_post_attrs(message) do
     %{
+      id: message["ID_MSG"],
       thread_id: message["ID_TOPIC"],
       user_id: message["ID_MEMBER"],
       content: %{body: message["body"]},

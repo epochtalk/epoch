@@ -1,9 +1,7 @@
 defmodule EpochWeb.Controllers.PostController do
   use EpochWeb, :controller
-
   alias Epoch.Repo
   alias Epoch.Post
-
   alias EpochWeb.Views.PostView
 
   def index(conn, %{"thread_id" => thread_id}) do
@@ -28,13 +26,14 @@ defmodule EpochWeb.Controllers.PostController do
   def show(conn, %{"id" => id}) do
     case SMF.Helper.enable_smf_fallback? do
       true ->
-        message = SMF.Message.find_message(id)
-        post = SMF.Message.to_post_attrs(message)
-
-        conn
-        |> put_view(PostView)
-        |> render("show.json", post: post)
-        # |> render("show.json", message: message)
+        case SMF.Message.migrate(id) do
+          {:ok, post} ->
+            conn
+            |> put_view(PostView)
+            |> render("show.json", post: post)
+          {:error, _err} ->
+            text conn, "post id: #{id} not found"
+        end
       _ ->
         text conn, "post id: #{id}"
     end

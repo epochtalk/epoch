@@ -2,17 +2,18 @@ defmodule SMF.Board do
   alias Epoch.Repo
 
   def migrate(id) do
-    board_attrs = id
-    |> find_board()
-    |> to_board_attrs()
-    case board_attrs do
-      nil -> {:error, "board not found"}
-      _ ->
-        %Epoch.Board{}
-        |> Epoch.Board.changeset(board_attrs)
-        |> Repo.insert(conflict_target: :id, on_conflict: :replace_all)
-    end 
-    
+    case find_board(id) do
+      nil -> nil
+      smf_board ->
+        board_attrs = to_board_attrs(smf_board)
+        case board_attrs do
+          nil -> {:error, "board not found"}
+          _ ->
+            %Epoch.Board{}
+            |> Epoch.Board.changeset(board_attrs)
+            |> Repo.insert(conflict_target: :id, on_conflict: :replace_all)
+        end 
+    end
   end
 
   def find_boards() do
@@ -37,7 +38,7 @@ defmodule SMF.Board do
     Epoch.SmfRepo
     |> Ecto.Adapters.SQL.query!(
       """
-      SELECT ID_BOARD ID_CAT, childLevel, ID_PARENT, boardOrder,
+      SELECT ID_BOARD, ID_CAT, childLevel, ID_PARENT, boardOrder,
       ID_LAST_MSG, ID_MSG_UPDATED, memberGroups, name, description,
       numTopics, numPosts, countPosts, ID_THEME, permission_mode,
       override_theme, allowIgnore, lang

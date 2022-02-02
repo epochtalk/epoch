@@ -1,6 +1,7 @@
 defmodule EpochWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :epoch
 
+  plug Corsica, origins: "*", allow_headers: :all
   plug Plug.RequestId
   plug Plug.Parsers,
     parsers: [:urlencoded, :multipart, :json],

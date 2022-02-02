@@ -5,7 +5,7 @@ defmodule EpochWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", EpochWeb do
+  scope "/api", EpochWeb do
     pipe_through :api
     resources "/boards", BoardController, only: [:index, :show]
     resources "/threads", ThreadController, only: [:index, :show]
