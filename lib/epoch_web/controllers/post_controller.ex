@@ -13,7 +13,7 @@ defmodule EpochWeb.Controllers.PostController do
         messages = SMF.Message.find_messages(thread_id)
         posts = messages
         |> Enum.map(fn message ->
-          SMF.Message.to_post(message)
+          SMF.Message.to_post_attrs(message)
         end)
         posts
       _ ->
@@ -29,8 +29,8 @@ defmodule EpochWeb.Controllers.PostController do
     case SMF.Helper.enable_smf_fallback? do
       true ->
         message = SMF.Message.find_message(id)
-        post = SMF.Message.to_post(message)
-        
+        post = SMF.Message.to_post_attrs(message)
+
         conn
         |> put_view(PostView)
         |> render("show.json", post: post)

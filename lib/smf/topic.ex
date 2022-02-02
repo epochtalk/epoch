@@ -1,4 +1,21 @@
 defmodule SMF.Topic do
+  alias Epoch.Repo
+  alias Epoch.Thread
+
+  def migrate(id) do
+    thread_attrs = id
+    |> find_topic()
+    |> to_thread_attrs()
+    case thread_attrs do
+      nil -> {:error, "thread not found"}
+      _ ->
+        SMF.Board.migrate(thread_attrs.board_id)
+        %Thread{}
+        |> Thread.changeset(thread_attrs)
+        |> Repo.insert(conflict_target: :id, on_conflict: :replace_all)
+    end 
+  end
+
   def find_topic(id) when is_binary(id) do
     String.to_integer(id)
     |> find_topic()
@@ -39,5 +56,17 @@ defmodule SMF.Topic do
       """,
       [board_id])
     |> SMF.Helper.res_to_maps()
+  end
+
+  def to_thread_attrs(topic) do
+    %{
+      id: topic["ID_TOPIC"],
+      board_id: topic["ID_BOARD"],
+      locked: topic["locked"],
+      post_count: topic["numReplies"],
+      slug: "slug-#{topic["ID_TOPIC"]}",
+      sticky: topic["isSticky"],
+      smf_topic: topic
+    }
   end
 end

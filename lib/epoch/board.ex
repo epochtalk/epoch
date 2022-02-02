@@ -1,5 +1,6 @@
 defmodule Epoch.Board do
   use Ecto.Schema
+  import Ecto.Changeset
 
   schema "boards" do
     field :name, :string
@@ -16,11 +17,10 @@ defmodule Epoch.Board do
     many_to_many :categories, Epoch.Category, join_through: "board_mapping"
   end
 
-  def from_row(cols, row, acc \\ %Epoch.Board{})
-  def from_row([col | ctl], [val | rtl], acc) do
-    from_row(ctl, rtl, acc |> Map.put(String.to_atom(col), val))
+  def changeset(board, attrs) do
+    board
+    |> cast(attrs, [:id, :name, :slug, :description, :post_count, :thread_count, :viewable_by, :postable_by, :created_at, :imported_at, :updated_at, :meta])
+    |> unique_constraint(:id, name: :boards_pkey)
+    |> unique_constraint(:slug, name: :boards_slug_index)
   end
-  def from_row([], [], acc), do: acc
-
-  def from_result(res), do: res.rows |> Enum.map(&(from_row(res.columns, &1)))
 end
