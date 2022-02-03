@@ -7,6 +7,8 @@ defmodule EpochWeb.Router do
 
   scope "/api", EpochWeb do
     pipe_through :api
+    get "/motd", RootController, :motd
+    get "/boards/:slug/id", BoardController, :id
     resources "/boards", BoardController, only: [:index, :show]
     resources "/threads", ThreadController, only: [:index, :show]
     resources "/posts", PostController, only: [:index, :show]

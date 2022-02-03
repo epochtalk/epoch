@@ -20,6 +20,7 @@ defmodule Epoch.Board do
   def changeset(board, attrs) do
     board
     |> cast(attrs, [:id, :name, :slug, :description, :post_count, :thread_count, :viewable_by, :postable_by, :created_at, :imported_at, :updated_at, :meta])
+    |> cast_assoc(:categories)
     |> unique_constraint(:id, name: :boards_pkey)
     |> unique_constraint(:slug, name: :boards_slug_index)
   end

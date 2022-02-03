@@ -41,7 +41,8 @@ defmodule Epoch.Mixfile do
       {:myxql, ">= 0.0.0"},
       {:phoenix, "~> 1.6.6"},
       {:plug_cowboy, "~> 2.5"},
-      {:postgrex, ">= 0.16.1"}
+      {:postgrex, ">= 0.16.1"},
+      {:slugy, "~> 4.1.1"}
     ]
   end
 
