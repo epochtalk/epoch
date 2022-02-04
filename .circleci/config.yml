@@ -11,7 +11,7 @@ jobs:
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
-      - image: circleci/postgres:11.1-alpine
+      - image: cimg/postgres:11.1-alpine
 
     working_directory: ~/repo
     steps:
@@ -31,7 +31,7 @@ jobs:
           destination: epoch
   release:
     docker:
-      - image: circleci/node:14.17.6
+      - image: cimg/node:14.17.6
     steps:
       - checkout
       - run: yarn install
