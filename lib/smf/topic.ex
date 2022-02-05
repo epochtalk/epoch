@@ -42,7 +42,44 @@ defmodule SMF.Topic do
     |> find_topics()
   end
 
-  def find_topics(board_id) when is_integer(board_id) and board_id > 0 do
+  def find_topics_as_threads(board_id, limit \\ 25, page \\ 1) do
+    board_id = String.to_integer(board_id)
+    find_topics(board_id, limit, page)
+  end
+
+  def find_topic_ids_and_migrate(board_id, limit \\ 25, page \\ 1) do
+    {:ok, topic_ids} = find_topic_ids(board_id, limit, page)
+    topic_ids
+    |> Enum.map(fn topic_id ->
+      migrate(topic_id)
+    end)
+  end
+
+  def find_topic_ids(board_id, limit, page) do
+    case Epoch.SmfRepo
+    |> Ecto.Adapters.SQL.query(
+      """
+      SELECT ID_TOPIC
+      FROM smf_topics
+      WHERE ID_BOARD = ?
+      ORDER BY ID_TOPIC
+      LIMIT #{limit}
+      """,
+      [board_id]) do
+      {:ok, res} ->
+        ids = res.rows |> Enum.map(fn row -> List.first(row) end)
+        {:ok, ids}
+    end
+  end
+
+  def find_topics(board_id, limit, page)
+  when is_binary(board_id) and is_binary(limit) and is_binary(page) do
+    find_topics(String.to_integer(board_id), String.to_integer(limit), String.to_integer(page))
+  end
+
+  def find_topics(board_id, limit, page)
+  when is_integer(board_id) and is_integer(limit) and is_integer(page)
+  and board_id > 0 and limit > 0 and page > 0 do
     Epoch.SmfRepo
     |> Ecto.Adapters.SQL.query!(
       """
@@ -52,7 +89,7 @@ defmodule SMF.Topic do
       FROM smf_topics
       WHERE ID_BOARD = ?
       ORDER BY ID_TOPIC
-      LIMIT 100
+      LIMIT #{limit}
       """,
       [board_id])
     |> SMF.Helper.res_to_maps()
