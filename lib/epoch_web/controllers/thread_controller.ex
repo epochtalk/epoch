@@ -6,25 +6,14 @@ defmodule EpochWeb.Controllers.ThreadController do
 
   alias EpochWeb.Views.ThreadView
 
-  def index(conn, %{"board_id" => board_id, "limit" => limit, "page" => page}) do
-    threads = case SMF.Helper.enable_smf_fallback? do
-      true -> SMF.Topic.find_topic_ids_and_migrate(board_id, limit, page)
-      _ -> Repo.all(Thread)
-    end
+  def index(conn, %{"board_id" => _board_id, "limit" => _limit, "page" => _page}) do
+    threads = Repo.all(Thread)
     conn
     |> put_view(ThreadView)
     |> render("index.json", threads: threads)
   end
 
   def show(conn, %{"id" => id}) do
-    case SMF.Helper.enable_smf_fallback? do
-      true ->
-        topic = SMF.Topic.find_topic(id)
-        conn
-        |> put_view(ThreadView)
-        |> render("show.json", topic: topic)
-      _ ->
-        text conn, "thread id: #{id}"
-    end
+    text conn, "thread id: #{id}"
   end
 end

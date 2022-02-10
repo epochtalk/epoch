@@ -9,7 +9,12 @@ config :epoch, Epoch.Repo,
   pool_size: 10,
   port: "5432"
 
-config :epoch, Epoch.Endpoint,
+config :epoch, EpochLegacyWeb.Endpoint,
+  http: [port: 4000],
+  debug_errors: true,
+  check_origin: false
+
+config :epoch, EpochWeb.Endpoint,
   http: [port: 4000],
   debug_errors: true,
   check_origin: false

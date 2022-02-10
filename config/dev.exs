@@ -9,6 +9,15 @@ config :epoch, Epoch.Repo,
   pool_size: 10,
   port: "5432"
 
+config :epoch, EpochLegacyWeb.Endpoint,
+  # Binding to loopback ipv4 address prevents access from other machines.
+  # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
+  http: [ip: {127, 0, 0, 1}, port: 4000],
+  check_origin: false,
+  code_reloader: true,
+  debug_errors: true,
+  secret_key_base: "WfmW36sxld6UeMyRCs1+q95xOasg8fE5EUMiTu0D1XTGkQjNY8vYccnVWxqZJORk"
+
 config :epoch, EpochWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.

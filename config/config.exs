@@ -11,6 +11,9 @@ config :epoch, Epoch,
 config :epoch, EpochWeb.Endpoint,
   url: [host: "localhost"]
 
+config :epoch, EpochLegacyWeb.Endpoint,
+  url: [host: "localhost"]
+
 config :epoch, Epoch.SmfRepo,
   select_cols: %{
     smf_members: ["ID_GROUP", "AIM", "ignoreBoards", "ICQ", "notifyTypes", "ID_MSG_LAST_VISIT", "smileySet", "YIM", "lngfile", "activity", "notifySendBody", "additionalGroups", "timeFormat", "ID_MEMBER", "ID_POST_GROUP", "MSN", "avatar", "hideEmail", "personaltext", "notifyAnnouncements", "timeOffset", "autoWatch", "websiteTitle", "is_activated", "location", "gender", "emailAddress", "birthdate", "usertitle", "lastpatrolled", "showOnline", "notifyOnce", "proxyban", "maxdepth", "websiteUrl", "ID_THEME", "ign_ignore_list", "realName", "memberName", "pm_email_notify", "posts", "lastLogin", "signature", "dateRegistered", "lastUpdated", "totalTimeLoggedIn"]

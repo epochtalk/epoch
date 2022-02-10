@@ -1,12 +1,12 @@
-defmodule EpochWeb do
+defmodule EpochLegacyWeb do
   @moduledoc """
   The entrypoint for defining your web interface, such
   as controllers, views, channels and so on.
 
   This can be used in your application as:
 
-      use EpochWeb, :controller
-      use EpochWeb, :view
+      use EpochLegacyWeb, :controller
+      use EpochLegacyWeb, :view
 
   The definitions below will be executed for every view,
   controller, etc, so keep them short and clean, focused
@@ -19,11 +19,11 @@ defmodule EpochWeb do
 
   def controller do
     quote do
-      use Phoenix.Controller, namespace: EpochWeb.Controllers
+      use Phoenix.Controller, namespace: EpochLegacyWeb.Controllers
 
       import Plug.Conn
-      import EpochWeb.Gettext
-      alias EpochWeb.Router.Helpers, as: Routes
+      import EpochLegacyWeb.Gettext
+      alias EpochLegacyWeb.Router.Helpers, as: Routes
     end
   end
 
@@ -31,7 +31,7 @@ defmodule EpochWeb do
     quote do
       use Phoenix.View,
         root: "lib/epoch_web/templates",
-        namespace: EpochWeb.Views
+        namespace: EpochLegacyWeb.Views
 
       # Import convenience functions from controllers
       import Phoenix.Controller,
@@ -58,7 +58,7 @@ defmodule EpochWeb do
   def channel do
     quote do
       use Phoenix.Channel
-      import EpochWeb.Gettext
+      import EpochLegacyWeb.Gettext
     end
   end
 
@@ -67,9 +67,9 @@ defmodule EpochWeb do
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
 
-      import EpochWeb.ErrorHelpers
-      import EpochWeb.Gettext
-      alias EpochWeb.Router.Helpers, as: Routes
+      import EpochLegacyWeb.ErrorHelpers
+      import EpochLegacyWeb.Gettext
+      alias EpochLegacyWeb.Router.Helpers, as: Routes
     end
   end
 

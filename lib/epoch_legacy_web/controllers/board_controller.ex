@@ -1,13 +1,12 @@
-defmodule EpochWeb.Controllers.BoardController do
+defmodule EpochLegacyWeb.Controllers.BoardController do
   use EpochWeb, :controller
   alias Epoch.Category
-  alias Epoch.Repo
-  alias EpochWeb.Views.BoardView
+  alias EpochLegacyWeb.Views.BoardView
 
   def index(conn, _params) do
     categories_with_boards = Category
-    |> Repo.all()
-    |> Repo.preload(:boards)
+    |> Epoch.Repo.all()
+    |> Epoch.Repo.preload(:boards)
 
     conn
     |> put_view(BoardView)
@@ -15,7 +14,10 @@ defmodule EpochWeb.Controllers.BoardController do
   end
 
   def show(conn, %{"id" => id}) do
-    text conn, "board id: #{id}"
+    board = SMF.Board.find_board(id)
+    conn
+    |> put_view(BoardView)
+    |> render("show.json", board: board)
   end
 
   def id(conn, %{"slug" => _slug}) do

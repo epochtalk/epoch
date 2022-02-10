@@ -11,13 +11,12 @@ defmodule Epoch.Application do
   defp epoch_otp_apps() do
     children = [
       Epoch.Repo,
-      EpochWeb.Endpoint
     ]
     case SMF.Helper.enable_smf_fallback? do
       true -> 
-        [Epoch.SmfRepo | children]
+        [Epoch.SmfRepo, EpochLegacyWeb.Endpoint] ++ children
       _ ->
-        children
+        [EpochWeb.Endpoint|children]
     end
   end
 end
