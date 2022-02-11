@@ -19,4 +19,10 @@ defmodule EpochWeb.Controllers.AuthController do
 
     respond_ok(%{ found: username_taken }, conn)
   end
+  def email(conn, %{"email" => email}) do
+    email_taken = email
+    |> User.with_email_exists?
+
+    respond_ok(%{ found: email_taken }, conn)
+  end
 end
