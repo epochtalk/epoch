@@ -36,4 +36,10 @@ defmodule Epoch.User do
 
     Repo.exists?(query)
   end
+  def with_email_exists?(email) do
+    query = from u in User,
+      where: u.email == ^email
+
+    Repo.exists?(query)
+  end
 end
