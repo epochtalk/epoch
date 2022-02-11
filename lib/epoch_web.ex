@@ -52,6 +52,7 @@ defmodule EpochWeb do
       alias Controllers.PostController
       alias Controllers.UserController
       alias Controllers.RootController
+      alias Controllers.AuthController
     end
   end
 
