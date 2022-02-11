@@ -1,6 +1,9 @@
 defmodule Epoch.User do
   use Ecto.Schema
   import Ecto.Changeset
+  import Ecto.Query
+  alias Epoch.Repo
+  alias Epoch.User
 
   schema "users" do
     field :email, :string
@@ -25,5 +28,12 @@ defmodule Epoch.User do
     |> unique_constraint(:id, name: :users_pkey)
     |> unique_constraint(:email)
     |> unique_constraint(:username)
+  end
+
+  def with_username_exists?(username) do
+    query = from u in User,
+      where: u.username == ^username
+
+    Repo.exists?(query)
   end
 end
