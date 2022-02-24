@@ -3,6 +3,7 @@ defmodule EpochWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug :put_secure_browser_headers
   end
 
   scope "/api", EpochWeb do
