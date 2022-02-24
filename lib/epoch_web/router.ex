@@ -11,6 +11,7 @@ defmodule EpochWeb.Router do
     get "/boards/:slug/id", BoardController, :id
     get "/register/username/:username", AuthController, :username
     get "/register/email/:email", AuthController, :email
+    post "/register", AuthController, :register
     resources "/boards", BoardController, only: [:index, :show]
     resources "/threads", ThreadController, only: [:index, :show]
     resources "/posts", PostController, only: [:index, :show]
