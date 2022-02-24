@@ -42,4 +42,7 @@ defmodule Epoch.User do
 
     Repo.exists?(query)
   end
+  def insert(%User{} = user) do
+    Repo.insert(user)
+  end
 end
