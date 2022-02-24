@@ -5,6 +5,7 @@ defmodule EpochWeb.Router do
     plug :accepts, ["json"]
     plug :put_secure_browser_headers
     plug :fetch_session
+    plug :protect_from_forgery
   end
 
   scope "/api", EpochWeb do
