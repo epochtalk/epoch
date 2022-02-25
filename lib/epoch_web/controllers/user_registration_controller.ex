@@ -3,7 +3,7 @@ defmodule EpochWeb.UserRegistrationController do
 
   alias Epoch.Accounts
   alias Epoch.Accounts.User
-  alias EpochWeb.UserAuth
+  alias EpochWeb.UserAuthController
 
   def new(conn, _params) do
     changeset = Accounts.change_user_registration(%User{})

@@ -2,7 +2,7 @@ defmodule EpochWeb.UserSessionController do
   use EpochWeb, :controller
 
   alias Epoch.Accounts
-  alias EpochWeb.UserAuth
+  alias EpochWeb.UserAuthController
 
   def new(conn, _params) do
     render(conn, "new.html", error_message: nil)

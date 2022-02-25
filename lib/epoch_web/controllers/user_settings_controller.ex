@@ -2,7 +2,7 @@ defmodule EpochWeb.UserSettingsController do
   use EpochWeb, :controller
 
   alias Epoch.Accounts
-  alias EpochWeb.UserAuth
+  alias EpochWeb.UserAuthController
 
   plug :assign_email_and_password_changesets
 

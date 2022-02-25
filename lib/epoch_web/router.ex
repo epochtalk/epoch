@@ -1,7 +1,7 @@
 defmodule EpochWeb.Router do
   use EpochWeb, :router
 
-  import EpochWeb.UserAuth
+  import EpochWeb.UserAuthController
 
   pipeline :browser do
     plug :accepts, ["html"]

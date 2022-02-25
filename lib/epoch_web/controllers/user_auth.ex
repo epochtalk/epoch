@@ -1,4 +1,4 @@
-defmodule EpochWeb.Controllers.UserAuth do
+defmodule EpochWeb.UserAuthController do
   import Plug.Conn
   import Phoenix.Controller
 
