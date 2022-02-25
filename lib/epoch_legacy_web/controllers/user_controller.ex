@@ -1,6 +1,6 @@
 defmodule EpochLegacyWeb.Controllers.UserController do
   use EpochWeb, :controller
-  alias Epoch.User
+  alias Epoch.Accounts.User
   alias SMF.Helper
   alias SMF.Member
 

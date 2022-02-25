@@ -1,7 +1,7 @@
 defmodule SMF.Member do
   alias SMF.Helper
   alias Epoch.Repo
-  alias Epoch.User
+  alias Epoch.Accounts.User
 
   @select_member """
   SELECT #{Helper.cs_cols(:smf_members)}

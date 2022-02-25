@@ -1,9 +1,9 @@
-defmodule Epoch.User do
+defmodule Epoch.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
   import Ecto.Query
   alias Epoch.Repo
-  alias Epoch.User
+  alias Epoch.Accounts.User
 
   schema "users" do
     field :email, :string

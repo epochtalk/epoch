@@ -1,7 +1,7 @@
 defmodule EpochWeb.Controllers.UserController do
   use EpochWeb, :controller
   alias Epoch.Repo
-  alias Epoch.User
+  alias Epoch.Accounts.User
 
   alias EpochWeb.Views.UserView
 
