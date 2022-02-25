@@ -23,7 +23,7 @@ defmodule Epoch.Accounts.User do
     field :smf_member, :map, virtual: true
   end
 
-  def changeset(user, attrs) do
+  def registration_changeset(user, attrs) do
     user
     |> cast(attrs, [:id, :email, :username, :created_at, :updated_at, :deleted, :malicious_score])
     |> unique_constraint(:id, name: :users_pkey)
