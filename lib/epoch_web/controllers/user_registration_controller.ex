@@ -10,6 +10,20 @@ defmodule EpochWeb.UserRegistrationController do
     render(conn, "new.html", changeset: changeset)
   end
 
+  def username(conn, %{"username" => username}) do
+    username_found = username
+    |> User.with_username_exists?
+
+    render(conn, "search.json", found: username_found)
+  end
+
+  def email(conn, %{"email" => email}) do
+    email_found = email
+    |> User.with_email_exists?
+
+    render(conn, "search.json", found: email_found)
+  end
+
   def create(conn, %{"user" => user_params}) do
     case Accounts.register_user(user_params) do
       {:ok, user} ->
