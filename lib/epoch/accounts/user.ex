@@ -110,4 +110,12 @@ defmodule Epoch.Accounts.User do
     |> validate_confirmation(:password, message: "does not match password")
     |> validate_password(opts)
   end
+
+  @doc """
+  Confirms the account by setting `confirmed_at`.
+  """
+  def confirm_changeset(user) do
+    now = NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
+    change(user, confirmed_at: now)
+  end
 end
