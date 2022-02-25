@@ -8,11 +8,12 @@ defmodule Epoch.Accounts.User do
   schema "users" do
     field :email, :string
     field :username, :string
-    field :passhash, :string
+    field :hashed_password, :string
     field :confirmation_token, :string
     field :reset_token, :string
     field :reset_expiration, :string
 
+    field :confirmed_at, :naive_datetime
     field :created_at, :naive_datetime
     field :imported_at, :naive_datetime
     field :updated_at, :naive_datetime

@@ -10,6 +10,12 @@ defmodule Epoch.Repo.Migrations.Accounts do
       timestamps(updated_at: false)
     end
 
+    # modify users table
+    alter table(:users) do
+      add :confirmed_at, :naive_datetime
+    end
+    rename table(:users), :passhash, to: :hashed_password
+
     create index(:users_tokens, [:user_id])
     create unique_index(:users_tokens, [:context, :token])
   end
