@@ -1,6 +1,8 @@
 defmodule EpochWeb.Router do
   use EpochWeb, :router
 
+  import EpochWeb.UserAuth
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
