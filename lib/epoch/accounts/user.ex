@@ -50,7 +50,7 @@ defmodule Epoch.Accounts.User do
     |> validate_required([:email])
     |> validate_format(:email, ~r/^[^\s]+@[^\s]+$/, message: "must have the @ sign and no spaces")
     |> validate_length(:email, max: 160)
-    |> unsafe_validate_unique(:email, Epochtalk.Repo)
+    |> unsafe_validate_unique(:email, Epoch.Repo)
     |> unique_constraint(:email)
   end
 
@@ -117,5 +117,31 @@ defmodule Epoch.Accounts.User do
   def confirm_changeset(user) do
     now = NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
     change(user, confirmed_at: now)
+  end
+
+  @doc """
+  Verifies the password.
+  If there is no user or the user doesn't have a password, we call
+  `Argon2.no_user_verify/0` to avoid timing attacks.
+  """
+  def valid_password?(%User{hashed_password: hashed_password}, password)
+      when is_binary(hashed_password) and byte_size(password) > 0 do
+    Argon2.verify_pass(password, hashed_password)
+  end
+
+  def valid_password?(_, _) do
+    Argon2.no_user_verify()
+    false
+  end
+
+  @doc """
+  Validates the current password otherwise adds an error to the changeset.
+  """
+  def validate_current_password(changeset, password) do
+    if valid_password?(changeset.data, password) do
+      changeset
+    else
+      add_error(changeset, :current_password, "is not valid")
+    end
   end
 end
