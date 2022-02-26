@@ -3,7 +3,7 @@ defmodule EpochWeb.UserAuthController do
   import Phoenix.Controller
 
   alias Epoch.Accounts
-  alias Epoch.Router.Helpers, as: Routes
+  alias EpochWeb.Router.Helpers, as: Routes
 
   # Make the remember me cookie valid for 60 days.
   # If you want bump or reduce this value, also change
