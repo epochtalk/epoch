@@ -47,6 +47,7 @@ defmodule EpochWeb.Router do
     pipe_through [:api, :redirect_if_user_is_authenticated]
 
     get "/users/register/username/:username", UserRegistrationController, :username
+    get "/users/register/email/:email", UserRegistrationController, :email
     get "/users/register", UserRegistrationController, :new
     post "/users/register", UserRegistrationController, :create
     get "/users/log_in", UserSessionController, :new
