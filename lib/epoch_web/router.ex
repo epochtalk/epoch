@@ -43,36 +43,36 @@ defmodule EpochWeb.Router do
   end
 
   ## Authentication routes
-  scope "/", EpochWeb do
+  scope "/api/users", EpochWeb do
     pipe_through [:api, :redirect_if_user_is_authenticated]
 
-    get "/users/register/username/:username", UserRegistrationController, :username
-    get "/users/register/email/:email", UserRegistrationController, :email
-    get "/users/register", UserRegistrationController, :new
-    post "/users/register", UserRegistrationController, :create
-    get "/users/log_in", UserSessionController, :new
-    post "/users/log_in", UserSessionController, :create
-    get "/users/reset_password", UserResetPasswordController, :new
-    post "/users/reset_password", UserResetPasswordController, :create
-    get "/users/reset_password/:token", UserResetPasswordController, :edit
-    put "/users/reset_password/:token", UserResetPasswordController, :update
+    get "/register/username/:username", UserRegistrationController, :username
+    get "/register/email/:email", UserRegistrationController, :email
+    get "/register", UserRegistrationController, :new
+    post "/register", UserRegistrationController, :create
+    get "/log_in", UserSessionController, :new
+    post "/log_in", UserSessionController, :create
+    get "/reset_password", UserResetPasswordController, :new
+    post "/reset_password", UserResetPasswordController, :create
+    get "/reset_password/:token", UserResetPasswordController, :edit
+    put "/reset_password/:token", UserResetPasswordController, :update
   end
 
-  scope "/", EpochWeb do
+  scope "/api/users", EpochWeb do
     pipe_through [:browser, :require_authenticated_user]
 
-    get "/users/settings", UserSettingsController, :edit
-    put "/users/settings", UserSettingsController, :update
-    get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
+    get "/settings", UserSettingsController, :edit
+    put "/settings", UserSettingsController, :update
+    get "/settings/confirm_email/:token", UserSettingsController, :confirm_email
   end
 
-  scope "/", EpochWeb do
+  scope "/api/users", EpochWeb do
     pipe_through [:browser]
 
-    delete "/users/log_out", UserSessionController, :delete
-    get "/users/confirm", UserConfirmationController, :new
-    post "/users/confirm", UserConfirmationController, :create
-    get "/users/confirm/:token", UserConfirmationController, :edit
-    post "/users/confirm/:token", UserConfirmationController, :update
+    delete "/log_out", UserSessionController, :delete
+    get "/confirm", UserConfirmationController, :new
+    post "/confirm", UserConfirmationController, :create
+    get "/confirm/:token", UserConfirmationController, :edit
+    post "/confirm/:token", UserConfirmationController, :update
   end
 end
