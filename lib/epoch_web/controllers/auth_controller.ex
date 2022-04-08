@@ -25,9 +25,10 @@ defmodule EpochWeb.Controllers.AuthController do
 
     respond_ok(%{ found: email_taken }, conn)
   end
-  def register(conn, %{"username" => username, "email" => email, "password" => password}) do
-    %User{username: username, email: email, passhash: password}
-    |> User.insert
+  def register(conn, attrs) do
+    %User{}
+    |> User.changeset(attrs)
+    |> Repo.insert()
     |> case do
       {:ok, user} ->
         %{
