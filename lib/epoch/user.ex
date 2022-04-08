@@ -9,6 +9,7 @@ defmodule Epoch.User do
   schema "users" do
     field :email, :string
     field :username, :string
+    field :password, :string, virtual: true, redact: true
     field :passhash, :string
     field :confirmation_token, :string
     field :reset_token, :string
