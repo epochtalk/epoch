@@ -71,7 +71,7 @@ defmodule Epoch.User do
     |> IO.inspect
 
     changeset
-    |> put_change(:hashed_password, Argon2.hash_pwd_salt(password))
+    |> put_change(:passhash, Argon2.hash_pwd_salt(password))
     |> delete_change(:password)
   end
 end
