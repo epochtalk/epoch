@@ -28,6 +28,7 @@ defmodule Epoch.User do
     |> unique_constraint(:id, name: :users_pkey)
     |> unique_constraint(:email)
     |> unique_constraint(:username)
+    |> validate_password()
   end
 
   def with_username_exists?(username) do
@@ -44,5 +45,21 @@ defmodule Epoch.User do
   end
   def insert(%User{} = user) do
     Repo.insert(user)
+  end
+  defp validate_password(changeset) do
+    changeset
+    |> validate_required([:password])
+    |> validate_length(:password, min: 12, max: 72)
+    # |> validate_format(:password, ~r/[a-z]/, message: "at least one lower case character")
+    # |> validate_format(:password, ~r/[A-Z]/, message: "at least one upper case character")
+    # |> validate_format(:password, ~r/[!?@#$%^&*_0-9]/, message: "at least one digit or punctuation character")
+    |> hash_password()
+  end
+  defp hash_password(changeset) do
+    password = get_change(changeset, :password)
+
+    changeset
+    |> put_change(:hashed_password, Argon2.hash_pwd_salt(password))
+    |> delete_change(:password)
   end
 end
