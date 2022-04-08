@@ -25,6 +25,7 @@ defmodule Epoch.User do
 
   def changeset(user, attrs) do
     IO.puts("using changeset")
+    IO.inspect(attrs)
     user
     |> cast(attrs, [:id, :email, :username, :created_at, :updated_at, :deleted, :malicious_score])
     |> unique_constraint(:id, name: :users_pkey)
@@ -47,6 +48,13 @@ defmodule Epoch.User do
   end
   defp validate_password(changeset) do
     IO.puts("validating password")
+    IO.inspect(changeset)
+    changeset
+    |> validate_required([:password])
+    |> IO.inspect
+
+    IO.puts("???")
+
     changeset
     |> validate_required([:password])
     |> validate_length(:password, min: 12, max: 72)
@@ -56,6 +64,7 @@ defmodule Epoch.User do
     |> hash_password()
   end
   defp hash_password(changeset) do
+    IO.puts("hashing password")
     password = get_change(changeset, :password)
 
     Argon2.hash_pwd_salt(password)

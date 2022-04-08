@@ -26,6 +26,8 @@ defmodule EpochWeb.Controllers.AuthController do
     respond_ok(%{ found: email_taken }, conn)
   end
   def register(conn, attrs) do
+    IO.puts("registering")
+    IO.inspect(attrs)
     %User{}
     |> User.changeset(attrs)
     |> Repo.insert()
