@@ -27,7 +27,7 @@ defmodule Epoch.User do
     IO.puts("using changeset")
     IO.inspect(attrs)
     user
-    |> cast(attrs, [:id, :email, :username, :created_at, :updated_at, :deleted, :malicious_score])
+    |> cast(attrs, [:id, :email, :username, :created_at, :updated_at, :deleted, :malicious_score, :password])
     |> unique_constraint(:id, name: :users_pkey)
     |> unique_constraint(:email)
     |> unique_constraint(:username)
