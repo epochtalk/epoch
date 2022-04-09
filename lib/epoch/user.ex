@@ -73,7 +73,7 @@ defmodule Epoch.User do
 
     if password && changeset.valid? do
       changeset
-      |> put_change(:hashed_password, Argon2.hash_pwd_salt(password))
+      |> put_change(:passhash, Argon2.hash_pwd_salt(password))
       |> delete_change(:password)
     else
       changeset
