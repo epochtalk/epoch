@@ -21,10 +21,10 @@ defmodule EpochWeb.AuthController do
     render(conn, "search.json", found: username_found)
   end
   def email(conn, %{"email" => email}) do
-    email_taken = email
+    email_found = email
     |> User.with_email_exists?
 
-    respond_ok(%{ found: email_taken }, conn)
+    render(conn, "search.json", found: email_found)
   end
   def register(conn, attrs) do
     IO.puts("registering")
