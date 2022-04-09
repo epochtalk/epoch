@@ -3,17 +3,6 @@ defmodule EpochWeb.AuthController do
   alias Epoch.User
   alias Epoch.Repo
 
-  def respond_ok(data, conn) do
-    Jason.encode(data)
-    |> case do
-      {:ok, encoded_data} ->
-        conn
-        |> put_resp_content_type("application/json")
-        |> send_resp(200, encoded_data)
-      _ ->
-        IO.puts("uh oh...")
-    end
-  end
   alias EpochWeb.Views.ErrorView
 
   def username(conn, %{"username" => username}) do
