@@ -14,6 +14,8 @@ defmodule EpochWeb.AuthController do
         IO.puts("uh oh...")
     end
   end
+  alias EpochWeb.Views.ErrorView
+
   def username(conn, %{"username" => username}) do
     username_found = username
     |> User.with_username_exists?
@@ -37,8 +39,10 @@ defmodule EpochWeb.AuthController do
         conn
         |> render("show.json", user: user)
       # TODO(boka): handle errors
-      {:error, error} ->
-        respond_ok(error, conn)
+      {:error, %Ecto.Changeset{} = changeset} ->
+        conn
+        |> put_view(ErrorView)
+        |> render("400.json", %{message: inspect(changeset.errors)})
     end
   end
 end
