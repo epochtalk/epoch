@@ -1,4 +1,4 @@
-defmodule EpochWeb.Controllers.AuthController do
+defmodule EpochWeb.AuthController do
   use EpochWeb, :controller
   alias Epoch.User
   alias Epoch.Repo
