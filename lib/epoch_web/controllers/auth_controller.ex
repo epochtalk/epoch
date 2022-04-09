@@ -1,6 +1,7 @@
 defmodule EpochWeb.Controllers.AuthController do
   use EpochWeb, :controller
   alias Epoch.User
+  alias Epoch.Repo
 
   def respond_ok(data, conn) do
     Jason.encode(data)
