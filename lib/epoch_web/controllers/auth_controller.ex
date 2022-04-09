@@ -15,10 +15,10 @@ defmodule EpochWeb.AuthController do
     end
   end
   def username(conn, %{"username" => username}) do
-    username_taken = username
+    username_found = username
     |> User.with_username_exists?
 
-    respond_ok(%{ found: username_taken }, conn)
+    render(conn, "search.json", found: username_found)
   end
   def email(conn, %{"email" => email}) do
     email_taken = email
