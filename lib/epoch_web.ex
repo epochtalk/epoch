@@ -47,11 +47,11 @@ defmodule EpochWeb do
       use Phoenix.Router
       import Plug.Conn
       import Phoenix.Controller
-      alias Controllers.BoardController
-      alias Controllers.ThreadController
-      alias Controllers.PostController
-      alias Controllers.UserController
-      alias Controllers.RootController
+      alias BoardController
+      alias ThreadController
+      alias PostController
+      alias UserController
+      alias RootController
       alias AuthController
     end
   end

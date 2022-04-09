@@ -1,4 +1,4 @@
-defmodule EpochWeb.Controllers.RootController do
+defmodule EpochWeb.RootController do
   use EpochWeb, :controller
   
   def motd(conn, _params) do

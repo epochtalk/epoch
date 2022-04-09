@@ -1,4 +1,4 @@
-defmodule EpochWeb.Controllers.PostController do
+defmodule EpochWeb.PostController do
   use EpochWeb, :controller
   alias Epoch.Repo
   alias Epoch.Post

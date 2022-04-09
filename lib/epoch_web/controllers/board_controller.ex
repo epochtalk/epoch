@@ -1,4 +1,4 @@
-defmodule EpochWeb.Controllers.BoardController do
+defmodule EpochWeb.BoardController do
   use EpochWeb, :controller
   alias Epoch.Category
   alias Epoch.Repo

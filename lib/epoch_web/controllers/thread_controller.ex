@@ -1,4 +1,4 @@
-defmodule EpochWeb.Controllers.ThreadController do
+defmodule EpochWeb.ThreadController do
   use EpochWeb, :controller
 
   alias Epoch.Repo
