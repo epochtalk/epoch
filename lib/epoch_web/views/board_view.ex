@@ -1,4 +1,4 @@
-defmodule EpochWeb.Views.BoardView do
+defmodule EpochWeb.BoardView do
   use EpochWeb, :view
 
   def render("index.json", %{categories_with_boards: categories_with_boards, threads: _threads}) do

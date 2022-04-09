@@ -3,7 +3,7 @@ defmodule EpochWeb.AuthController do
   alias Epoch.User
   alias Epoch.Repo
 
-  alias EpochWeb.Views.ErrorView
+  alias EpochWeb.ErrorView
 
   def username(conn, %{"username" => username}) do
     username_found = username

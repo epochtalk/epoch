@@ -2,7 +2,7 @@ defmodule EpochWeb.BoardController do
   use EpochWeb, :controller
   alias Epoch.Category
   alias Epoch.Repo
-  alias EpochWeb.Views.BoardView
+  alias EpochWeb.BoardView
 
   def index(conn, _params) do
     categories_with_boards = Category

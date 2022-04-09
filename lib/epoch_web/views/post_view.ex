@@ -1,4 +1,4 @@
-defmodule EpochWeb.Views.PostView do
+defmodule EpochWeb.PostView do
   use EpochWeb, :view
 
   def render("index.json", %{posts: posts}) do

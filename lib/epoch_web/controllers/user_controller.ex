@@ -3,7 +3,7 @@ defmodule EpochWeb.UserController do
   alias Epoch.Repo
   alias Epoch.User
 
-  alias EpochWeb.Views.UserView
+  alias EpochWeb.UserView
 
   def show(conn, %{"id" => id}) do
     u = Repo.get(User, id)

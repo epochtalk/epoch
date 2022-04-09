@@ -4,7 +4,7 @@ defmodule EpochWeb.ThreadController do
   alias Epoch.Repo
   alias Epoch.Thread
 
-  alias EpochWeb.Views.ThreadView
+  alias EpochWeb.ThreadView
 
   def index(conn, %{"board_id" => _board_id, "limit" => _limit, "page" => _page}) do
     threads = Repo.all(Thread)

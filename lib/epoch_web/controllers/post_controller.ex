@@ -2,7 +2,7 @@ defmodule EpochWeb.PostController do
   use EpochWeb, :controller
   alias Epoch.Repo
   alias Epoch.Post
-  alias EpochWeb.Views.PostView
+  alias EpochWeb.PostView
 
   def index(conn, %{"thread_id" => thread_id}) do
     posts = Repo.all(Post)

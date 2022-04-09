@@ -1,4 +1,4 @@
-defmodule EpochWeb.Views.UserView do
+defmodule EpochWeb.UserView do
   use EpochWeb, :view
 
   def render("show.json", %{user: user}) do

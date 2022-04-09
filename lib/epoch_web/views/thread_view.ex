@@ -1,4 +1,4 @@
-defmodule EpochWeb.Views.ThreadView do
+defmodule EpochWeb.ThreadView do
   use EpochWeb, :view
 
   def render("index.json", %{threads: threads}) do
