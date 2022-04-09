@@ -34,16 +34,8 @@ defmodule EpochWeb.AuthController do
     |> Repo.insert()
     |> case do
       {:ok, user} ->
-        %{
-          token: user.confirmation_token,
-          id: user.id,
-          username: user.username,
-          # TODO(boka): fill in these fields
-          avatar: "", # user.avatar
-          permissions: %{}, # user.permissions
-          roles: %{} # user.roles
-        }
-        |> respond_ok(conn)
+        conn
+        |> render("show.json", user: user)
       # TODO(boka): handle errors
       {:error, error} ->
         respond_ok(error, conn)
