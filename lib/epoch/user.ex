@@ -1,5 +1,4 @@
 defmodule Epoch.User do
-  IO.puts("entering epoch user")
   use Ecto.Schema
   import Ecto.Changeset
   import Ecto.Query
@@ -25,7 +24,6 @@ defmodule Epoch.User do
   end
 
   def changeset(user, attrs) do
-    IO.puts("using changeset")
     user
     |> cast(attrs, [:id, :email, :username, :created_at, :updated_at, :deleted, :malicious_score, :password])
     |> unique_constraint(:id, name: :users_pkey)
@@ -47,7 +45,6 @@ defmodule Epoch.User do
     Repo.exists?(query)
   end
   defp validate_password(changeset) do
-    IO.puts("validating password")
     changeset
     |> validate_required([:password])
     |> validate_length(:password, min: 12, max: 72)
@@ -58,9 +55,6 @@ defmodule Epoch.User do
   end
   defp hash_password(changeset) do
     password = get_change(changeset, :password)
-
-    Argon2.hash_pwd_salt(password)
-    |> IO.inspect
 
     if password && changeset.valid? do
       changeset
