@@ -18,8 +18,6 @@ defmodule EpochWeb.AuthController do
     render(conn, "search.json", found: email_found)
   end
   def register(conn, attrs) do
-    IO.puts("registering")
-    IO.inspect(attrs)
     %User{}
     |> User.changeset(attrs)
     |> Repo.insert()
