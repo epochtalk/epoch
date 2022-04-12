@@ -25,7 +25,6 @@ defmodule EpochWeb.AuthController do
       {:ok, user} ->
         conn
         |> render("show.json", user: user)
-      # TODO(boka): handle errors
       {:error, %Ecto.Changeset{} = changeset} ->
         conn
         |> put_view(ErrorView)
