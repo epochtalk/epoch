@@ -19,7 +19,7 @@ defmodule EpochWeb.AuthController do
   end
   def register(conn, attrs) do
     %User{}
-    |> User.changeset(attrs)
+    |> User.registration_changeset(attrs)
     |> Repo.insert()
     |> case do
       {:ok, user} ->

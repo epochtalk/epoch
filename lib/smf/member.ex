@@ -21,7 +21,7 @@ defmodule SMF.Member do
       nil -> {:error, "user not found"}
       _ ->
         %User{}
-        |> User.changeset(user)
+        |> User.registration_changeset(user)
         |> Repo.insert(conflict_target: :id, on_conflict: :replace_all)
     end
   end
