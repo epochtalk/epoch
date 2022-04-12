@@ -28,8 +28,8 @@ defmodule Epoch.User do
     user
     |> cast(attrs, [:id, :email, :username, :created_at, :updated_at, :deleted, :malicious_score, :password])
     |> unique_constraint(:id, name: :users_pkey)
-    |> unique_constraint(:email)
     |> validate_username()
+    |> validate_email()
     |> validate_password()
   end
 
@@ -49,6 +49,14 @@ defmodule Epoch.User do
     changeset
     |> validate_required(:username)
     |> unique_constraint(:username)
+  end
+  defp validate_email(changeset) do
+    changeset
+    |> validate_required([:email])
+    |> validate_format(:email, ~r/^[^\s]+@[^\s]+$/, message: "must have the @ sign and no spaces")
+    |> validate_length(:email, max: 160)
+    |> unsafe_validate_unique(:email, Epoch.Repo)
+    |> unique_constraint(:email)
   end
   defp validate_password(changeset) do
     changeset
