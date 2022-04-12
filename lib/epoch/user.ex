@@ -9,6 +9,7 @@ defmodule Epoch.User do
     field :email, :string
     field :username, :string
     field :password, :string, virtual: true, redact: true
+    field :password_confirmation, :string, virtual: true, redact: true
     field :passhash, :string
     field :confirmation_token, :string
     field :reset_token, :string
@@ -47,6 +48,7 @@ defmodule Epoch.User do
   defp validate_password(changeset) do
     changeset
     |> validate_required([:password])
+    |> validate_confirmation(:password, message: "does not match password") # check that password matches password_confirmation
     |> validate_length(:password, min: 12, max: 72)
     # |> validate_format(:password, ~r/[a-z]/, message: "at least one lower case character")
     # |> validate_format(:password, ~r/[A-Z]/, message: "at least one upper case character")
