@@ -29,7 +29,7 @@ defmodule Epoch.User do
     |> cast(attrs, [:id, :email, :username, :created_at, :updated_at, :deleted, :malicious_score, :password])
     |> unique_constraint(:id, name: :users_pkey)
     |> unique_constraint(:email)
-    |> unique_constraint(:username)
+    |> validate_username()
     |> validate_password()
   end
 
@@ -44,6 +44,11 @@ defmodule Epoch.User do
       where: u.email == ^email
 
     Repo.exists?(query)
+  end
+  defp validate_username(changeset) do
+    changeset
+    |> validate_required(:username)
+    |> unique_constraint(:username)
   end
   defp validate_password(changeset) do
     changeset
