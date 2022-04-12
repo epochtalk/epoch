@@ -61,7 +61,10 @@ defmodule Epoch.User do
   defp validate_password(changeset) do
     changeset
     |> validate_required([:password])
-    |> validate_confirmation(:password, message: "does not match password") # check that password matches password_confirmation
+    # check that password matches password_confirmation
+    #   checks that password and password_confirmation match
+    #   but does not require password_confirmation to be supplied
+    |> validate_confirmation(:password, message: "does not match password")
     |> validate_length(:password, min: 12, max: 72)
     # |> validate_format(:password, ~r/[a-z]/, message: "at least one lower case character")
     # |> validate_format(:password, ~r/[A-Z]/, message: "at least one upper case character")
