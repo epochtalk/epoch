@@ -46,10 +46,12 @@ defmodule EpochWeb.AuthController do
       # TODO: build token, save session
       log_in_user(conn, user, user_params)
     else
-      # In order to prevent user enumeration attacks, don't disclose whether the email is registered.
+      # TODO: Don't really need this if only checking usernames
+      #       With username search, enumeration is not applicable
+      # In order to prevent user enumeration attacks, don't disclose whether the [originally email] username is registered.
       conn
       |> put_view(ErrorView)
-      |> render("400.json", %{message: "Invalid email or password"})
+      |> render("400.json", %{message: "Invalid username or password"})
     end
   end
   defp log_in_user(conn, user, params \\ %{}) do
