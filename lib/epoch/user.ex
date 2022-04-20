@@ -50,6 +50,10 @@ defmodule Epoch.User do
     user = Repo.get_by(User, email: email)
     if User.valid_password?(user, password), do: user
   end
+  def valid_password?(%Epoch.User{hashed_password: hashed_password}, password)
+      when is_binary(hashed_password) and byte_size(password) > 0 do
+    Argon2.verify_pass(password, hashed_password)
+  end
   defp validate_username(changeset) do
     changeset
     |> validate_required(:username)
