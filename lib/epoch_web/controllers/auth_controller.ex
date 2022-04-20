@@ -32,11 +32,11 @@ defmodule EpochWeb.AuthController do
     end
   end
   def login(conn, %{"user" => user_params}) do
-    %{"email" => email, "password" => password} = user_params
+    %{"username" => username, "password" => password} = user_params
     # TODO: check if logged in
 
     # TODO: check user with password exists
-    if user = User.by_email_and_password(email, password) do
+    if user = User.by_username_and_password(username, password) do
       # TODO: check confirmation token
       # TODO: check passhash exists
       # TODO: check passhash matches

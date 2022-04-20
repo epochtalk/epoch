@@ -45,9 +45,9 @@ defmodule Epoch.User do
 
     Repo.exists?(query)
   end
-  def by_email_and_password(email, password)
-      when is_binary(email) and is_binary(password) do
-    user = Repo.get_by(User, email: email)
+  def by_username_and_password(username, password)
+      when is_binary(username) and is_binary(password) do
+    user = Repo.get_by(User, username: username)
     if User.valid_password?(user, password), do: user
   end
   def valid_password?(%Epoch.User{passhash: hashed_password}, password)
