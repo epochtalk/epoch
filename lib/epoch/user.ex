@@ -45,6 +45,11 @@ defmodule Epoch.User do
 
     Repo.exists?(query)
   end
+  def by_email_and_password(email, password)
+      when is_binary(email) and is_binary(password) do
+    user = Repo.get_by(User, email: email)
+    if User.valid_password?(user, password), do: user
+  end
   defp validate_username(changeset) do
     changeset
     |> validate_required(:username)
