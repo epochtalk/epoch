@@ -31,6 +31,27 @@ defmodule EpochWeb.AuthController do
         |> render("400.json", %{message: inspect(changeset.errors)})
     end
   end
+  def login(conn, %{"user" => user_params}) do
+    %{"email" => email, "password" => password} = user_params
+    # TODO: check if logged in
+
+    # TODO: check user with password exists
+    if user = User.by_email_and_password(email, password) do
+      # TODO: check confirmation token
+      # TODO: check passhash exists
+      # TODO: check passhash matches
+      # TODO: check ban expiration
+      # TODO: get moderated boards
+      # TODO: set session expiration
+      # TODO: build token, save session
+      log_in_user(conn, user, user_params)
+    else
+      # In order to prevent user enumeration attacks, don't disclose whether the email is registered.
+      conn
+      |> put_view(ErrorView)
+      |> render("400.json", %{message: "Invalid email or password"})
+    end
+  end
   defp log_in_user(conn, user, params \\ %{}) do
     # TODO: clean up commented code when functionality is implemented
     token = user.username # Accounts.generate_user_session_token(user)
