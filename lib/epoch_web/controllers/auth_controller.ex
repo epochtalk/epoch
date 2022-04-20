@@ -32,6 +32,7 @@ defmodule EpochWeb.AuthController do
     end
   end
   defp log_in_user(conn, user, params \\ %{}) do
+    # TODO: clean up commented code when functionality is implemented
     token = user.username # Accounts.generate_user_session_token(user)
     # user_return_to = get_session(conn, :user_return_to)
     user = Map.put(user, :token, token)
