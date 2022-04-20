@@ -31,4 +31,17 @@ defmodule EpochWeb.AuthController do
         |> render("400.json", %{message: inspect(changeset.errors)})
     end
   end
+  defp log_in_user(conn, user, params \\ %{}) do
+    token = user.username # Accounts.generate_user_session_token(user)
+    # user_return_to = get_session(conn, :user_return_to)
+    user = Map.put(user, :token, token)
+
+    conn
+    # |> renew_session()
+    # |> put_session(:user_token, token)
+    # |> put_session(:live_socket_id, "users_sessions:#{Base.url_encode64(token)}")
+    # |> maybe_write_remember_me_cookie(token, params)
+    # |> redirect(to: user_return_to || signed_in_path(conn))
+    |> render("credentials.json", user)
+  end
 end
