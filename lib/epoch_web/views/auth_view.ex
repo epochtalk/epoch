@@ -23,7 +23,7 @@ defmodule EpochWeb.AuthView do
   defp credentials_json(user) do
     %{
       token: user.token,
-      id: user.user_id,
+      id: user.id,
       username: user.username,
       # TODO: fill in these fields
       avatar: "", # user.avatar
