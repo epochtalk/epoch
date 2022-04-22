@@ -1,4 +1,4 @@
-defmodule Epoch.Accounts.UserToken do
+defmodule Epoch.UserToken do
   use Ecto.Schema
   import Ecto.Query
 
@@ -42,7 +42,7 @@ defmodule Epoch.Accounts.UserToken do
   """
   def build_session_token(user) do
     token = :crypto.strong_rand_bytes(@rand_size)
-    {token, %Epoch.Accounts.UserToken{token: token, context: "session", user_id: user.id}}
+    {token, %Epoch.UserToken{token: token, context: "session", user_id: user.id}}
   end
 
   @doc """
@@ -85,7 +85,7 @@ defmodule Epoch.Accounts.UserToken do
     hashed_token = :crypto.hash(@hash_algorithm, token)
 
     {Base.url_encode64(token, padding: false),
-     %Epoch.Accounts.UserToken{
+     %Epoch.UserToken{
        token: hashed_token,
        context: context,
        sent_to: sent_to,
@@ -162,17 +162,17 @@ defmodule Epoch.Accounts.UserToken do
   Returns the token struct for the given token value and context.
   """
   def token_and_context_query(token, context) do
-    from Epoch.Accounts.UserToken, where: [token: ^token, context: ^context]
+    from Epoch.UserToken, where: [token: ^token, context: ^context]
   end
 
   @doc """
   Gets all tokens for the given user for the given contexts.
   """
   def user_and_contexts_query(user, :all) do
-    from t in Epoch.Accounts.UserToken, where: t.user_id == ^user.id
+    from t in Epoch.UserToken, where: t.user_id == ^user.id
   end
 
   def user_and_contexts_query(user, [_ | _] = contexts) do
-    from t in Epoch.Accounts.UserToken, where: t.user_id == ^user.id and t.context in ^contexts
+    from t in Epoch.UserToken, where: t.user_id == ^user.id and t.context in ^contexts
   end
 end
