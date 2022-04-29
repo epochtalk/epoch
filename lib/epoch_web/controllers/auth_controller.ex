@@ -59,6 +59,11 @@ defmodule EpochWeb.AuthController do
   defp log_in_user(conn, user, params \\ %{}) do
     # TODO: clean up commented code when functionality is implemented
     token = :crypto.strong_rand_bytes(@rand_size) |> Base.url_encode64()
+    session_key = "user:#{user.id}:session:#{token}"
+    Redix.command(:redix, ["SET", session_key, "now"])
+    |> IO.inspect
+    Redix.command(:redix, ["GET", session_key])
+    |> IO.inspect
     # user_return_to = get_session(conn, :user_return_to)
     user = Map.put(user, :token, token)
 
