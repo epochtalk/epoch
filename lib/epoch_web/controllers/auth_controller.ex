@@ -5,6 +5,8 @@ defmodule EpochWeb.AuthController do
 
   alias EpochWeb.ErrorView
 
+  @rand_size 32
+
   def username(conn, %{"username" => username}) do
     username_found = username
     |> User.with_username_exists?
@@ -56,7 +58,7 @@ defmodule EpochWeb.AuthController do
   end
   defp log_in_user(conn, user, params \\ %{}) do
     # TODO: clean up commented code when functionality is implemented
-    token = user.username # Accounts.generate_user_session_token(user)
+    token = :crypto.strong_rand_bytes(@rand_size) |> Base.url_encode64()
     # user_return_to = get_session(conn, :user_return_to)
     user = Map.put(user, :token, token)
 
