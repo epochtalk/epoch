@@ -67,7 +67,6 @@ defmodule EpochWeb.AuthController do
 
     # save session
     user_key = "user:#{user.id}"
-    # user_value = "username #{user.username}"
 
     Redix.command(:redix, ["HSET", user_key, "username", user.username])
     |> IO.inspect
