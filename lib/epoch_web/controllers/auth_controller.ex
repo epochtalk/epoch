@@ -65,6 +65,16 @@ defmodule EpochWeb.AuthController do
     Redix.command(:redix, ["GET", session_key])
     |> IO.inspect
     # user_return_to = get_session(conn, :user_return_to)
+
+    # save session
+    user_key = "user:#{user.id}"
+    # user_value = "username #{user.username}"
+
+    Redix.command(:redix, ["HSET", user_key, "username", user.username])
+    |> IO.inspect
+    Redix.command(:redix, ["HGET", user_key])
+    |> IO.inspect
+
     user = Map.put(user, :token, token)
 
     conn
