@@ -64,7 +64,6 @@ defmodule EpochWeb.AuthController do
     |> IO.inspect
     Redix.command(:redix, ["GET", session_key])
     |> IO.inspect
-    # user_return_to = get_session(conn, :user_return_to)
 
     # save session
     user_key = "user:#{user.id}"
