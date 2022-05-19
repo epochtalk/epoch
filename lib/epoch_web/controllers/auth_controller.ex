@@ -58,6 +58,14 @@ defmodule EpochWeb.AuthController do
   end
   defp log_in_user(conn, user, params \\ %{}) do
     # TODO: clean up commented code when functionality is implemented
+    # token info for storing in redis
+    datetime = NaiveDateTime.utc_now
+    decoded_token = %{ user_id: user.id, session_id: 0, timestamp: datetime }
+    # set algorithm and
+    
+    # set expiration
+    
+
     token = :crypto.strong_rand_bytes(@rand_size) |> Base.url_encode64()
     session_key = "user:#{user.id}:session:#{token}"
     Redix.command(:redix, ["SET", session_key, "now"])
@@ -69,8 +77,10 @@ defmodule EpochWeb.AuthController do
     user_key = "user:#{user.id}"
 
     Redix.command(:redix, ["HSET", user_key, "username", user.username])
+    # check for avatar first and use it if it's there
+    # Redix.command(:redix, ["HSET", user_key, "username", user.username, "avatar", user.id])
     |> IO.inspect
-    Redix.command(:redix, ["HGET", user_key])
+    Redix.command(:redix, ["HGETALL", user_key])
     |> IO.inspect
 
     user = Map.put(user, :token, token)
