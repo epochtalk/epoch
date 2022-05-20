@@ -61,10 +61,13 @@ defmodule EpochWeb.AuthController do
     # token info for storing in redis
     datetime = NaiveDateTime.utc_now
     decoded_token = %{ user_id: user.id, session_id: 0, timestamp: datetime }
-    # set algorithm and
-    
+    # TODO: extract to configurations
+    # set algorithm
+    algorithm = "HS256"
+    # TODO: extract to configurations
     # set expiration
-    
+    # 14 days (in seconds)
+    expiration = 14 * 24 * 60 * 60
 
     token = :crypto.strong_rand_bytes(@rand_size) |> Base.url_encode64()
     session_key = "user:#{user.id}:session:#{token}"
