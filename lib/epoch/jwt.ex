@@ -1,5 +1,6 @@
 defmodule Epoch.JWT do
-  use Joken.Config, default_signer: :pem_rs256
+  use Joken.Config, default_signer: Joken.Signer.create(signing_key["alg"], signing_key)
+    # default_signer: :pem_rs256
 
   @impl Joken.Config
   def token_config do
