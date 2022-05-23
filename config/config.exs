@@ -7,6 +7,11 @@ config :epoch,
 config :epoch, Epoch,
   enable_smf_fallback: false
 
+# Configure Guardian
+config :epoch, Epoch.Guardian,
+       issuer: "Epoch",
+       secret_key: "Secret key. You can use `mix guardian.gen.secret` to get one"
+
 # Configures the endpoint
 config :epoch, EpochWeb.Endpoint,
   url: [host: "localhost"]
