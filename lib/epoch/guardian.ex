@@ -1,5 +1,5 @@
 defmodule Epoch.Guardian do
-  use Guardian, otp_app: :my_app
+  use Guardian, otp_app: :epoch
 
   def subject_for_token(%{user_id: user_id}, _claims) do
     # You can use any value for the subject of your token but
