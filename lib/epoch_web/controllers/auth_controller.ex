@@ -68,8 +68,9 @@ defmodule EpochWeb.AuthController do
     # set expiration
     # 14 days (in seconds)
     expiration = 14 * 24 * 60 * 60
+    {:ok, token, _claims} = Epoch.JWT.generate_and_sign(decoded_token)
 
-    token = :crypto.strong_rand_bytes(@rand_size) |> Base.url_encode64()
+    # token = :crypto.strong_rand_bytes(@rand_size) |> Base.url_encode64()
     session_key = "user:#{user.id}:session:#{token}"
     Redix.command(:redix, ["SET", session_key, "now"])
     |> IO.inspect
