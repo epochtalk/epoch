@@ -66,7 +66,8 @@ defmodule EpochWeb.AuthController do
     # set expiration
     
 
-    token = :crypto.strong_rand_bytes(@rand_size) |> Base.url_encode64()
+    # token = :crypto.strong_rand_bytes(@rand_size) |> Base.url_encode64()
+    {:ok, token, _claims} = Epoch.Guardian.encode_and_sign(decoded_token)
     session_key = "user:#{user.id}:session:#{token}"
     Redix.command(:redix, ["SET", session_key, "now"])
     |> IO.inspect
