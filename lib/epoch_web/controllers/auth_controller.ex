@@ -57,16 +57,10 @@ defmodule EpochWeb.AuthController do
     end
   end
   defp log_in_user(conn, user, params \\ %{}) do
-    # TODO: clean up commented code when functionality is implemented
-    # token info for storing in redis
     datetime = NaiveDateTime.utc_now
+    # TODO: implement session_id
     decoded_token = %{ user_id: user.id, session_id: 0, timestamp: datetime }
-    # set algorithm and
-    
-    # set expiration
-    
 
-    # token = :crypto.strong_rand_bytes(@rand_size) |> Base.url_encode64()
     {:ok, token, _claims} = Epoch.Guardian.encode_and_sign(decoded_token)
     session_key = "user:#{user.id}:session:#{token}"
     Redix.command(:redix, ["SET", session_key, "now"])
