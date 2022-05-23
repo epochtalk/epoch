@@ -63,7 +63,7 @@ defmodule EpochWeb.AuthController do
 
     {:ok, token, _claims} = Epoch.Guardian.encode_and_sign(decoded_token)
     session_key = "user:#{user.id}:session:#{token}"
-    Redix.command(:redix, ["SET", session_key, "now"])
+    Redix.command(:redix, ["SET", session_key, decoded_token.timestamp])
     |> IO.inspect
     Redix.command(:redix, ["GET", session_key])
     |> IO.inspect
