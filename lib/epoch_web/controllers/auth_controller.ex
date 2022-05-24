@@ -37,15 +37,10 @@ defmodule EpochWeb.AuthController do
     # TODO: check if logged in
 
 
-    # TODO: check user with password exists
     if user = User.by_username_and_password(username, password) do
       # TODO: check confirmation token
-      # TODO: check passhash exists
-      # TODO: check passhash matches
       # TODO: check ban expiration
       # TODO: get moderated boards
-      # TODO: set session expiration
-      # TODO: build token, save session
       log_in_user(conn, user, user_params)
     else
       # TODO: Don't really need this if only checking usernames
@@ -61,6 +56,7 @@ defmodule EpochWeb.AuthController do
     session_id = UUID.uuid1()
     decoded_token = %{ user_id: user.id, session_id: session_id, timestamp: datetime }
 
+    # TODO: set session expiration
     {:ok, token, _claims} = Epoch.Guardian.encode_and_sign(decoded_token)
     session_key = "user:#{user.id}:session:#{token}"
     Redix.command(:redix, ["SET", session_key, decoded_token.timestamp])
