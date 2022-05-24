@@ -10,6 +10,7 @@ config :epoch, Epoch,
 # Configure Guardian
 config :epoch, Epoch.Guardian,
        issuer: "Epoch",
+       # TODO: configure this at runtime through env
        secret_key: "Secret key. You can use `mix guardian.gen.secret` to get one"
 
 # Configures the endpoint
