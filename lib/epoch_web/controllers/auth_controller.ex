@@ -58,8 +58,8 @@ defmodule EpochWeb.AuthController do
   end
   defp log_in_user(conn, user, params \\ %{}) do
     datetime = NaiveDateTime.utc_now
-    # TODO: implement session_id
-    decoded_token = %{ user_id: user.id, session_id: 0, timestamp: datetime }
+    session_id = UUID.uuid1()
+    decoded_token = %{ user_id: user.id, session_id: session_id, timestamp: datetime }
 
     {:ok, token, _claims} = Epoch.Guardian.encode_and_sign(decoded_token)
     session_key = "user:#{user.id}:session:#{token}"
