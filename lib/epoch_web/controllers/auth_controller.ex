@@ -51,13 +51,21 @@ defmodule EpochWeb.AuthController do
       |> render("400.json", %{message: "Invalid username or password"})
     end
   end
-  defp log_in_user(conn, user, params \\ %{}) do
+  defp log_in_user(conn, user, %{"rememberMe" => remember_me} \\ %{}) do
     datetime = NaiveDateTime.utc_now
     session_id = UUID.uuid1()
     decoded_token = %{ user_id: user.id, session_id: session_id, timestamp: datetime }
 
-    # TODO: set session expiration
-    {:ok, token, _claims} = Epoch.Guardian.encode_and_sign(decoded_token)
+    {:ok, token, _claims} = case remember_me do
+      "true" ->
+        # set longer expiration
+        Epoch.Guardian.encode_and_sign(decoded_token, %{}, ttl: {4, :weeks})
+      _ ->
+        # set default expiration
+        Epoch.Guardian.encode_and_sign(decoded_token, %{}, ttl: {1, :day})
+    end
+    Epoch.Guardian.decode_and_verify(token)
+    |> IO.inspect()
     session_key = "user:#{user.id}:session:#{token}"
     Redix.command(:redix, ["SET", session_key, decoded_token.timestamp])
     |> IO.inspect
