@@ -33,9 +33,9 @@ defmodule EpochWeb.AuthController do
         |> render("400.json", %{message: inspect(changeset.errors)})
     end
   end
-  def login(conn, %{"user" => user_params}) do
-    %{"username" => username, "password" => password} = user_params
+  def login(conn, %{"username" => username, "password" => password, "rememberMe" => remember_me} = user_params) do
     # TODO: check if logged in
+
 
     # TODO: check user with password exists
     if user = User.by_username_and_password(username, password) do
