@@ -84,6 +84,10 @@ defmodule EpochWeb.AuthController do
 
     user = Map.put(user, :token, token)
 
+    # TODO: check for empty roles first
+    # add default role
+    user = Map.put(user, :roles, ["user"])
+
     conn
     # |> renew_session()
     # |> put_session(:user_token, token)
