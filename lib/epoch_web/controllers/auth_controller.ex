@@ -33,19 +33,14 @@ defmodule EpochWeb.AuthController do
         |> render("400.json", %{message: inspect(changeset.errors)})
     end
   end
-  def login(conn, %{"user" => user_params}) do
-    %{"username" => username, "password" => password} = user_params
+  def login(conn, %{"username" => username, "password" => password, "rememberMe" => remember_me} = user_params) do
     # TODO: check if logged in
 
-    # TODO: check user with password exists
+
     if user = User.by_username_and_password(username, password) do
       # TODO: check confirmation token
-      # TODO: check passhash exists
-      # TODO: check passhash matches
       # TODO: check ban expiration
       # TODO: get moderated boards
-      # TODO: set session expiration
-      # TODO: build token, save session
       log_in_user(conn, user, user_params)
     else
       # TODO: Don't really need this if only checking usernames
@@ -56,19 +51,23 @@ defmodule EpochWeb.AuthController do
       |> render("400.json", %{message: "Invalid username or password"})
     end
   end
-  defp log_in_user(conn, user, params \\ %{}) do
-    # TODO: clean up commented code when functionality is implemented
-    # token info for storing in redis
+  defp log_in_user(conn, user, %{"rememberMe" => remember_me} \\ %{}) do
     datetime = NaiveDateTime.utc_now
-    decoded_token = %{ user_id: user.id, session_id: 0, timestamp: datetime }
-    # set algorithm and
-    
-    # set expiration
-    
+    session_id = UUID.uuid1()
+    decoded_token = %{ user_id: user.id, session_id: session_id, timestamp: datetime }
 
-    token = :crypto.strong_rand_bytes(@rand_size) |> Base.url_encode64()
+    {:ok, token, _claims} = case remember_me do
+      "true" ->
+        # set longer expiration
+        Epoch.Guardian.encode_and_sign(decoded_token, %{}, ttl: {4, :weeks})
+      _ ->
+        # set default expiration
+        Epoch.Guardian.encode_and_sign(decoded_token, %{}, ttl: {1, :day})
+    end
+    Epoch.Guardian.decode_and_verify(token)
+    |> IO.inspect()
     session_key = "user:#{user.id}:session:#{token}"
-    Redix.command(:redix, ["SET", session_key, "now"])
+    Redix.command(:redix, ["SET", session_key, decoded_token.timestamp])
     |> IO.inspect
     Redix.command(:redix, ["GET", session_key])
     |> IO.inspect
@@ -85,12 +84,11 @@ defmodule EpochWeb.AuthController do
 
     user = Map.put(user, :token, token)
 
+    # TODO: check for empty roles first
+    # add default role
+    user = Map.put(user, :roles, ["user"])
+
     conn
-    # |> renew_session()
-    # |> put_session(:user_token, token)
-    # |> put_session(:live_socket_id, "users_sessions:#{Base.url_encode64(token)}")
-    # |> maybe_write_remember_me_cookie(token, params)
-    # |> redirect(to: user_return_to || signed_in_path(conn))
     |> render("credentials.json", user: user)
   end
 end

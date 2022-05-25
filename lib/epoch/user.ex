@@ -45,6 +45,10 @@ defmodule Epoch.User do
 
     Repo.exists?(query)
   end
+  def by_id(id)
+      when is_binary(id) do
+    user = Repo.get_by(User, id: id)
+  end
   def by_username_and_password(username, password)
       when is_binary(username) and is_binary(password) do
     user = Repo.get_by(User, username: username)

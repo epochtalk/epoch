@@ -29,7 +29,7 @@ defmodule EpochWeb.AuthView do
       avatar: "", # user.avatar
       permissions: %{}, # user.permissions
       moderating: %{}, # user.moderating
-      roles: %{} # user.roles
+      roles: user.roles
     }
   end
 end
