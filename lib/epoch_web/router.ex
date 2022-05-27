@@ -4,6 +4,11 @@ defmodule EpochWeb.Router do
   pipeline :api do
     plug :accepts, ["json"]
   end
+  pipeline :maybe_auth do
+    plug Guardian.Plug.VerifyHeader, claims: %{"typ" => "access"}
+    plug Guardian.Plug.EnsureAuthenticated
+    plug Guardian.Plug.LoadResource
+  end
 
   scope "/api", EpochWeb do
     pipe_through :api
