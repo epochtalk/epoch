@@ -14,7 +14,7 @@ defmodule EpochWeb.Router do
   end
 
   scope "/api", EpochWeb do
-    pipe_through :api
+    pipe_through [:api, :maybe_auth]
     get "/motd", RootController, :motd
     get "/boards/:slug/id", BoardController, :id
     get "/register/username/:username", AuthController, :username
