@@ -35,20 +35,23 @@ defmodule EpochWeb.AuthController do
   end
   def login(conn, %{"username" => username, "password" => password, "rememberMe" => remember_me} = user_params) do
     # TODO: check if logged in
-
-
-    if user = User.by_username_and_password(username, password) do
-      # TODO: check confirmation token
-      # TODO: check ban expiration
-      # TODO: get moderated boards
-      log_in_user(conn, user, user_params)
+    if Guardian.Plug.authenticated?(conn) do
+      IO.puts("already logged in")
+      user = Guardian.Plug.current_resource(conn)
     else
-      # TODO: Don't really need this if only checking usernames
-      #       With username search, enumeration is not applicable
-      # In order to prevent user enumeration attacks, don't disclose whether the [originally email] username is registered.
-      conn
-      |> put_view(ErrorView)
-      |> render("400.json", %{message: "Invalid username or password"})
+      if user = User.by_username_and_password(username, password) do
+        # TODO: check confirmation token
+        # TODO: check ban expiration
+        # TODO: get moderated boards
+        log_in_user(conn, user, user_params)
+      else
+        # TODO: Don't really need this if only checking usernames
+        #       With username search, enumeration is not applicable
+        # In order to prevent user enumeration attacks, don't disclose whether the [originally email] username is registered.
+        conn
+        |> put_view(ErrorView)
+        |> render("400.json", %{message: "Invalid username or password"})
+      end
     end
   end
   defp log_in_user(conn, user, %{"rememberMe" => remember_me} \\ %{}) do
