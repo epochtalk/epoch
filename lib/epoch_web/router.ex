@@ -9,8 +9,10 @@ defmodule EpochWeb.Router do
                                error_handler: EpochWeb.AuthErrorHandler
 
     plug Guardian.Plug.VerifyHeader, claims: %{"typ" => "access"}
-    plug Guardian.Plug.EnsureAuthenticated
     plug Guardian.Plug.LoadResource
+  end
+  pipeline :enforce_auth do
+    plug Guardian.Plug.EnsureAuthenticated
   end
 
   scope "/api", EpochWeb do
