@@ -14,6 +14,7 @@ defmodule EpochWeb.ErrorView do
     %{message: conn.assigns.reason.message}
   end
   def template_not_found(template, _assigns) do
-    %{errors: %{detail: Phoenix.Controller.status_message_from_template(template)}}
+    # %{errors: %{detail: Phoenix.Controller.status_message_from_template(template)}}
+    %{message: Phoenix.Controller.status_message_from_template(template)}
   end
 end
