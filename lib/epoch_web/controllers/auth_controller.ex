@@ -50,7 +50,7 @@ defmodule EpochWeb.AuthController do
       end
     end
   end
-  defp log_in_user(conn, user, %{"rememberMe" => remember_me} \\ %{}) do
+  defp log_in_user(conn, user, %{"rememberMe" => remember_me}) do
     datetime = NaiveDateTime.utc_now
     session_id = UUID.uuid1()
     decoded_token = %{ user_id: user.id, session_id: session_id, timestamp: datetime }
