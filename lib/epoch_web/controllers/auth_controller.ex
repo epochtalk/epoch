@@ -5,8 +5,6 @@ defmodule EpochWeb.AuthController do
 
   alias EpochWeb.ErrorView
 
-  @rand_size 32
-
   def username(conn, %{"username" => username}) do
     username_found = username
     |> User.with_username_exists?
