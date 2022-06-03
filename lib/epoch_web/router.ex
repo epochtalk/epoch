@@ -4,9 +4,19 @@ defmodule EpochWeb.Router do
   pipeline :api do
     plug :accepts, ["json"]
   end
+  pipeline :maybe_auth do
+    plug Guardian.Plug.Pipeline, module: Epoch.Guardian,
+                               error_handler: EpochWeb.AuthErrorHandler
+
+    plug Guardian.Plug.VerifyHeader, claims: %{"typ" => "access"}
+    plug Guardian.Plug.LoadResource, allow_blank: true
+  end
+  pipeline :enforce_auth do
+    plug Guardian.Plug.EnsureAuthenticated
+  end
 
   scope "/api", EpochWeb do
-    pipe_through :api
+    pipe_through [:api, :maybe_auth]
     get "/motd", RootController, :motd
     get "/boards/:slug/id", BoardController, :id
     get "/register/username/:username", AuthController, :username
