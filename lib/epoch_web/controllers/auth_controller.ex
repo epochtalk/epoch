@@ -3,6 +3,7 @@ defmodule EpochWeb.AuthController do
   alias Epoch.User
   alias Epoch.Repo
 
+  alias EpochWeb.CustomErrors.{InvalidCredentials}
   alias EpochWeb.ErrorView
 
   def username(conn, %{"username" => username}) do
@@ -46,7 +47,7 @@ defmodule EpochWeb.AuthController do
         # TODO: get moderated boards
         log_in_user(conn, user, user_params)
       else
-        raise(EpochWeb.CustomErrors.InvalidCredentials)
+        raise(InvalidCredentials)
       end
     end
   end
