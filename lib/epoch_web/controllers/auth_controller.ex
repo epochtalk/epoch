@@ -45,12 +45,7 @@ defmodule EpochWeb.AuthController do
         # TODO: get moderated boards
         log_in_user(conn, user, user_params)
       else
-        # TODO: Don't really need this if only checking usernames
-        #       With username search, enumeration is not applicable
-        # In order to prevent user enumeration attacks, don't disclose whether the [originally email] username is registered.
-        conn
-        |> put_view(ErrorView)
-        |> render("400.json", %{message: "Invalid username or password"})
+        raise(EpochWeb.CustomErrors.InvalidCredentials)
       end
     end
   end
