@@ -15,7 +15,10 @@ config :epoch, Epoch.Guardian,
 
 # Configures the endpoint
 config :epoch, EpochWeb.Endpoint,
-  url: [host: "localhost"]
+  url: [host: "localhost"],
+  render_errors: [view: EpochWeb.ErrorView,
+    format: "json",
+    accepts: ~w(json)]
 
 config :epoch, EpochLegacyWeb.Endpoint,
   url: [host: "localhost"]
