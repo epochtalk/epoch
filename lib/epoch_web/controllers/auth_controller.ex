@@ -31,7 +31,10 @@ defmodule EpochWeb.AuthController do
         |> render("400.json", %{message: inspect(changeset.errors)})
     end
   end
-  def login(conn, %{"username" => username, "password" => password, "rememberMe" => remember_me} = user_params) do
+  def login(conn, user_params) when not is_map_key(user_params, "rememberMe") do
+    login(conn, Map.put(user_params, "rememberMe", false))
+  end
+  def login(conn, %{"username" => username, "password" => password} = user_params) do
     # TODO: check if logged in
     if Guardian.Plug.authenticated?(conn) do
       IO.puts("already logged in")
