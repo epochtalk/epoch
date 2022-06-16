@@ -28,4 +28,8 @@ defmodule EpochWeb.Router do
     resources "/posts", PostController, only: [:index, :show]
     resources "/users", UserController, only: [:show]
   end
+  scope "/api", EpochWeb do
+    pipe_through [:api, :maybe_auth, :enforce_auth]
+    delete "/logout", AuthController, :logout
+  end
 end
