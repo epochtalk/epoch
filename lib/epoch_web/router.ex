@@ -14,7 +14,14 @@ defmodule EpochWeb.Router do
   pipeline :enforce_auth do
     plug Guardian.Plug.EnsureAuthenticated
   end
+  pipeline :enforce_not_auth do
+    plug Guardian.Plug.EnsureNotAuthenticated
+  end
 
+  scope "/api", EpochWeb do
+    pipe_through [:api, :maybe_auth, :enforce_not_auth]
+    post "/login", AuthController, :login
+  end
   scope "/api", EpochWeb do
     pipe_through [:api, :maybe_auth]
     get "/motd", RootController, :motd
@@ -22,7 +29,6 @@ defmodule EpochWeb.Router do
     get "/register/username/:username", AuthController, :username
     get "/register/email/:email", AuthController, :email
     post "/register", AuthController, :register
-    post "/login", AuthController, :login
     resources "/boards", BoardController, only: [:index, :show]
     resources "/threads", ThreadController, only: [:index, :show]
     resources "/posts", PostController, only: [:index, :show]
