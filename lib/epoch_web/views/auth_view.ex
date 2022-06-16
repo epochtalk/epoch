@@ -4,6 +4,7 @@ defmodule EpochWeb.AuthView do
   def render("search.json", %{found: found}) do
     %{found: found}
   end
+  def render("logout.json", _data), do: true
   def render("show.json", %{user: user}) do
     user |> user_json()
   end
