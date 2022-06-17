@@ -46,7 +46,8 @@ defmodule EpochWeb.AuthController do
   def login(conn, %{"username" => username, "password" => password} = user_params) do
     # TODO: check if logged in
     if Guardian.Plug.authenticated?(conn) do
-      IO.puts("already logged in")
+      # TODO: guardian automatically returns already authenticated
+      # redo this code to not handle checking authentication
       user = Guardian.Plug.current_resource(conn)
     else
       if user = User.by_username_and_password(username, password) do
