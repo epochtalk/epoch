@@ -46,7 +46,6 @@ defmodule Epoch.Mixfile do
       {:phoenix, "~> 1.6.6"},
       {:plug_cowboy, "~> 2.5"},
       {:postgrex, ">= 0.16.1"},
-      {:redix, "~> 1.1"},
       {:slugy, "~> 4.1.1"},
       {:uuid, "~> 1.1"}
     ]

@@ -76,32 +76,8 @@ defmodule EpochWeb.AuthController do
         Guardian.encode_and_sign(decoded_token, %{}, ttl: {1, :day})
     end
 
-    # save session to redis
-    # used to look up session expiry via session key for user id
     Guardian.decode_and_verify(token)
     |> IO.inspect()
-    session_key = "user:#{user.id}:session:#{token}"
-    Redix.command(:redix, ["SET", session_key, decoded_token.timestamp])
-    |> IO.inspect
-    Redix.command(:redix, ["GET", session_key])
-    |> IO.inspect
-
-    # save user session to redis
-    # used to look up user sessions by user id
-    user_session_key = "user:#{user.id}:sessions"
-    Redix.command(:redix, ["SADD", user_session_key, decoded_token.session_id])
-    |> IO.inspect
-    Redix.command(:redix, ["SMEMBERS", user_session_key])
-    |> IO.inspect
-
-    # save username, avatar to redis hash under "user:{userId}"
-    user_key = "user:#{user.id}"
-    Redix.command(:redix, ["HSET", user_key, "username", user.username])
-    # check for avatar first and use it if it's there
-    # Redix.command(:redix, ["HSET", user_key, "username", user.username, "avatar", user.id])
-    |> IO.inspect
-    Redix.command(:redix, ["HGETALL", user_key])
-    |> IO.inspect
 
     user = Map.put(user, :token, token)
 

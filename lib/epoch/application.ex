@@ -11,7 +11,6 @@ defmodule Epoch.Application do
   defp epoch_otp_apps() do
     children = [
       Epoch.Repo,
-      {Redix, host: "localhost", name: :redix},
       GuardianRedis.Redix
     ]
     case SMF.Helper.enable_smf_fallback? do
