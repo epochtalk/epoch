@@ -2,6 +2,7 @@ defmodule EpochWeb.AuthController do
   use EpochWeb, :controller
   alias Epoch.User
   alias Epoch.Repo
+  alias Epoch.Guardian
 
   alias EpochWeb.CustomErrors.{InvalidCredentials}
   alias EpochWeb.ErrorView
@@ -69,15 +70,15 @@ defmodule EpochWeb.AuthController do
     {:ok, token, _claims} = case remember_me do
       "true" ->
         # set longer expiration
-        Epoch.Guardian.encode_and_sign(decoded_token, %{}, ttl: {4, :weeks})
+        Guardian.encode_and_sign(decoded_token, %{}, ttl: {4, :weeks})
       _ ->
         # set default expiration
-        Epoch.Guardian.encode_and_sign(decoded_token, %{}, ttl: {1, :day})
+        Guardian.encode_and_sign(decoded_token, %{}, ttl: {1, :day})
     end
 
     # save session to redis
     # used to look up session expiry via session key for user id
-    Epoch.Guardian.decode_and_verify(token)
+    Guardian.decode_and_verify(token)
     |> IO.inspect()
     session_key = "user:#{user.id}:session:#{token}"
     Redix.command(:redix, ["SET", session_key, decoded_token.timestamp])
