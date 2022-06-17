@@ -12,6 +12,7 @@ defmodule Epoch.Application do
     children = [
       Epoch.Repo,
       {Redix, host: "localhost", name: :redix},
+      GuardianRedis.Redix
     ]
     case SMF.Helper.enable_smf_fallback? do
       true -> 
