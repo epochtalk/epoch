@@ -37,6 +37,8 @@ defmodule EpochWeb.AuthController do
       IO.puts("already logged in")
       Guardian.Plug.current_resource(conn)
       |> IO.inspect
+      Guardian.Plug.current_token(conn)
+      |> Guardian.revoke
       render(conn, "logout.json")
     end
   end
