@@ -35,9 +35,6 @@ defmodule EpochWeb.AuthController do
   end
   def logout(conn, params) do
     if Guardian.Plug.authenticated?(conn) do
-      IO.puts("already logged in")
-      Guardian.Plug.current_resource(conn)
-      |> IO.inspect
       Guardian.Plug.current_token(conn)
       |> Guardian.revoke
       render(conn, "logout.json")
@@ -75,9 +72,6 @@ defmodule EpochWeb.AuthController do
         # set default expiration
         Guardian.encode_and_sign(decoded_token, %{}, ttl: {1, :day})
     end
-
-    Guardian.decode_and_verify(token)
-    |> IO.inspect()
 
     user = Map.put(user, :token, token)
 
