@@ -36,9 +36,9 @@ defmodule EpochWeb.AuthController do
   def logout(conn, params) do
     if Guardian.Plug.authenticated?(conn) do
       # TODO: check if user is on page that requires auth
-      Guardian.Plug.current_token(conn)
-      |> Guardian.revoke
-      render(conn, "logout.json")
+      conn
+      |> Guardian.Plug.sign_out
+      |> render("logout.json")
     else
       raise(NotLoggedIn)
     end
