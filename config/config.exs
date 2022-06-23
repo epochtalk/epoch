@@ -15,9 +15,9 @@ config :epoch, Epoch.Guardian,
 
 # Configure Guardian.DB
 config :guardian, Guardian.DB,
-  repo: GuardianRedis.Repo,
+  repo: GuardianRedis.Repo
   # schema_name: "guardian_tokens" # default
-  token_types: ["refresh_token"] # store all token types if not set
+  # token_types: ["refresh_token"] # store all token types if not set
 
 # Configure GuardianRedis
 # (implementation of Guardian.DB storage in redis)
