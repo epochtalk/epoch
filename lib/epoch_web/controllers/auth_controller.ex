@@ -48,19 +48,13 @@ defmodule EpochWeb.AuthController do
   end
   def login(conn, %{"username" => username, "password" => password} = user_params) do
     # TODO: check if logged in
-    if Guardian.Plug.authenticated?(conn) do
-      # TODO: guardian automatically returns already authenticated
-      # redo this code to not handle checking authentication
-      user = Guardian.Plug.current_resource(conn)
+    if user = User.by_username_and_password(username, password) do
+      # TODO: check confirmation token
+      # TODO: check ban expiration
+      # TODO: get moderated boards
+      log_in_user(conn, user, user_params)
     else
-      if user = User.by_username_and_password(username, password) do
-        # TODO: check confirmation token
-        # TODO: check ban expiration
-        # TODO: get moderated boards
-        log_in_user(conn, user, user_params)
-      else
-        raise(InvalidCredentials)
-      end
+      raise(InvalidCredentials)
     end
   end
   defp log_in_user(conn, user, %{"rememberMe" => remember_me}) do
