@@ -62,14 +62,17 @@ defmodule EpochWeb.AuthController do
     session_id = UUID.uuid1()
     decoded_token = %{ user_id: user.id, session_id: session_id, timestamp: datetime }
 
-    {:ok, token, _claims} = case remember_me do
-      "true" ->
-        # set longer expiration
-        Guardian.encode_and_sign(decoded_token, %{}, ttl: {4, :weeks})
-      _ ->
-        # set default expiration
-        Guardian.encode_and_sign(decoded_token, %{}, ttl: {1, :day})
+    # token expiration based on remember_me
+    ttl = case remember_me do
+      # set longer expiration
+      "true" -> {4, :weeks}
+      # set default expiration
+      _ -> {1, :day}
     end
+
+    token = conn
+    |> Guardian.Plug.sign_in(decoded_token, %{}, ttl: ttl)
+    |> Guardian.Plug.current_token
 
     user = Map.put(user, :token, token)
 
