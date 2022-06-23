@@ -4,7 +4,7 @@ defmodule EpochWeb.AuthController do
   alias Epoch.Repo
   alias Epoch.Guardian
 
-  alias EpochWeb.CustomErrors.{InvalidCredentials}
+  alias EpochWeb.CustomErrors.{InvalidCredentials, NotLoggedIn}
   alias EpochWeb.ErrorView
 
   def username(conn, %{"username" => username}) do
@@ -38,6 +38,8 @@ defmodule EpochWeb.AuthController do
       Guardian.Plug.current_token(conn)
       |> Guardian.revoke
       render(conn, "logout.json")
+    else
+      raise(NotLoggedIn)
     end
   end
   def login(conn, user_params) when not is_map_key(user_params, "rememberMe") do
