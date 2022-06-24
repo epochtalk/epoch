@@ -33,7 +33,7 @@ defmodule EpochWeb.AuthController do
         |> render("400.json", %{message: inspect(changeset.errors)})
     end
   end
-  def logout(conn, params) do
+  def logout(conn, _attrs) do
     if Guardian.Plug.authenticated?(conn) do
       # TODO: check if user is on page that requires auth
       conn
