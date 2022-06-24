@@ -11,10 +11,16 @@ defmodule EpochWeb.Router do
     plug Guardian.Plug.VerifyHeader, claims: %{"typ" => "access"}
     plug Guardian.Plug.LoadResource, allow_blank: true
   end
+  pipeline :enforce_auth do
+    plug Guardian.Plug.EnsureAuthenticated
+  end
   pipeline :enforce_not_auth do
     plug Guardian.Plug.EnsureNotAuthenticated
   end
-
+  scope "/api", EpochWeb do
+    pipe_through [:api, :maybe_auth, :enforce_auth]
+    get "/authenticate", AuthController, :authenticate
+  end
   scope "/api", EpochWeb do
     pipe_through [:api, :maybe_auth, :enforce_not_auth]
     post "/login", AuthController, :login
