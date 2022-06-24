@@ -33,6 +33,22 @@ defmodule EpochWeb.AuthController do
         |> render("400.json", %{message: inspect(changeset.errors)})
     end
   end
+  def authenticate(conn, _attrs) do
+    user = conn
+    |> Guardian.Plug.current_resource
+
+    token = conn
+    |> Guardian.Plug.current_token
+
+    user = Map.put(user, :token, token)
+
+    # TODO: check for empty roles first
+    # add default role
+    user = Map.put(user, :roles, ["user"])
+
+    conn
+    |> render("credentials.json", user: user)
+  end
   def logout(conn, _attrs) do
     if Guardian.Plug.authenticated?(conn) do
       # TODO: check if user is on page that requires auth
