@@ -63,7 +63,6 @@ defmodule EpochWeb.AuthController do
     login(conn, Map.put(user_params, "rememberMe", false))
   end
   def login(conn, %{"username" => username, "password" => password} = user_params) do
-    # TODO: check if logged in
     if user = User.by_username_and_password(username, password) do
       # TODO: check confirmation token
       # TODO: check ban expiration
