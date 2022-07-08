@@ -22,4 +22,11 @@ defmodule Epoch.Role do
     role
     |> cast(attrs, [:name, :description, :lookup, :priority, :highlight_color, :base_permissions, :custom_permissions, :created_at, :updated_at])
   end
+  def insert([]), do: {:error, "Role list is empty"}
+  def insert(%Role{} = role) do
+    Repo.insert(role)
+  end
+  def insert([%Role{}] = roles) do
+    Repo.insert_all(Role, roles)
+  end
 end
