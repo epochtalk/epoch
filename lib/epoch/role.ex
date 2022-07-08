@@ -20,7 +20,8 @@ defmodule Epoch.Role do
 
   def changeset(role, attrs \\ %{}) do
     role
-    |> cast(attrs, [:name, :description, :lookup, :priority, :highlight_color, :base_permissions, :custom_permissions, :created_at, :updated_at])
+    |> cast(attrs, [:name, :description, :lookup, :priority, :highlight_color, :base_permissions, :custom_permissions])
+    |> validate_required([:name, :description, :lookup, :priority, :highlight_color, :base_permissions, :custom_permissions])
   end
   def insert([]), do: {:error, "Role list is empty"}
   def insert(%Role{} = role) do
