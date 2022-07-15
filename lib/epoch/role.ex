@@ -27,7 +27,7 @@ defmodule Epoch.Role do
   def insert(%Role{} = role) do
     Repo.insert(role)
   end
-  def insert([%Role{}] = roles) do
+  def insert([%{}|_] = roles) do
     Repo.insert_all(Role, roles)
   end
 end
