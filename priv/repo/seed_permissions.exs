@@ -1,18 +1,16 @@
 json_file = "#{__DIR__}/seeds/permissions.json"
 
-# @data
+alias Epoch.Permission
+alias Epoch.Repo
+
+insert_permission = fn(data) ->
+  changeset = Permission.changeset(%Permission{}, %{path: data})
+  Repo.insert!(changeset)
+end
+
 json_file
 |> File.read!()
-|> Jason.decode!
-|> IO.inspect
-# def data do
-#   @data
-# end
-# with {:ok, body} <- File.read(json_file),
-#      {:ok, json} <- Jason.decode(body, keys: :atom) do
-#   IO.inspect(json)
-#   # insert to db
-# else
-#   err ->
-#       IO.inspect(err)
-# end
+|> Jason.decode! # []
+|> Enum.each(insert_permission)
+
+# |> IO.inspect
