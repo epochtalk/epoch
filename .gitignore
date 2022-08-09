@@ -1,6 +1,3 @@
-# json output from roles permissions processing
-permissions.json
-priority_restrictions.json
 # Artifacts
 /_build
 /cover
