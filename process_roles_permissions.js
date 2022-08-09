@@ -43,5 +43,5 @@ let allPermissionsString = JSON.stringify(Object.keys(allPermissions).sort(), nu
 let priorityRestrictionsString = JSON.stringify(priorityRestrictions, null, 2)
 console.log(allPermissionsString)
 console.log(priorityRestrictionsString)
-fs.writeFileSync('permissions.json', allPermissionsString)
-fs.writeFileSync('priority_restrictions.json', priorityRestrictionsString)
+fs.writeFileSync('priv/repo/seeds/permissions.json', allPermissionsString)
+fs.writeFileSync('priv/repo/seeds/priority_restrictions.json', priorityRestrictionsString)
