@@ -16,6 +16,9 @@ defmodule Epoch.Permission do
   def insert(%Permission{} = permission) do
     Repo.insert(permission)
   end
+  def delete_all() do
+    Repo.delete_all(Permission)
+  end
   def by_path(path)
       when is_binary(path) do
     permission = Repo.get_by(Permission, path: path)
