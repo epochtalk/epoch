@@ -6,7 +6,7 @@ defmodule Epoch.PriorityRestriction do
 
   schema "priority_restrictions" do
     field :role_lookup, :string
-    field :restrictions, :list
+    field :restrictions, {:array, :integer}
   end
 
   def changeset(priority_restrictions, attrs \\ %{}) do
