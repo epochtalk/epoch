@@ -8,8 +8,8 @@ defmodule Epoch.Permission do
     field :path, :string
   end
 
-  def changeset(role, attrs \\ %{}) do
-    role
+  def changeset(permission, attrs \\ %{}) do
+    permission
     |> cast(attrs, [:path])
     |> validate_required([:path])
   end
