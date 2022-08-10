@@ -15,9 +15,9 @@ defmodule Epoch.Permission do
   end
   def by_path(path)
       when is_binary(path) do
-    permission = Repo.get_by(Permission, path: path)
+    Repo.get_by(Permission, path: path)
   end
-  def all(path) do
-    permissions = Repo.all(Permission)
+  def all() do
+    Repo.all(Permission)
   end
 end
