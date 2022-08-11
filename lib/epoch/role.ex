@@ -1,6 +1,7 @@
 defmodule Epoch.Role do
   use Ecto.Schema
   import Ecto.Changeset
+  import Ecto.Query, only: [from: 2]
   alias Epoch.Repo
   alias Epoch.Role
 
