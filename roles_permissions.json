@@ -2874,12 +2874,6 @@
         "allow": true
       }
     },
-    "priorityRestrictions": [
-      0,
-      1,
-      2,
-      3
-    ],
     "rank": {},
     "reports": {},
     "roles": {},
