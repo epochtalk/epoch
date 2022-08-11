@@ -12,6 +12,7 @@ defmodule Epoch.Role do
     field :highlight_color, :string
 
     field :permissions, :map
+    field :priority_restrictions, {:array, :integer}
 
     field :created_at, :naive_datetime
     field :updated_at, :naive_datetime
