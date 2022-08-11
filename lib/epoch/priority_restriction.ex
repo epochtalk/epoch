@@ -2,13 +2,13 @@ defmodule Epoch.PriorityRestriction do
   use Ecto.Schema
   import Ecto.Changeset
   alias Epoch.Repo
+  alias Epoch.Role
   alias Epoch.PriorityRestriction
 
   schema "priority_restrictions" do
-    field :role_lookup, :string
+    belongs_to :role, Role, foreign_key: :role_lookup, type: :string, primary_key: true
     field :restrictions, {:array, :integer}
   end
-
   def changeset(priority_restrictions, attrs \\ %{}) do
     priority_restrictions
     |> cast(attrs, [:role_lookup, :restrictions])
