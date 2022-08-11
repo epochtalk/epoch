@@ -6,4 +6,4 @@ roles_changeset = json_file
 |> File.read!()
 |> Jason.decode!
 # for each priority_restriction, set in db
-|> Enum.each(Role.set_priority_restrictions_by_lookup)
+|> Enum.each(&(Role.set_priority_restrictions_by_lookup(&1)))
