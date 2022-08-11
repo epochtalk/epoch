@@ -30,4 +30,8 @@ defmodule Epoch.Role do
   def insert([%{}|_] = roles) do
     Repo.insert_all(Role, roles)
   end
+  def set_priority_restrictions_by_lookup(priority_restrictions, lookup) do
+    from(r in Role, where: r.lookup == ^lookup and is_nil(r.priority_restrictions))
+    |> Repo.update_all(set: [priority_restrictions: ^priority_restrictions])
+  end
 end
