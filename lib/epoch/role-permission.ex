@@ -28,4 +28,7 @@ defmodule Epoch.RolePermission do
   def insert([%{}|_] = roles_permissions) do
     Repo.insert_all(RolePermission, roles_permissions)
   end
+  def permissions_by_role(%Role{} = role) do
+    Repo.get_by(RolePermission, role_id: role.id)
+  end
 end
