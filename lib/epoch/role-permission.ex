@@ -6,11 +6,11 @@ defmodule Epoch.RolePermission do
 
   schema "roles_permissions" do
     field :role_id, :integer
-    field :permission_path, :string,
+    field :permission_path, :string
     # value XOR modified -> final value
     # (value || modified) && !(value && modified)
     # elixir is not as awesome as erlang because no XOR on booleans
-    field :value, :boolean,
+    field :value, :boolean
     field :modified, :boolean
   end
 
