@@ -31,4 +31,22 @@ defmodule Epoch.RolePermission do
   def permissions_by_role(%Role{} = role) do
     Repo.get_by(RolePermission, role_id: role.id)
   end
+  # no permissions to modify
+  def modify_by_role(role, []), do: {:error, "No permissions to modify"}
+  def modify_by_role(role, [%Permission{}|_] = permissions) do
+    # change role permission for each permission
+      # check default value
+      # check new value
+      # if new value is different, set modified true
+      # if new value is same, set modified false
+    # update roles table
+  end
+  def modify_by_role(role, %RolePermission{} = permission) do
+    # change role permission
+      # check default value
+      # check new value
+      # if new value is different, set modified true
+      # if new value is same, set modified false
+    # update roles table
+  end
 end
