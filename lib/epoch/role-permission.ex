@@ -3,10 +3,12 @@ defmodule Epoch.RolePermission do
   import Ecto.Changeset
   alias Epoch.Repo
   alias Epoch.RolePermission
+  alias Epoch.Role
+  alias Epoch.Permission
 
   schema "roles_permissions" do
-    field :role_id, :integer
-    field :permission_path, :string
+    belongs_to :role, Role, foreign_key: :role_id, type: :integer
+    belongs_to :permission, Permission, foreign_key: :permission_path, type: :string
     # value XOR modified -> final value
     # (value || modified) && !(value && modified)
     # elixir is not as awesome as erlang because no XOR on booleans
