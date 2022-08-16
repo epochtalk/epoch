@@ -1,5 +1,6 @@
 defmodule Epoch.RolePermission do
   use Ecto.Schema
+  import Ecto.Query
   import Ecto.Changeset
   alias Epoch.Repo
   alias Epoch.RolePermission
