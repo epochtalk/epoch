@@ -50,5 +50,10 @@ defmodule Epoch.RolePermission do
       # if new value is different, set modified true
       # if new value is same, set modified false
     # update roles table
+
+  # check if roles permissions are initiated by checking if there are rows
+  defp is_initiated?() do
+    # if there is more than one role permission, repo has been initiated
+    Repo.one(from rp in RolePermission, select: count(rp.value)) > 0
   end
 end
