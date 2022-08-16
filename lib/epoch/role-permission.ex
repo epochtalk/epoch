@@ -43,6 +43,23 @@ defmodule Epoch.RolePermission do
         {:ok, "roles permissions already initiated"}
       # otherwise, initiate
       false ->
+        # get all permissions
+        permissions = Permission.all
+        # get all role lookups
+        roles = Role.all
+        # for each role
+        roles
+        |> Enum.each(fn role ->
+          # for each permission
+          permissions
+          |> Enum.each(fn permission ->
+            # set value: false, modified: false
+            params = %{ role_id: role.id, permission_path: permission.path, value: false, modified: false }
+            %RolePermission{}
+            |> changeset(params)
+            |> Repo.insert()
+          end)
+        end)
         {:ok, "roles permissions now initated"}
       # panic, this isn't supposed to happen
       _ -> {:error, "roles permissions unable to determine initiation"}
