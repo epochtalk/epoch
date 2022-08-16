@@ -4,6 +4,7 @@ defmodule Epoch.Permission do
   alias Epoch.Repo
   alias Epoch.Permission
 
+  @primary_key false
   schema "permissions" do
     field :path, :string
   end
