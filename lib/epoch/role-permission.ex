@@ -29,8 +29,9 @@ defmodule Epoch.RolePermission do
   def insert([%{}|_] = roles_permissions) do
     Repo.insert_all(RolePermission, roles_permissions)
   end
-  def permissions_by_role(%Role{} = role) do
-    Repo.get_by(RolePermission, role_id: role.id)
+  def by_role_id(role_id) do
+    from(rp in RolePermission, where: rp.role_id == ^role_id)
+    |> Repo.all
   end
   # no permissions to modify
   def modify_by_role(role, []), do: {:error, "No permissions to modify"}
