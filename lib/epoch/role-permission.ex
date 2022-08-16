@@ -48,6 +48,7 @@ defmodule Epoch.RolePermission do
       _ -> {:error, "roles permissions unable to determine initiation"}
     end
   end
+  ## for admin api use, modifying permissions for a role
   # no permissions to modify
   def modify_by_role(role, []), do: {:error, "No permissions to modify"}
   def modify_by_role(role, [%Permission{}|_] = permissions) do
