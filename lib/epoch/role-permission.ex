@@ -34,6 +34,20 @@ defmodule Epoch.RolePermission do
     from(rp in RolePermission, where: rp.role_id == ^role_id)
     |> Repo.all
   end
+  # for server-side role-loading use
+  # sets all roles permissions to value: false, modified: false
+  def maybe_init() do
+    case is_initiated? do
+      # if already initiated, do nothing
+      true ->
+        {:ok, "roles permissions already initiated"}
+      # otherwise, initiate
+      false ->
+        {:ok, "roles permissions now initated"}
+      # panic, this isn't supposed to happen
+      _ -> {:error, "roles permissions unable to determine initiation"}
+    end
+  end
   # no permissions to modify
   def modify_by_role(role, []), do: {:error, "No permissions to modify"}
   def modify_by_role(role, [%Permission{}|_] = permissions) do
