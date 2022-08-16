@@ -6,6 +6,7 @@ defmodule Epoch.RolePermission do
   alias Epoch.Role
   alias Epoch.Permission
 
+  @primary_key false
   schema "roles_permissions" do
     belongs_to :role, Role, foreign_key: :role_id, type: :integer
     belongs_to :permission, Permission, foreign_key: :permission_path, type: :string
