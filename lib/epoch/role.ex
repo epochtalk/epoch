@@ -36,4 +36,8 @@ defmodule Epoch.Role do
     from(r in Role, where: r.lookup == ^lookup and is_nil(r.priority_restrictions))
     |> Repo.update_all(set: [priority_restrictions: priority_restrictions])
   end
+  def all() do
+    Role
+    |> Repo.all
+  end
 end
