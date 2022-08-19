@@ -46,6 +46,8 @@ defmodule Epoch.RolePermission do
     |> Repo.all
     # filter for true permissions
     |> Enum.filter(fn %{:value => value, :modified => modified} -> (value || modified) && !(value && modified) end)
+    # convert results to map; keyed by permissions_path
+    |> Enum.reduce(%{}, fn %{:permission_path => permission_path, :value => value}, acc -> acc |> Map.put(permission_path, value) end)
     |> IO.inspect
   end
   # for server-side role-loading use
