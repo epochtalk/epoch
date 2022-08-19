@@ -16,6 +16,8 @@ create_role_permission_changeset = fn({role_lookup, permissions}) ->
   end)
 end
 
+## careful, we might need to use Multi here...
+# these queries need to execute in order
 RolePermission.maybe_init
 |> IO.inspect
 
