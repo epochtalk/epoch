@@ -29,5 +29,8 @@ roles_permissions_changesets = json_file
   RolePermission.upsert_value(roles_permissions_changesets)
 end)
 
-# Multi.new()
-# |> Repo.transaction()
+#pseudocode
+Role.all
+|> Enum.map(fn role -> {role, RolePermission.permissions_json_by_role_id(role.id)} end)
+|> Enum.each(fn {role, permissions} -> Role.update_permissions_by_id(role.id, permissions) end)
+|> IO.inspect
