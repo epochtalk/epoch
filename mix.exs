@@ -67,6 +67,7 @@ defmodule Epoch.Mixfile do
      "db.rollback": ["ecto.rollback", "ecto.dump"],
      "seed.permissions": ["run priv/repo/seed_permissions.exs"],
      "seed.prs": ["run priv/repo/seed_priority_restrictions.exs"],
+     "seed.rp": ["run priv/repo/seed_roles_permissions.exs"],
      test: ["ecto.create --quiet", "ecto.migrate", "test"]]
   end
 
