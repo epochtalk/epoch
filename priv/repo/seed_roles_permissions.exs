@@ -23,6 +23,9 @@ roles_permissions_changesets = json_file
 |> File.read!()
 |> Jason.decode! # []
 |> Enum.map(create_role_permission_changeset) # changesets
+|> Enum.each(fn roles_permissions_changesets ->
+  RolePermission.upsert(roles_permissions_changesets)
+end)
 
 # Multi.new()
 # |> Repo.transaction()
