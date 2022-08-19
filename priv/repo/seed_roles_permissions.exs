@@ -12,7 +12,8 @@ create_role_permission_changeset = fn({role_lookup, permissions}) ->
   permissions
   |> Iteraptor.to_flatmap
   |> Enum.map(fn {permission_path, _value} ->
-    %{ role_id: role.id, permission_path: permission_path, value: true, modified: false}
+    %RolePermission{}
+    |> RolePermission.changeset(%{role_id: role.id, permission_path: permission_path, value: true, modified: false})
   end)
 end
 
