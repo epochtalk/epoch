@@ -30,6 +30,16 @@ defmodule Epoch.RolePermission do
   def insert([%{}|_] = roles_permissions) do
     Repo.insert_all(RolePermission, roles_permissions)
   end
+  # change the default values of roles permissions
+  def upsert_value([]), do: {:error, "Role permission list is empty"}
+  def upsert_value([%{}|_] = roles_permissions) do
+    Repo.insert_all(
+      RolePermission,
+      roles_permissions,
+      on_conflict: {:replace, [:value]}, # only replace default value, :value
+      conflict_target: [:role_id, :permission_path] # check conflicts on unique index keys
+    )
+  end
   def by_role_id(role_id) do
     from(rp in RolePermission, where: rp.role_id == ^role_id)
     |> Repo.all
