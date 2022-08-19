@@ -23,7 +23,7 @@ RolePermission.maybe_init
 roles_permissions_changesets = json_file
 |> File.read!()
 |> Jason.decode! # []
-|> Enum.map(create_role_permission_changeset)
+|> Enum.map(create_role_permission_changeset) # changesets
 
 # Multi.new()
 # |> Repo.transaction()
