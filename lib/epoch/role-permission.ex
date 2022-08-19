@@ -44,7 +44,8 @@ defmodule Epoch.RolePermission do
     from(rp in RolePermission,
       where: rp.role_id == ^role_id)
     |> Repo.all
-    |> Enum.filter(fn rp -> (rp.value || rp.modified) && !(rp.value && rp.modified) end)
+    # filter for true permissions
+    |> Enum.filter(fn %{:value => value, :modified => modified} -> (value || modified) && !(value && modified) end)
     |> IO.inspect
   end
   # for server-side role-loading use
