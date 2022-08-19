@@ -40,9 +40,12 @@ defmodule Epoch.RolePermission do
       conflict_target: [:role_id, :permission_path] # check conflicts on unique index keys
     )
   end
-  def by_role_id(role_id) do
-    from(rp in RolePermission, where: rp.role_id == ^role_id)
+  def permissions_json_by_role_id(role_id) do
+    from(rp in RolePermission,
+      where: rp.role_id == ^role_id)
     |> Repo.all
+    |> Enum.filter(fn rp -> (rp.value || rp.modified) && !(rp.value && rp.modified) end)
+    |> IO.inspect
   end
   # for server-side role-loading use
   # sets all roles permissions to value: false, modified: false
