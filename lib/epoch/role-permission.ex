@@ -49,7 +49,10 @@ defmodule Epoch.RolePermission do
     # convert results to map; keyed by permissions_path
     |> Enum.reduce(%{}, fn %{:permission_path => permission_path, :value => value}, acc -> acc |> Map.put(permission_path, value) end)
     |> Iteraptor.from_flatmap
-    |> IO.inspect
+    |> Jason.encode
+    |> case do
+      {:ok, result} -> result
+    end
   end
   # for server-side role-loading use
   # sets all roles permissions to value: false, modified: false
