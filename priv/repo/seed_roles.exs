@@ -8,8 +8,7 @@ roles = [
     description: "Full moderation and settings access",
     priority: 0,
     highlight_color: "#FF7442",
-    base_permissions: %{},
-    custom_permissions: %{}
+    permissions: %{}
   },
   %{
     id: 2,
@@ -18,8 +17,7 @@ roles = [
     description: "Full moderation and partial settings access",
     priority: 1,
     highlight_color: "#FF4C4C",
-    base_permissions: %{},
-    custom_permissions: %{}
+    permissions: %{}
   },
   %{
     id: 3,
@@ -28,8 +26,7 @@ roles = [
     description: "Full moderation access across all boards",
     priority: 2,
     highlight_color: "#32A56E",
-    base_permissions: %{},
-    custom_permissions: %{},
+    permissions: %{}
   },
   %{
     id: 4,
@@ -38,8 +35,7 @@ roles = [
     description: "Full moderation access to moderated boards",
     priority: 3,
     highlight_color: "",
-    base_permissions: %{},
-    custom_permissions: %{}
+    permissions: %{}
   },
   %{
     id: 5,
@@ -47,8 +43,7 @@ roles = [
     lookup: "user",
     description: "Standard account with access to create threads and post",
     priority: 4,
-    base_permissions: %{},
-    custom_permissions: %{}
+    permissions: %{}
   },
   %{
     id: 6,
@@ -56,8 +51,7 @@ roles = [
     lookup: "patroller",
     description: "Moderates Newbies only, otherwise mirrors User role unless modified",
     priority: 5,
-    base_permissions: %{},
-    custom_permissions: %{}
+    permissions: %{}
   },
   %{
     id: 7,
@@ -65,8 +59,7 @@ roles = [
     lookup: "newbie",
     description: "Brand new users",
     priority: 6,
-    base_permissions: %{},
-    custom_permissions: %{}
+    permissions: %{}
   },
   %{
     id: 8,
@@ -75,8 +68,7 @@ roles = [
     description: "Read only access with content creation disabled",
     priority: 7,
     # priority_restrictions: [0, 1, 2, 3],
-    base_permissions: %{},
-    custom_permissions: %{}
+    permissions: %{}
   },
   %{
     id: 9,
@@ -84,8 +76,7 @@ roles = [
     lookup: "anonymous",
     description: "Read only access",
     priority: 8,
-    base_permissions: %{},
-    custom_permissions: %{}
+    permissions: %{}
   },
   %{
     id: 10,
@@ -93,8 +84,7 @@ roles = [
     lookup: "private",
     description: "Role assigned to unauthorized users when public forum is disabled",
     priority: 9,
-    base_permissions: %{},
-    custom_permissions: %{}
+    permissions: %{}
   }
 ]
 
