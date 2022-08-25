@@ -103,6 +103,7 @@ defmodule Epoch.RolePermission do
       # if new value is different, set modified true
       # if new value is same, set modified false
     # update roles table
+  end
 
   # check if roles permissions are initiated by checking if there are rows
   defp is_initiated?() do
