@@ -10,7 +10,7 @@ defmodule Epoch.RolePermission do
   @primary_key false
   schema "roles_permissions" do
     belongs_to :role, Role, foreign_key: :role_id, type: :integer
-    belongs_to :permission, Permission, foreign_key: :permission_path, type: :string
+    belongs_to :permission, Permission, foreign_key: :permission_path, references: :path, type: :string
     # value XOR modified -> final value
     # (value || modified) && !(value && modified)
     # elixir is not as awesome as erlang because no XOR on booleans
