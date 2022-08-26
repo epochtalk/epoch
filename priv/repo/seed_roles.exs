@@ -8,7 +8,9 @@ roles = [
     description: "Full moderation and settings access",
     priority: 0,
     highlight_color: "#FF7442",
-    permissions: %{}
+    permissions: %{},
+    created_at: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second),
+    updated_at: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
   },
   %{
     id: 2,
@@ -17,7 +19,9 @@ roles = [
     description: "Full moderation and partial settings access",
     priority: 1,
     highlight_color: "#FF4C4C",
-    permissions: %{}
+    permissions: %{},
+    created_at: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second),
+    updated_at: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
   },
   %{
     id: 3,
@@ -26,7 +30,9 @@ roles = [
     description: "Full moderation access across all boards",
     priority: 2,
     highlight_color: "#32A56E",
-    permissions: %{}
+    permissions: %{},
+    created_at: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second),
+    updated_at: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
   },
   %{
     id: 4,
@@ -34,8 +40,10 @@ roles = [
     lookup: "moderator",
     description: "Full moderation access to moderated boards",
     priority: 3,
-    highlight_color: "",
-    permissions: %{}
+    highlight_color: "#508DD0",
+    permissions: %{},
+    created_at: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second),
+    updated_at: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
   },
   %{
     id: 5,
@@ -43,7 +51,9 @@ roles = [
     lookup: "user",
     description: "Standard account with access to create threads and post",
     priority: 4,
-    permissions: %{}
+    permissions: %{},
+    created_at: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second),
+    updated_at: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
   },
   %{
     id: 6,
@@ -51,7 +61,9 @@ roles = [
     lookup: "patroller",
     description: "Moderates Newbies only, otherwise mirrors User role unless modified",
     priority: 5,
-    permissions: %{}
+    permissions: %{},
+    created_at: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second),
+    updated_at: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
   },
   %{
     id: 7,
@@ -59,7 +71,9 @@ roles = [
     lookup: "newbie",
     description: "Brand new users",
     priority: 6,
-    permissions: %{}
+    permissions: %{},
+    created_at: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second),
+    updated_at: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
   },
   %{
     id: 8,
@@ -68,7 +82,9 @@ roles = [
     description: "Read only access with content creation disabled",
     priority: 7,
     # priority_restrictions: [0, 1, 2, 3],
-    permissions: %{}
+    permissions: %{},
+    created_at: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second),
+    updated_at: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
   },
   %{
     id: 9,
@@ -76,7 +92,9 @@ roles = [
     lookup: "anonymous",
     description: "Read only access",
     priority: 8,
-    permissions: %{}
+    permissions: %{},
+    created_at: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second),
+    updated_at: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
   },
   %{
     id: 10,
@@ -84,9 +102,17 @@ roles = [
     lookup: "private",
     description: "Role assigned to unauthorized users when public forum is disabled",
     priority: 9,
-    permissions: %{}
+    permissions: %{},
+    created_at: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second),
+    updated_at: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
   }
 ]
 
-roles
-|> Role.insert
+try do
+  roles
+  |> Role.insert
+  |> case do {_, nil} -> IO.puts("Successfully Seeded Roles") end
+rescue
+  Postgrex.Error -> IO.puts("Error seeding Roles. Roles may already be seeded.")
+end
+
