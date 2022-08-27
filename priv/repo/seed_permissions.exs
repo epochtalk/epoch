@@ -17,3 +17,7 @@ Multi.new()
 |> Multi.delete_all(:delete_all, Permission)
 |> Multi.insert_all(:insert_all, Permission, permissions_changesets)
 |> Repo.transaction()
+|> case do
+  {:ok, _} -> IO.puts("Successfully Seeded Permissions")
+  {:error, _} -> IO.puts("Error Seeding Permissions")
+end
