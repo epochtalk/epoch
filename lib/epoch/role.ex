@@ -24,7 +24,7 @@ defmodule Epoch.Role do
     |> cast(attrs, [:name, :description, :lookup, :priority, :permissions])
     |> validate_required([:name, :description, :lookup, :priority, :permissions])
   end
-  def all(), do: Repo.all(Role)
+  def all, do: from(r in Role, order_by: r.id) |> Repo.all
   def by_lookup(lookup), do: Repo.get_by(Role, lookup: lookup)
   def insert([]), do: {:error, "Role list is empty"}
   def insert(%Role{} = role), do: Repo.insert(role)
