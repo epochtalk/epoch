@@ -61,10 +61,11 @@ defmodule Epoch.Mixfile do
   # ecto.setup - create/migrate/seed
   # ecto.reset - drop/setup
   defp aliases do
-    ["ecto.setup": ["ecto.create", "ecto.migrate"],
+    ["ecto.setup": ["ecto.create", "ecto.migrate", "seed.all"],
      "ecto.reset": ["ecto.drop", "ecto.setup"],
      "db.migrate": ["ecto.migrate", "ecto.dump"],
      "db.rollback": ["ecto.rollback", "ecto.dump"],
+     "seed.all": ["seed.permissions", "seed.roles", "seed.prs", "seed.rp"],
      "seed.permissions": ["run priv/repo/seed_permissions.exs"],
      "seed.roles": ["run priv/repo/seed_roles.exs"],
      "seed.prs": ["run priv/repo/seed_priority_restrictions.exs"],
