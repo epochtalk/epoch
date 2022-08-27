@@ -24,12 +24,29 @@ defmodule Epoch.RolePermission do
     |> validate_required([:role_id, :permission_path, :value, :modified])
   end
   def insert([]), do: {:error, "Role permission list is empty"}
-  def insert(%RolePermission{} = role_permission) do
-    Repo.insert(role_permission)
-  end
-  def insert([%{}|_] = roles_permissions) do
-    Repo.insert_all(RolePermission, roles_permissions)
-  end
+  def insert(%RolePermission{} = role_permission), do: Repo.insert(role_permission)
+  def insert([%{}|_] = roles_permissions), do: Repo.insert_all(RolePermission, roles_permissions)
+
+  ## for admin api use, modifying permissions for a role
+  # no permissions to modify
+  # def modify_by_role(role, []), do: {:error, "No permissions to modify"}
+  # def modify_by_role(role, [%Permission{}|_] = permissions) do
+  #   # change role permission for each permission
+  #     # check default value
+  #     # check new value
+  #     # if new value is different, set modified true
+  #     # if new value is same, set modified false
+  #   # update roles table
+  # end
+  # def modify_by_role(role, %RolePermission{} = permission) do
+  #   # change role permission
+  #     # check default value
+  #     # check new value
+  #     # if new value is different, set modified true
+  #     # if new value is same, set modified false
+  #   # update roles table
+  # end
+
   # change the default values of roles permissions
   def upsert_value([]), do: {:error, "Role permission list is empty"}
   def upsert_value([%{}|_] = roles_permissions) do
@@ -40,74 +57,26 @@ defmodule Epoch.RolePermission do
       conflict_target: [:role_id, :permission_path] # check conflicts on unique index keys
     )
   end
-  def permissions_json_by_role_id(role_id) do
+  # derives a single nested map of all permissions for a role
+  def permissions_map_by_role_id(role_id) do
     from(rp in RolePermission,
       where: rp.role_id == ^role_id)
     |> Repo.all
     # filter for true permissions
     |> Enum.filter(fn %{:value => value, :modified => modified} -> (value || modified) && !(value && modified) end)
     # convert results to map; keyed by permissions_path
-    |> Enum.reduce(%{}, fn %{:permission_path => permission_path, :value => value}, acc -> acc |> Map.put(permission_path, value) end)
+    |> Enum.reduce(%{}, fn %{:permission_path => permission_path, :value => value}, acc -> Map.put(acc, permission_path, value) end)
     |> Iteraptor.from_flatmap
-    |> Jason.encode
-    |> case do
-      {:ok, result} -> result
-    end
   end
-  # for server-side role-loading use
+  # for server-side role-loading use, only runs if roles permissions table is currently empty
   # sets all roles permissions to value: false, modified: false
-  def maybe_init() do
-    case is_initiated? do
-      # if already initiated, do nothing
-      true ->
-        {:ok, "roles permissions already initiated"}
-      # otherwise, initiate
-      false ->
-        # get all permissions
-        permissions = Permission.all
-        # get all role lookups
-        roles = Role.all
-        # for each role
-        roles
-        |> Enum.each(fn role ->
-          # for each permission
-          permissions
-          |> Enum.each(fn permission ->
-            # set value: false, modified: false
-            params = %{ role_id: role.id, permission_path: permission.path, value: false, modified: false }
-            %RolePermission{}
-            |> changeset(params)
-            |> Repo.insert()
-          end)
-        end)
-        {:ok, "roles permissions now initated"}
-      # panic, this isn't supposed to happen
-      _ -> {:error, "roles permissions unable to determine initiation"}
-    end
-  end
-  ## for admin api use, modifying permissions for a role
-  # no permissions to modify
-  def modify_by_role(role, []), do: {:error, "No permissions to modify"}
-  def modify_by_role(role, [%Permission{}|_] = permissions) do
-    # change role permission for each permission
-      # check default value
-      # check new value
-      # if new value is different, set modified true
-      # if new value is same, set modified false
-    # update roles table
-  end
-  def modify_by_role(role, %RolePermission{} = permission) do
-    # change role permission
-      # check default value
-      # check new value
-      # if new value is different, set modified true
-      # if new value is same, set modified false
-    # update roles table
-  end
-
-  # check if roles permissions are initiated by checking if there are rows
-  defp is_initiated?() do
-    # if there is more than one role permission, repo has been initiated
-    Repo.one(from rp in RolePermission, select: count(rp.value)) > 0
+  def maybe_init! do
+    if Repo.one(from rp in RolePermission, select: count(rp.value)) == 0, do: Enum.each(Role.all, fn role ->
+      Enum.each(Permission.all, fn permission ->
+        %RolePermission{}
+        |> changeset(%{ role_id: role.id, permission_path: permission.path, value: false, modified: false })
+        |> Repo.insert!
+      end)
+    end)
   end
 end
